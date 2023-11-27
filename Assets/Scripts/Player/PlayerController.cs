@@ -205,7 +205,19 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         float originalGravity = rigidbody2D.gravityScale;
         rigidbody2D.gravityScale = 0f;
-        dashingDirection = new Vector2(Gamepad.current.leftStick.x.ReadValue(), Gamepad.current.leftStick.y.ReadValue());
+
+        if (IsUsingGamepad())
+        {
+            dashingDirection = new Vector2(Gamepad.current.leftStick.x.ReadValue(), Gamepad.current.leftStick.y.ReadValue());
+        }
+        else
+        {
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            dashingDirection = new Vector2(horizontal, vertical).normalized;
+        }
+
+       
         if(dashingDirection == Vector2.zero)
         {
             dashingDirection = new Vector2(transform.localScale.x, 0);
@@ -311,6 +323,12 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    bool IsUsingGamepad()
+    {
+        string[] joystickNames = Input.GetJoystickNames();
 
+        // Check if at least one joystick is connected
+        return joystickNames.Length > 0;
+    }
 
 }
