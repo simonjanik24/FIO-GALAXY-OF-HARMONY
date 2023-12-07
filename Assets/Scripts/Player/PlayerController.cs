@@ -112,11 +112,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        if (!isFacingRight && horizontal > 0f)
+        if (isFacingRight && horizontal > 0f)
         {
             Flip();
         }
-        else if(isFacingRight && horizontal < 0f)
+        else if(!isFacingRight && horizontal < 0f)
         {
             Flip();
         }
@@ -128,10 +128,10 @@ public class PlayerController : MonoBehaviour
         SetAnimationState(); 
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) || 
-            Physics2D.OverlapCircle(groundCheck.position, 0.2f, deadLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)
+            || Physics2D.OverlapCircle(groundCheck.position, 0.2f, deadLayer);
     }
 
 
