@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float dashingTime;
     [SerializeField]
+    private float hittingTime;
+    [SerializeField]
     private float dashingCooldown;
 
 
@@ -65,6 +67,8 @@ public class PlayerController : MonoBehaviour
     private bool isWallSliding;
     [SerializeField]
     private bool isWallJumping;
+    [SerializeField]
+    private bool isHiting;
     [SerializeField]
     private float wallJumpingDirection;
     [SerializeField]
@@ -87,8 +91,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hittingTime = GetAnimationClipLength(animator, "HitGuitar");
     }
+
+
+
 
     private void FixedUpdate()
     {
@@ -280,6 +287,36 @@ public class PlayerController : MonoBehaviour
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
     }
+    public void Hit()
+    {
+        StartCoroutine(ExecuteHit());
+    }
+
+    public IEnumerator ExecuteHit()
+    {
+        animator.SetBool("isHitting", true);
+        yield return new WaitForSeconds(hittingTime);
+        animator.SetBool("isHitting", false);
+
+        
+
+    }
+
+    private float GetAnimationClipLength(Animator animator, string clipName)
+    {
+        float length = 0;
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+            {
+                length = clip.length * clip.apparentSpeed;
+                Debug.Log("Length of "+ clipName + " animation: " + length);
+                break;
+            }
+        }
+        return length;
+    }
+
 
     private void StopWallJumping()
     {

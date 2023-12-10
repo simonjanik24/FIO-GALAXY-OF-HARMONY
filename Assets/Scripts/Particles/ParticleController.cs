@@ -23,7 +23,7 @@ public class ParticleController : MonoBehaviour
     private float counter;
     private Rigidbody2D playerRigidBody2D;
     private PlayerController playerController;
-    private bool isOnGround;
+    private bool wasJumping;
 
     private void Awake()
     {
@@ -35,6 +35,19 @@ public class ParticleController : MonoBehaviour
     private void Update()
     {
         counter += Time.deltaTime;
+
+        if (!playerController.IsGrounded())
+        {
+            wasJumping = true;
+        }
+        else
+        {
+            if (wasJumping)
+            {
+                landingParticles.Play();
+                wasJumping = false;
+            }
+        }
   
         if(playerController.IsGrounded() && Mathf.Abs(playerRigidBody2D.velocity.x) > occurAfterVelocity)
         {
