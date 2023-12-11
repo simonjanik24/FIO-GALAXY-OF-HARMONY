@@ -7,15 +7,6 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private WeaponsEnum typ;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public WeaponsEnum Typ { get => typ; set => typ = value; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

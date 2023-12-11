@@ -18,8 +18,6 @@ public class ParticleController : MonoBehaviour
     [SerializeField]
     private ParticleSystem landingParticles;
 
-
-
     private float counter;
     private Rigidbody2D playerRigidBody2D;
     private PlayerController playerController;

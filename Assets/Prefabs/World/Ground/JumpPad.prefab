@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0aef239e48189247aac2b8801d749f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bouncePower: 300
+  bouncePower: 400
   bounceTime: 0
   animator: {fileID: 2724120462293057196}
 --- !u!60 &5140213485503639244

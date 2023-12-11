@@ -31,7 +31,9 @@ public class JumpPad : MonoBehaviour
     {
         Debug.Log("Bounce");
         animator.SetBool("IsBouncing", true);
-        collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bouncePower, ForceMode2D.Impulse);
+        Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        playerRigidbody.velocity = Vector2.zero;    
+        playerRigidbody.AddForce(Vector2.up * bouncePower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(bounceTime);
         animator.SetBool("IsBouncing", false);
        

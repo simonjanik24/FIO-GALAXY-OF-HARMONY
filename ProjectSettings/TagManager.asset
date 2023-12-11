@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - WeaponWheelSelector
+  - WeaponWheelButton
   layers:
   - Default
   - TransparentFX

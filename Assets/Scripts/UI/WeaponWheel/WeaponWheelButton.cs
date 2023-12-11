@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Button))]
+[RequireComponent(typeof(Image))]
 public class WeaponWheelButton : MonoBehaviour
 {
     [Header("Inputs")]
@@ -22,13 +25,18 @@ public class WeaponWheelButton : MonoBehaviour
     private bool isSelected = false;
 
     private Animator animator;
+    private Button button;
+    private Image image;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        
         transform.GetChild(0).gameObject.GetComponent<Image>().sprite = icon;
         animator = GetComponent<Animator>();
+        button = GetComponent<Button>();
+        image = GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -37,7 +45,7 @@ public class WeaponWheelButton : MonoBehaviour
         
         if (isSelected)
         {
-            itemText.text = weapon.ToString();
+            itemText.text = weaponWheelController.Selection.ToString();
         }
 
     }
@@ -46,28 +54,42 @@ public class WeaponWheelButton : MonoBehaviour
     {
         isSelected = true;
         weaponWheelController.Selection = weapon;
+        image.color = button.colors.highlightedColor;
     }
 
     public void Deselected()
     {
         isSelected = false;
         weaponWheelController.Selection = WeaponsEnum.None;
+        image.color = button.colors.normalColor;
     }
   
     public void HoverEnter()
     {
+        isSelected = true;
         animator.SetBool("isHovering", true);
-        weaponWheelController.Hover = weapon;
+        weaponWheelController.Selection = weapon;
+        image.color = button.colors.highlightedColor;
+        
 
       //  itemText.text = weapon.ToString();
     }
 
     public void HoverExit()
     {
+        isSelected = false;
         animator.SetBool("isHovering", false);
-        weaponWheelController.Hover = WeaponsEnum.None;
+        weaponWheelController.Selection = WeaponsEnum.None;
+        image.color = button.colors.normalColor;
 
         //  itemText.text = "";
+    }
+
+    public void HoverStay()
+    {
+        isSelected = true;
+        weaponWheelController.Selection = weapon;
+        image.color = button.colors.highlightedColor;
     }
 
 }

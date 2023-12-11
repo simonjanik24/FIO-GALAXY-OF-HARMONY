@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour
 
     private WeaponController weaponController;
     private PlayerController playerController;
+    private Rigidbody2D playerRigidBody;
     private FollowPlayer followPlayer;
 
     private bool isWeaponWheelOpen = false;
@@ -29,6 +30,7 @@ public class UIController : MonoBehaviour
     {
         weaponController = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponController>();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerRigidBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         followPlayer = Camera.main.gameObject.GetComponent<FollowPlayer>();
     }
 
@@ -52,9 +54,10 @@ public class UIController : MonoBehaviour
                 isWeaponWheelOpen = true;
                 playerController.enabled = false;
                 followPlayer.enabled = false;
+                playerRigidBody.simulated = false;
                 backgroundImage.SetActive(true);
-                Debug.Log("Weapon Wheel opened");
-                Time.timeScale = 0;
+              //  Debug.Log("Weapon Wheel opened");
+                
             }
         }
         else
@@ -65,9 +68,12 @@ public class UIController : MonoBehaviour
                 isWeaponWheelOpen = false;
                 playerController.enabled = true;
                 followPlayer.enabled = true;
+                playerRigidBody.simulated = true;
                 backgroundImage.SetActive(false);
-                Debug.Log("Weapon Wheel closed");
-                Time.timeScale = 1;
+            //    Debug.Log("Weapon Wheel closed");
+             //   Debug.Log("Weapon Selected: " + weaponWheelController.Selection.ToString());
+                weaponController.Select(weaponWheelController.Selection);
+                //  Time.timeScale = 1;
 
             }
         }

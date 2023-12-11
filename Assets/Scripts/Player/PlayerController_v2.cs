@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
-[RequireComponent(typeof(WeaponController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController_v2 : MonoBehaviour
 {
     [Header("Inputs: Animation")]
     [SerializeField]
@@ -52,23 +49,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float dashingTime;
     [SerializeField]
+    private float hittingTime;
+    [SerializeField]
     private float dashingCooldown;
 
-    [Header("Inputs: Animation")]
-    [SerializeField]
-    private float hittingTimeGuitar;
-    [SerializeField]
-    private float hittingTimeDrumsticks;
-    [SerializeField]
-    private float hittingTimePiano;
-    [SerializeField]
-    private float hittingTimeViolin;
-    [SerializeField]
-    private float hittingTimeFlute;
-    [SerializeField]
-    private float hittingTimeTrompete;
-    [SerializeField]
-    private float specialForceTimeShield;
 
     [Header("What's going on at runtime?")]
     [SerializeField]
@@ -96,10 +80,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool isDashing;
     [SerializeField]
-    private bool isProtecting;
-    [SerializeField]
-    private bool isHealing;
-    [SerializeField]
     private bool wasJumping;
     [SerializeField]
     private Vector2 dashingDirection;
@@ -113,7 +93,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         vibrationController = GameObject.FindGameObjectWithTag("GameController").GetComponent<VibrationController>();
-        weaponController = GetComponent<WeaponController>();
+        // hittingTime = GetAnimationClipLength(animator, "Hit");
     }
 
 
@@ -130,7 +110,7 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody2D.velocity = new Vector2(horizontal * runningSpeed, rigidbody2D.velocity.y);
         }
-        
+
     }
 
     // Update is called once per frame
@@ -140,43 +120,23 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        
+
         if (isFacingRight && horizontal > 0f)
         {
             Flip();
         }
-        else if(!isFacingRight && horizontal < 0f)
+        else if (!isFacingRight && horizontal < 0f)
         {
             Flip();
         }
 
-        if (isHealing && horizontal == 0)
-        {
-            animator.SetBool("isHealing", true);
-        }
-        else
-        {
-            animator.SetBool("isHealing", false);
-            isHealing = false;
-        }
-
-
-        if (isProtecting && horizontal == 0)
-        {
-            animator.SetBool("isProtecting", true);
-        }
-        else
-        {
-            animator.SetBool("isProtecting", false);
-            isProtecting = false;
-        }
 
         WallSlide();
         WallJump();
         OnLanding();
 
         horizontalSpeed = Input.GetAxisRaw("Horizontal") * runningSpeed;
-        SetAnimationState(); 
+        SetAnimationState();
     }
 
     private void OnLanding()
@@ -189,7 +149,7 @@ public class PlayerController : MonoBehaviour
         {
             if (wasJumping)
             {
-              //  vibrationController.SetVibrationByTime(0.075f, 0.125f, 0.15f);
+                //  vibrationController.SetVibrationByTime(0.075f, 0.125f, 0.15f);
                 wasJumping = false;
             }
         }
@@ -207,7 +167,8 @@ public class PlayerController : MonoBehaviour
         return Mathf.Abs(rigidbody2D.velocity.x) > 0.1f;
     }
 
-    private bool IsWalled() {
+    private bool IsWalled()
+    {
         return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
     }
 
@@ -254,18 +215,18 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, rigidbody2D.velocity.y * 0.5f);
             coyoteTimeCounter = 0f;
-        } 
+        }
     }
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (canDash && !IsGrounded())
+        if (canDash)
         {
             StartCoroutine(ExecuteDash(context));
         }
     }
 
-   private IEnumerator ExecuteDash(InputAction.CallbackContext context)
+    private IEnumerator ExecuteDash(InputAction.CallbackContext context)
     {
         canDash = false;
         isDashing = true;
@@ -283,24 +244,21 @@ public class PlayerController : MonoBehaviour
             dashingDirection = new Vector2(horizontal, vertical).normalized;
         }
 
-       
-        if(dashingDirection == Vector2.zero)
+
+        if (dashingDirection == Vector2.zero)
         {
             dashingDirection = new Vector2(transform.localScale.x, 0);
         }
 
         rigidbody2D.velocity = dashingDirection.normalized * dashingPower;  //new Vector2(transform.localScale.x * dashingPower, 0f);
-        animator.SetBool("isDashing", true);
+        animator.Play("Dash 0");
         trailRenderer.emitting = true;
-        
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
         rigidbody2D.gravityScale = originalGravity;
-        animator.SetBool("isDashing", false);
+        animator.StopPlayback();
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
-        //animator.SetBool("isfalling", false);
-        
         canDash = true;
     }
 
@@ -332,13 +290,13 @@ public class PlayerController : MonoBehaviour
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
             isWallJumping = true;
             rigidbody2D.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
-            if(transform.localScale.x != wallJumpingDirection)
+            if (transform.localScale.x != wallJumpingDirection)
             {
                 isFacingRight = !isFacingRight;
                 Vector3 localScale = transform.localScale;
@@ -351,163 +309,33 @@ public class PlayerController : MonoBehaviour
     }
     public void Hit()
     {
-
-        if (weaponController.Current != WeaponsEnum.None)
-        {
-            StartCoroutine(ExecuteHit());
-        }
-        
+        StartCoroutine(ExecuteHit());
     }
 
-    private IEnumerator ExecuteHit()
+    public IEnumerator ExecuteHit()
     {
-        Debug.Log("Hit");
-        switch (weaponController.Current)
-        {
-            case WeaponsEnum.Flute:
-                animator.SetBool("isHitting", true);
-                animator.SetBool("isFlute", true);
-                yield return new WaitForSeconds(hittingTimeFlute);
-                animator.SetBool("isHitting", false);
-                animator.SetBool("isFlute", false);
-                break;
-            case WeaponsEnum.Trompet:
-                animator.SetBool("isHitting", true);
-                animator.SetBool("isTrompet", true);
-                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                yield return new WaitForSeconds(hittingTimeTrompete);
-                animator.SetBool("isHitting", false);
-                animator.SetBool("isTrompet", false);
-                break;
+        animator.Play("Hit 0");
+        yield return new WaitForSeconds(hittingTime);
+        animator.StopPlayback();
 
-            case WeaponsEnum.Violin:
-                animator.SetBool("isHitting", true);
-                animator.SetBool("isViolin", true);
-                yield return new WaitForSeconds(hittingTimeViolin);
-                animator.SetBool("isHitting", false);
-                animator.SetBool("isViolin", false);
-                break;
 
-            case WeaponsEnum.Guitar:
-                animator.SetBool("isHitting", true);
-                animator.SetBool("isGuitar", true);
-                yield return new WaitForSeconds(hittingTimeGuitar);
-                animator.SetBool("isHitting", false);
-                animator.SetBool("isGuitar", false);
-                break;
 
-            case WeaponsEnum.Piano:
-                animator.SetBool("isHitting", true);
-                animator.SetBool("isPiano", true);
-                yield return new WaitForSeconds(hittingTimePiano);
-                animator.SetBool("isHitting", false);
-                animator.SetBool("isPiano", false);
-                break;
-            case WeaponsEnum.Drumsticks:
-                animator.SetBool("isHitting", true);
-                animator.SetBool("isDrumsticks", true);
-                yield return new WaitForSeconds(hittingTimeDrumsticks);
-                animator.SetBool("isHitting", false);
-                animator.SetBool("isDrumsticks", false);
-                break;
-            case WeaponsEnum.None:
-
-                break;
-        }
     }
 
-
-    public void SpecialForce(InputAction.CallbackContext context)
+    private float GetAnimationClipLength(Animator animator, string clipName)
     {
-        if (context.started || context.performed)
+        float length = 0;
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
         {
-            switch (weaponController.Current)
+            if (clip.name == clipName)
             {
-                case WeaponsEnum.Flute:
-                    if (IsGrounded())
-                    {
-                        isHealing = true;
-                    }
-                    else
-                    {
-                        isHealing = false;  
-                    }
-                    break;
-                case WeaponsEnum.Trompet:
-
-                    break;
-
-                case WeaponsEnum.Violin:
-
-                    break;
-
-                case WeaponsEnum.Guitar:
-
-                    break;
-
-                case WeaponsEnum.Piano:
-
-                    break;
-                case WeaponsEnum.Drumsticks:
-
-                    if (IsGrounded() && horizontalSpeed == 0)
-                    {
-                        isProtecting = true;
-                        animator.SetBool("isProtecting", true);
-                     //   yield return new WaitForSeconds(specialForceTimeShield);
-                        animator.SetBool("isProtecting", false);
-                    }
-                    else
-                    {
-                        isProtecting = false;
-                        animator.SetBool("isProtecting", false);
-                    }
-                    break;
-                case WeaponsEnum.None:
-
-                    break;
+                length = clip.length * clip.apparentSpeed;
+                Debug.Log("Length of " + clipName + " animation: " + length);
+                break;
             }
         }
-        else if (context.canceled)
-        {
-            switch (weaponController.Current)
-            {
-                case WeaponsEnum.Flute:
-                    isHealing = false;
-                    break;
-                case WeaponsEnum.Trompet:
-
-                    break;
-
-                case WeaponsEnum.Violin:
-
-                    break;
-
-                case WeaponsEnum.Guitar:
-
-                    break;
-
-                case WeaponsEnum.Piano:
-
-                    break;
-                case WeaponsEnum.Drumsticks:
-                    isProtecting = false;
-                    animator.SetBool("isProtecting", false);
-                    break;
-                case WeaponsEnum.None:
-
-                    break;
-            }
-        }
-
+        return length;
     }
-
-    /* public IEnumerator ExecuteSpecialForce(InputAction.CallbackContext context)
-     {
-
-
-     }*/
-
 
 
     private void StopWallJumping()
@@ -519,33 +347,36 @@ public class PlayerController : MonoBehaviour
     private void SetAnimationState()
     {
         //Idle - doing nothing
-        if(horizontalSpeed == 0)
+        if (horizontalSpeed == 0)
         {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isRunning", false);
+            animator.StopPlayback();
+          //  animator.SetBool("isWalking", false);
+           // animator.SetBool("isRunning", false);
         }
         //Walking
-        else if(horizontalSpeed > 0 || horizontalSpeed < 0 && rigidbody2D.velocity.y == 0)
+        else if (horizontalSpeed > 0 || horizontalSpeed < 0 && rigidbody2D.velocity.y == 0)
         {
-            animator.SetBool("isWalking", true);
+           // animator.SetBool("isWalking", true);
+            animator.Play("Walk 0");
         }
 
         //Not jumping - not falling
-        if(rigidbody2D.velocity.y == 0)
+        if (rigidbody2D.velocity.y == 0)
         {
-            animator.SetBool("isJumping", false);
-            animator.SetBool("isFalling", false);
+            animator.StopPlayback();
+            // animator.SetBool("isJumping", false);
+            //  animator.SetBool("isFalling", false);
         }
         //Jumping
-        else if(rigidbody2D.velocity.y > 0)
+        else if (rigidbody2D.velocity.y > 0)
         {
-            animator.SetBool("isJumping", true);
+            animator.Play("Jump 0");
         }
         //Falling
-        else if(rigidbody2D.velocity.y < 0)
+        else if (rigidbody2D.velocity.y < 0)
         {
-            animator.SetBool("isJumping", false);
-            animator.SetBool("isFalling", true);
+            animator.StopPlayback();
+            animator.Play("Fall 0");
         }
     }
 
@@ -559,5 +390,4 @@ public class PlayerController : MonoBehaviour
         // Check if at least one joystick is connected
         return joystickNames.Length > 0;
     }
-
 }
