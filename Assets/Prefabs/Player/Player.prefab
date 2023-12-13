@@ -1148,16 +1148,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e700c24c5efaee14d97ff535ffa5c53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimingTest: {fileID: 7708107166440449614}
   animator: {fileID: 3386406461456494462}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   deadLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   rigidbody2D: {fileID: 4736351407253081133}
   groundCheck: {fileID: 6711278197161231793}
   wallCheck: {fileID: 5027383336863939636}
@@ -1173,6 +1174,8 @@ MonoBehaviour:
   dashingPower: 40
   dashingTime: 0.15
   dashingCooldown: 1
+  specialForceBlastingPower: 20
+  aimingRotationSpeed: 20
   hittingTimeGuitar: 0.3
   hittingTimeDrumsticks: 0.3
   hittingTimePiano: 0.3
@@ -1192,10 +1195,16 @@ MonoBehaviour:
   jumpBufferCounter: 0
   canDash: 1
   isDashing: 0
-  isProtecting: 0
-  isHealing: 0
   wasJumping: 0
   dashingDirection: {x: 0, y: 0}
+  isProtecting: 0
+  isHealing: 0
+  isBlasting: 0
+  rotationAngleRightStick: 0
+  rotationAngleWeaponRotator: 0
+  rotationValueWeaponRotatorAnimator: 0
+  lastRotationWeaponRotator: {x: 0, y: 0, z: 0, w: 0}
+  lastNormalizedAngleRotatorAnimator: 0
 --- !u!114 &2690773456809333228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,7 +1261,19 @@ MonoBehaviour:
     m_ActionId: 82ddd3a1-b91a-4cef-a2c7-af26c310e48e
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 366264246434505340}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Aim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a7256abb-2b72-4d04-b3f7-61781acf86fd
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -1526,7 +1547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5214278862743058694
 Transform:
   m_ObjectHideFlags: 0
@@ -1535,14 +1556,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3574978154580245421}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.053991694, w: 0.9985414}
-  m_LocalPosition: {x: -1.87, y: -0.46000004, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.58, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6836859067438904758}
+  - {fileID: 7708107166440449614}
   m_Father: {fileID: 1184023519949837575}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6.19}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879864019273046689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1581,12 +1602,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4038336512258734887}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 0.64, z: 0}
-  m_LocalScale: {x: 2.1337705, y: 2.1337705, z: 2.1337705}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.81, y: 0.83, z: 0}
+  m_LocalScale: {x: 2.1337705, y: 2.1337705, z: 2.1337702}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5214278862743058694}
+  m_Father: {fileID: 7708107166440449614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6817484026304084910
 SpriteRenderer:
@@ -7037,6 +7058,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typ: 2
+--- !u!1 &7081269896229065789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7708107166440449614}
+  m_Layer: 0
+  m_Name: TrompetRotator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7708107166440449614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7081269896229065789}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6836859067438904758}
+  m_Father: {fileID: 5214278862743058694}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7714048841950983828
 GameObject:
   m_ObjectHideFlags: 0

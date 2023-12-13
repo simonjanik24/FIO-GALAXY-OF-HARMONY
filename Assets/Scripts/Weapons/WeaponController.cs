@@ -21,7 +21,8 @@ public class WeaponController : MonoBehaviour
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
-        current = WeaponsEnum.None;
+        Select(WeaponsEnum.None);
+      //  current = WeaponsEnum.None;
     }
 
 

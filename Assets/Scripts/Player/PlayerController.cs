@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,10 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(WeaponController))]
 public class PlayerController : MonoBehaviour
 {
+
+    [SerializeField]
+    private Transform aimingTest;
+
     [Header("Inputs: Animation")]
     [SerializeField]
     private Animator animator;
@@ -54,6 +59,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float dashingCooldown;
 
+    [Header("Inputs: SpecialPower")]
+    [SerializeField]
+    private float specialForceBlastingPower;
+    [SerializeField]
+    private float aimingRotationSpeed;
+
+
+
     [Header("Inputs: Animation")]
     [SerializeField]
     private float hittingTimeGuitar;
@@ -69,6 +82,7 @@ public class PlayerController : MonoBehaviour
     private float hittingTimeTrompete;
     [SerializeField]
     private float specialForceTimeShield;
+    
 
     [Header("What's going on at runtime?")]
     [SerializeField]
@@ -96,13 +110,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool isDashing;
     [SerializeField]
+    private bool wasJumping;
+    [SerializeField]
+    private Vector2 dashingDirection;
+
+    [Header("What's going on at runtime? - Special Forces")]
+    [SerializeField]
     private bool isProtecting;
     [SerializeField]
     private bool isHealing;
     [SerializeField]
-    private bool wasJumping;
+    private bool isBlasting;
     [SerializeField]
-    private Vector2 dashingDirection;
+    private float rotationAngleRightStick;
+    [SerializeField]
+    private float rotationAngleWeaponRotator;
+    [SerializeField]
+    private float rotationValueWeaponRotatorAnimator;
+    [SerializeField]
+    private Vector3 lastEulerAngleWeaponRotator;
+    [SerializeField]
+    private float lastNormalizedAngleRotatorAnimator;
+
 
     private VibrationController vibrationController;
     private WeaponController weaponController;
@@ -176,7 +205,7 @@ public class PlayerController : MonoBehaviour
         OnLanding();
 
         horizontalSpeed = Input.GetAxisRaw("Horizontal") * runningSpeed;
-        SetAnimationState(); 
+        SetAnimationState();
     }
 
     private void OnLanding()
@@ -417,8 +446,61 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
+    public void Aim(InputAction.CallbackContext context)
+    {
+            if(context.started || context.performed)
+            {
+                if (aimingTest.gameObject.activeSelf)
+                {
+                    if (weaponController.Current == WeaponsEnum.Trompet)
+                    {
+                        //ReadOut
+                        float x = context.ReadValue<Vector2>().x;
+                        float y = context.ReadValue<Vector2>().y;
+
+                        Vector3 angle = aimingTest.transform.localEulerAngles;
+
+
+                    if(lastEulerAngleWeaponRotator != null)
+                    {
+                        aimingTest.transform.localEulerAngles = new Vector3(0,0,Mathf.Atan2(x, y) * -180 / Mathf.PI + 90f);
+                    }
+                    else
+                    {
+                        aimingTest.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * -180 / Mathf.PI + 90f);
+                    }
+
+                        
+                        lastEulerAngleWeaponRotator = aimingTest.transform.localEulerAngles;
+
+                        float normalizedAngle = Mathf.InverseLerp(0f, 360f, aimingTest.transform.localEulerAngles.z);
+                        lastNormalizedAngleRotatorAnimator = normalizedAngle;
+                        animator.SetFloat("AngleWeapon", normalizedAngle);
+
+                        Debug.Log("X: " + x + "| Y: " + y + " | Is Rotating Right Stick: " + 0
+                            + " |  Rotaton Rotator: " + aimingTest.transform.localEulerAngles +
+                            " | Normalized Angle: " + normalizedAngle);
+
+
+                    }
+                }
+            }else if (context.canceled)
+            {
+                // If the right stick input is not active, use the last stored values
+                aimingTest.transform.localEulerAngles = lastEulerAngleWeaponRotator;
+                animator.SetFloat("AngleWeapon", lastNormalizedAngleRotatorAnimator);
+            
+    }
+
+    }
+
+
+
+
     public void SpecialForce(InputAction.CallbackContext context)
     {
+
         if (context.started || context.performed)
         {
             switch (weaponController.Current)
@@ -434,6 +516,13 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
                 case WeaponsEnum.Trompet:
+                    isBlasting = true;
+                    animator.SetBool("isSpecial", true);
+                    animator.SetBool("isTrompet", true);
+                    Debug.Log("Is Holding LT");
+                 //   animator.SetBool("isShootHolding", true);
+
+
 
                     break;
 
@@ -461,6 +550,7 @@ public class PlayerController : MonoBehaviour
                     {
                         isProtecting = false;
                         animator.SetBool("isProtecting", false);
+
                     }
                     break;
                 case WeaponsEnum.None:
@@ -476,7 +566,20 @@ public class PlayerController : MonoBehaviour
                     isHealing = false;
                     break;
                 case WeaponsEnum.Trompet:
-
+                    isBlasting = false;
+                 //   animator.SetBool("isShootHolding", false);
+                    animator.SetBool("isSpecial", false);
+                    animator.SetBool("isTrompet", false);
+                    // rigidbody2D.velocity. = Vector2.zero;
+                    if (isFacingRight)
+                    {
+                        rigidbody2D.AddForce(Vector2.left * specialForceBlastingPower, ForceMode2D.Impulse);
+                    }
+                    else
+                    {
+                        rigidbody2D.AddForce(Vector2.right * specialForceBlastingPower, ForceMode2D.Impulse);
+                    }
+                    
                     break;
 
                 case WeaponsEnum.Violin:
