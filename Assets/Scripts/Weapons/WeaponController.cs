@@ -33,35 +33,35 @@ public class WeaponController : MonoBehaviour
         {
             case WeaponsEnum.Flute:
                 SetVisible(current);
-                SetParameterBy(current, playerController.Animator);
+                SetParameterBy(current, 1, playerController.Animator);
 
                 break;
             case WeaponsEnum.Trompet:
                 SetVisible(current);
-                SetParameterBy(current, playerController.Animator);
+                SetParameterBy(current, 4, playerController.Animator);
                 break;
 
             case WeaponsEnum.Violin:
                 SetVisible(current);
-                SetParameterBy(current, playerController.Animator);
+                SetParameterBy(current, 5, playerController.Animator);
                 break;
 
             case WeaponsEnum.Guitar:
                 SetVisible(current);
-                SetParameterBy(current, playerController.Animator);
+                SetParameterBy(current, 2, playerController.Animator);
                 break;
 
             case WeaponsEnum.Piano:
                 SetVisible(current);
-                SetParameterBy(current, playerController.Animator);
+                SetParameterBy(current, 3, playerController.Animator);
                 break;
             case WeaponsEnum.Drumsticks:
                 SetVisible(current);
-                SetParameterBy(current, playerController.Animator);
+                SetParameterBy(current, 0, playerController.Animator);
                 break;
             case WeaponsEnum.None:
                 SetVisible(current);
-                SetParameterBy(current, playerController.Animator);
+                SetParameterBy(current, 6, playerController.Animator);
                 break;
         }
     }
@@ -83,7 +83,7 @@ public class WeaponController : MonoBehaviour
     }
 
 
-    private void SetParameterBy(WeaponsEnum selection, Animator animator)
+    private void SetParameterBy(WeaponsEnum selection, float threshold, Animator animator)
     {
         List<string> parametersList = new List<string>();
 
@@ -113,7 +113,9 @@ public class WeaponController : MonoBehaviour
             }
             
         }
+        animator.SetFloat("Weapon", threshold);
     }
+
 
     public Weapon GetCurrent()
     {

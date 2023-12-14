@@ -471,6 +471,8 @@ public class PlayerController : MonoBehaviour
                     isBlasting = true;
                     animator.SetBool("isSpecial", true);
                     animator.SetBool("isTrompet", true);
+                    animator.SetBool("isBreathing", true);
+
                   //  Debug.Log("Is Holding LT");
                     //   animator.SetBool("isShootHolding", true);
 
@@ -522,8 +524,9 @@ public class PlayerController : MonoBehaviour
                     //   animator.SetBool("isShootHolding", false);
                     animator.SetBool("isSpecial", false);
                     animator.SetBool("isTrompet", false);
+                    animator.SetBool("isBreathing", false);
                     // rigidbody2D.velocity. = Vector2.zero;
-                   
+
 
                     break;
 
@@ -569,34 +572,34 @@ public class PlayerController : MonoBehaviour
                         float x = context.ReadValue<Vector2>().x;
                         float y = context.ReadValue<Vector2>().y;
 
-                    if (weaponRotatorLastEulerAngle != null)
+                   if (weaponRotatorLastEulerAngle != null)
                     {
                         aimingTest.transform.localEulerAngles = weaponRotatorLastEulerAngle;
                     }
 
                     if (!isFacingRight)
                     {
-                        aimingTest.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * -180 / Mathf.PI +45f);
+                        aimingTest.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * -180 / Mathf.PI + 90f);
                         weaponRotatorLastEulerAngle = aimingTest.transform.localEulerAngles;
 
                         float normalizedAngle = Mathf.InverseLerp(0f, 360f, aimingTest.transform.localEulerAngles.z);
                         lastNormalizedAngleRotatorAnimator = normalizedAngle;
-                        animator.SetFloat("AngleWeapon", normalizedAngle);
+                        animator.SetFloat("WeaponAngle", normalizedAngle);
                     }
                     else
                     {
-                        aimingTest.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * 180 / Mathf.PI +45f);
+                        aimingTest.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * 180 / Mathf.PI + 90f);
                         weaponRotatorLastEulerAngle = aimingTest.transform.localEulerAngles;
 
                         float normalizedAngle = Mathf.InverseLerp(0f, 360f, aimingTest.transform.localEulerAngles.z);
                         lastNormalizedAngleRotatorAnimator = normalizedAngle;
-                        animator.SetFloat("AngleWeapon", normalizedAngle);
+                        animator.SetFloat("WeaponAngle", normalizedAngle);
                     }
 
 
-              /*      Debug.Log("X: " + x + "| Y: " + y + " | Is Rotating Right Stick: " + 0
+                    Debug.Log("X: " + x + "| Y: " + y + " | Is Rotating Right Stick: " + 0
                           + " |  Rotaton Rotator: " + aimingTest.transform.localEulerAngles +
-                          " | Normalized Angle: " + lastNormalizedAngleRotatorAnimator + " | isFacingRight: " + isFacingRight);*/
+                          " | Normalized Angle: " + lastNormalizedAngleRotatorAnimator + " | isFacingRight: " + isFacingRight);
 
 
 
@@ -623,7 +626,12 @@ public class PlayerController : MonoBehaviour
             {
                 case WeaponsEnum.Trompet:
 
+
                     weapon.Shoot(trompeteBlastingPower);
+                    animator.SetTrigger("Shoot");
+                    animator.SetBool("isSpecial", false);
+                    animator.SetBool("isTrompet", false);
+                    animator.SetBool("isBreathing", false);
 
                     if (isFacingRight)
                     {
