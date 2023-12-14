@@ -29,12 +29,6 @@ public class WeaponController : MonoBehaviour
     public void Select(WeaponsEnum selection)
     {
         current = selection;
-
-
-        
-
-
-
         switch (selection)
         {
             case WeaponsEnum.Flute:
@@ -119,6 +113,24 @@ public class WeaponController : MonoBehaviour
             }
             
         }
+    }
+
+    public Weapon GetCurrent()
+    {
+        Weapon weapon = null;
+
+        foreach (Transform _weapon in weapons)
+        {
+            if (_weapon.gameObject.GetComponent<Weapon>().Typ == current)
+            {
+                if(_weapon.gameObject.GetComponent<Weapon>().Typ != WeaponsEnum.None)
+                {
+                    weapon = _weapon.gameObject.GetComponent<Weapon>();
+                    break;
+                }
+            }
+        }
+        return weapon;
     }
 
 

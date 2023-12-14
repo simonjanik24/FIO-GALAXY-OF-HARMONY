@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Guitar : Weapon
 {
-    
+    public override void Shoot(float shootingPower)
+    {
+        throw new System.NotImplementedException();
+    }
 }

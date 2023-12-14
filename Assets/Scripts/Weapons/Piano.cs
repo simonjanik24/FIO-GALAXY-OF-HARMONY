@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Piano : Weapon
 {
-    
+    public override void Shoot(float shootingPower)
+    {
+        throw new System.NotImplementedException();
+    }
 }

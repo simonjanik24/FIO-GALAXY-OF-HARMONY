@@ -1174,7 +1174,8 @@ MonoBehaviour:
   dashingPower: 40
   dashingTime: 0.15
   dashingCooldown: 1
-  specialForceBlastingPower: 20
+  trompeteBlastingPower: 20
+  trompeteBackForce: 5
   aimingRotationSpeed: 20
   hittingTimeGuitar: 0.3
   hittingTimeDrumsticks: 0.3
@@ -1203,7 +1204,7 @@ MonoBehaviour:
   rotationAngleRightStick: 0
   rotationAngleWeaponRotator: 0
   rotationValueWeaponRotatorAnimator: 0
-  lastRotationWeaponRotator: {x: 0, y: 0, z: 0, w: 0}
+  weaponRotatorLastEulerAngle: {x: 0, y: 0, z: 0}
   lastNormalizedAngleRotatorAnimator: 0
 --- !u!114 &2690773456809333228
 MonoBehaviour:
@@ -1277,7 +1278,19 @@ MonoBehaviour:
     m_ActionId: a7256abb-2b72-4d04-b3f7-61781acf86fd
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 366264246434505340}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Shoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 65625ca1-2b8e-4fe1-9c0f-e6de89f4469e
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -1531,136 +1544,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1802375511183190980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3574978154580245421
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5214278862743058694}
-  - component: {fileID: 1879864019273046689}
-  m_Layer: 0
-  m_Name: Trompet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5214278862743058694
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3574978154580245421}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.58, y: 0.14, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7708107166440449614}
-  m_Father: {fileID: 1184023519949837575}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1879864019273046689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3574978154580245421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d97d7cf53cee1c4b94e8e6ced4d9ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  typ: 1
---- !u!1 &4038336512258734887
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6836859067438904758}
-  - component: {fileID: 6817484026304084910}
-  m_Layer: 0
-  m_Name: icons8-herald-trumpet-100
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6836859067438904758
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4038336512258734887}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.81, y: 0.83, z: 0}
-  m_LocalScale: {x: 2.1337705, y: 2.1337705, z: 2.1337702}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7708107166440449614}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6817484026304084910
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4038336512258734887}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 600
-  m_Sprite: {fileID: 21300000, guid: d399783791dab2f48b5408cc40d416f3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &4298078439420933900
 GameObject:
   m_ObjectHideFlags: 0
@@ -7058,38 +6941,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typ: 2
---- !u!1 &7081269896229065789
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7708107166440449614}
-  m_Layer: 0
-  m_Name: TrompetRotator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7708107166440449614
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7081269896229065789}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6836859067438904758}
-  m_Father: {fileID: 5214278862743058694}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7714048841950983828
 GameObject:
   m_ObjectHideFlags: 0
@@ -17131,6 +16982,45 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6706347247062192833, guid: 4d18c91bcbf99384ab93336b58cbdaad, type: 3}
   m_PrefabInstance: {fileID: 338702827407968205}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5935885371963985068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1184023519949837575}
+    m_Modifications:
+    - target: {fileID: 1890481274732770730, guid: 49bfa7f75a81e03408d95b2cd2136777, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890481274732770730, guid: 49bfa7f75a81e03408d95b2cd2136777, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890481274732770730, guid: 49bfa7f75a81e03408d95b2cd2136777, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204739035675277057, guid: 49bfa7f75a81e03408d95b2cd2136777, type: 3}
+      propertyPath: m_Name
+      value: Trompet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 49bfa7f75a81e03408d95b2cd2136777, type: 3}
+--- !u!4 &5214278862743058694 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1890481274732770730, guid: 49bfa7f75a81e03408d95b2cd2136777, type: 3}
+  m_PrefabInstance: {fileID: 5935885371963985068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7708107166440449614 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4078065448104143586, guid: 49bfa7f75a81e03408d95b2cd2136777, type: 3}
+  m_PrefabInstance: {fileID: 5935885371963985068}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8317656701587253720
 PrefabInstance:
