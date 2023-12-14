@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Violin : Weapon
 {
-    public override void Shoot(float shootingPower)
+    public override void Shoot(float shootingPower, float hitPower  )
     {
         throw new System.NotImplementedException();
     }

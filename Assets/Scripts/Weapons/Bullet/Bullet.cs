@@ -6,11 +6,10 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Bullet : MonoBehaviour
 {
-
     private Rigidbody2D rb;
     private float _shootingPower;
     private Vector3 _direction;
-
+    private float _impactPower;
     private bool shootMe = false;
     private void Awake()
     {
@@ -20,33 +19,33 @@ public class Bullet : MonoBehaviour
     {
         if (shootMe)
         {
-            rb.AddForce(_direction * _shootingPower, ForceMode2D.Impulse);
+            rb.AddForce(_direction.normalized * _shootingPower, ForceMode2D.Impulse);
         }
     }
 
-    public void ShootMe(float shootingPower, Vector3 direction)
+    public void ShootMe(float shootingPower, float impactPower, Vector3 direction)
     {
         _direction = direction;
         _shootingPower = shootingPower;
+        _impactPower = impactPower;
         shootMe = true;
-        
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision");
-    }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         if(collision.gameObject.tag == "ForceablePlatform")
         {  
-            Debug.Log("Trigger");
             shootMe = false;
             rb.velocity = Vector2.zero;
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForceAtPosition(Vector2.right,collision.transform.position);
+
+            Vector2 direction = _direction - collision.transform.position;
+
+            Vector2 forceDirection = (_direction - collision.transform.position).normalized;
+
+
+
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForceAtPosition(forceDirection * _impactPower, collision.transform.position);
+            Destroy(gameObject);
         }
         
     }

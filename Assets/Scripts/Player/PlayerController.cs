@@ -10,8 +10,7 @@ using UnityEngine.Rendering;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField]
-    private Transform aimingTest;
+   
 
     [Header("Inputs: Animation")]
     [SerializeField]
@@ -61,7 +60,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Inputs: SpecialPower")]
     [SerializeField]
-    private float trompeteBlastingPower;
+    private Transform trompeteRotator;
+    [SerializeField]
+    private float trompeteShootingPower;
+    [SerializeField]
+    private float trompeteImpactPower;
     [SerializeField]
     private float trompeteBackForce;
     [SerializeField]
@@ -122,13 +125,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool isHealing;
     [SerializeField]
-    private bool isBlasting;
+    private bool isHoldingLeftShoulder;
     [SerializeField]
-    private float rotationAngleRightStick;
-    [SerializeField]
-    private float rotationAngleWeaponRotator;
-    [SerializeField]
-    private float rotationValueWeaponRotatorAnimator;
+    private bool isAiming;
     [SerializeField]
     private Vector3 weaponRotatorLastEulerAngle;
     [SerializeField]
@@ -228,8 +227,8 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)
-            || Physics2D.OverlapCircle(groundCheck.position, 0.2f, deadLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayer)
+            || Physics2D.OverlapCircle(groundCheck.position, 0.5f, deadLayer);
     }
 
 
@@ -455,6 +454,8 @@ public class PlayerController : MonoBehaviour
 
         if (context.started || context.performed)
         {
+            isHoldingLeftShoulder = true;
+
             switch (weaponController.Current)
             {
                 case WeaponsEnum.Flute:
@@ -468,7 +469,6 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
                 case WeaponsEnum.Trompet:
-                    isBlasting = true;
                     animator.SetBool("isSpecial", true);
                     animator.SetBool("isTrompet", true);
                     animator.SetBool("isBreathing", true);
@@ -514,17 +514,19 @@ public class PlayerController : MonoBehaviour
         }
         else if (context.canceled)
         {
+            isHoldingLeftShoulder = false;
+
             switch (weaponController.Current)
             {
                 case WeaponsEnum.Flute:
                     isHealing = false;
                     break;
                 case WeaponsEnum.Trompet:
-                    isBlasting = false;
                     //   animator.SetBool("isShootHolding", false);
                     animator.SetBool("isSpecial", false);
                     animator.SetBool("isTrompet", false);
                     animator.SetBool("isBreathing", false);
+                    trompeteRotator.transform.localEulerAngles = Vector3.zero;
                     // rigidbody2D.velocity. = Vector2.zero;
 
 
@@ -562,9 +564,13 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-            if(context.started || context.performed)
+        if (isHoldingLeftShoulder)
+        {
+            if (context.started || context.performed)
             {
-                if (aimingTest.gameObject.activeSelf)
+                isAiming = true;
+
+                if (trompeteRotator.gameObject.activeSelf)
                 {
                     if (weaponController.Current == WeaponsEnum.Trompet)
                     {
@@ -572,100 +578,115 @@ public class PlayerController : MonoBehaviour
                         float x = context.ReadValue<Vector2>().x;
                         float y = context.ReadValue<Vector2>().y;
 
-                   if (weaponRotatorLastEulerAngle != null)
-                    {
-                        aimingTest.transform.localEulerAngles = weaponRotatorLastEulerAngle;
+                        if (weaponRotatorLastEulerAngle != null)
+                        {
+                            trompeteRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
+                        }
+
+                        if (!isFacingRight)
+                        {
+                            trompeteRotator.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * -180 / Mathf.PI + 90f);
+                            weaponRotatorLastEulerAngle = trompeteRotator.transform.localEulerAngles;
+
+                            float normalizedAngle = Mathf.InverseLerp(0f, 360f, trompeteRotator.transform.localEulerAngles.z);
+                            lastNormalizedAngleRotatorAnimator = normalizedAngle;
+                            animator.SetFloat("WeaponAngle", normalizedAngle);
+                        }
+                        else
+                        {
+                            trompeteRotator.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * 180 / Mathf.PI + 90f);
+                            weaponRotatorLastEulerAngle = trompeteRotator.transform.localEulerAngles;
+
+                            float normalizedAngle = Mathf.InverseLerp(0f, 360f, trompeteRotator.transform.localEulerAngles.z);
+                            lastNormalizedAngleRotatorAnimator = normalizedAngle;
+                            animator.SetFloat("WeaponAngle", normalizedAngle);
+                        }
+
+
+                   /*     Debug.Log("X: " + x + "| Y: " + y + " | Is Rotating Right Stick: " + 0
+                              + " |  Rotaton Rotator: " + aimingTest.transform.localEulerAngles +
+                              " | Normalized Angle: " + lastNormalizedAngleRotatorAnimator + " | isFacingRight: " + isFacingRight);*/
                     }
-
-                    if (!isFacingRight)
-                    {
-                        aimingTest.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * -180 / Mathf.PI + 90f);
-                        weaponRotatorLastEulerAngle = aimingTest.transform.localEulerAngles;
-
-                        float normalizedAngle = Mathf.InverseLerp(0f, 360f, aimingTest.transform.localEulerAngles.z);
-                        lastNormalizedAngleRotatorAnimator = normalizedAngle;
-                        animator.SetFloat("WeaponAngle", normalizedAngle);
-                    }
-                    else
-                    {
-                        aimingTest.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * 180 / Mathf.PI + 90f);
-                        weaponRotatorLastEulerAngle = aimingTest.transform.localEulerAngles;
-
-                        float normalizedAngle = Mathf.InverseLerp(0f, 360f, aimingTest.transform.localEulerAngles.z);
-                        lastNormalizedAngleRotatorAnimator = normalizedAngle;
-                        animator.SetFloat("WeaponAngle", normalizedAngle);
-                    }
-
-
-                    Debug.Log("X: " + x + "| Y: " + y + " | Is Rotating Right Stick: " + 0
-                          + " |  Rotaton Rotator: " + aimingTest.transform.localEulerAngles +
-                          " | Normalized Angle: " + lastNormalizedAngleRotatorAnimator + " | isFacingRight: " + isFacingRight);
-
-
-
                 }
-                }
-            }else if (context.canceled)
+            }
+            else if (context.canceled)
             {
+                isAiming = false;
                 // If the right stick input is not active, use the last stored values
-                aimingTest.transform.localEulerAngles = weaponRotatorLastEulerAngle;
+                trompeteRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
                 animator.SetFloat("AngleWeapon", lastNormalizedAngleRotatorAnimator);
+
+            }
+        }
+
             
-    }
 
     }
 
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.started || context.performed)
+
+        if (isHoldingLeftShoulder && isAiming)
         {
-            Weapon weapon = weaponController.GetCurrent();
-            
-            switch (weaponController.Current)
+            if (context.started || context.performed)
             {
-                case WeaponsEnum.Trompet:
+                Weapon weapon = weaponController.GetCurrent();
+
+                switch (weaponController.Current)
+                {
+                    case WeaponsEnum.Trompet:
+                        weapon.Shoot(trompeteShootingPower, trompeteImpactPower);
+
+                        // Calculate the opposite direction of the aimingTest rotation
+                        float rotationAngle = trompeteRotator.transform.eulerAngles.z;
+                        float oppositeAngle = trompeteRotator.transform.eulerAngles.z + 180.0f;
+                        oppositeAngle = Mathf.DeltaAngle(trompeteRotator.transform.eulerAngles.z, oppositeAngle);
 
 
-                    weapon.Shoot(trompeteBlastingPower);
-                    animator.SetTrigger("Shoot");
-                    animator.SetBool("isSpecial", false);
-                    animator.SetBool("isTrompet", false);
-                    animator.SetBool("isBreathing", false);
+                        if (isFacingRight)
+                        {
+                            Debug.Log("Force - Facing Left");
+                            //  rigidbody2D.gravityScale = 0; // No gravity for the bullet
 
-                    if (isFacingRight)
-                    {
-                        rigidbody2D.AddForce(Vector2.left * trompeteBackForce, ForceMode2D.Impulse);
-                    }
-                    else
-                    {
-                        rigidbody2D.AddForce(Vector2.right * trompeteBackForce, ForceMode2D.Impulse);
-                    }
-                    break;
+                            rigidbody2D.AddForce(Vector2.left * trompeteBackForce, ForceMode2D.Impulse);
+                        }
+                        else
+                        {
+                            Debug.Log("Force - Facing Right");
+                            rigidbody2D.AddForce(Vector2.right * trompeteBackForce, ForceMode2D.Impulse);
+                        }
+                        break;
 
-                case WeaponsEnum.Violin:
+                    case WeaponsEnum.Violin:
 
-                    break;
+                        break;
 
-                case WeaponsEnum.Guitar:
+                    case WeaponsEnum.Guitar:
 
-                    break;
+                        break;
 
-                case WeaponsEnum.Piano:
+                    case WeaponsEnum.Piano:
 
-                    break;
-                case WeaponsEnum.None:
+                        break;
+                    case WeaponsEnum.None:
 
-                    break;
+                        break;
+                }
+                
+
+
             }
-        }
-        else if (context.canceled)
-        {
-           
+            else if (context.canceled)
+            {
+
+
+            }
 
         }
-
     }
+
+       
 
 
 

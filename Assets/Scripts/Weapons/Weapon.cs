@@ -10,6 +10,6 @@ public abstract class Weapon : MonoBehaviour
     public WeaponsEnum Typ { get => typ; set => typ = value; }
 
 
-    public abstract void Shoot(float shootingPower);
+    public abstract void Shoot(float shootingPower, float impactPower);
 
 }
