@@ -17,12 +17,12 @@ TagManager:
   - Dead
   - Wall
   - Jumper
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Fragile
+  - Collectable
+  - Enemy
+  - Friendly
+  - Water
+  - Cutsceen
   - 
   - 
   - 
