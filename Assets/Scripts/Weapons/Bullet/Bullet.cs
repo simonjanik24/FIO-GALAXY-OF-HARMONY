@@ -3,23 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using static UnityEngine.ParticleSystem;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D rbBullet;
+    private CircleCollider2D circleCollider;
     private float _shootingPower;
     private Vector3 _direction;
     private float _impactPower;
     private bool shootMe = false;
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rbBullet = GetComponent<Rigidbody2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
     }
     private void FixedUpdate()
     {
         if (shootMe)
         {
-            rb.AddForce(_direction.normalized * _shootingPower, ForceMode2D.Impulse);
+            rbBullet.AddForce(_direction.normalized * _shootingPower, ForceMode2D.Impulse);
         }
     }
 
@@ -34,19 +37,21 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "ForceablePlatform")
-        {  
+        {
             shootMe = false;
-            rb.velocity = Vector2.zero;
-
-            Vector2 direction = _direction - collision.transform.position;
-
-            Vector2 forceDirection = (_direction - collision.transform.position).normalized;
-
-
-
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForceAtPosition(forceDirection * _impactPower, collision.transform.position);
-            Destroy(gameObject);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
+            circleCollider.enabled = false;
+            StartCoroutine(DestroySelf());
         }
         
     }
+
+
+    private IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(2f);
+        rbBullet.velocity = Vector2.zero;
+        Destroy(gameObject);
+    }
+
 }

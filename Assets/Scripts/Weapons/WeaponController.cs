@@ -73,7 +73,7 @@ public class WeaponController : MonoBehaviour
             if(_weapon.gameObject.GetComponent<Weapon>().Typ == selection)
             {
                 _weapon.gameObject.SetActive(true);
-                Debug.Log(_weapon.gameObject.name);
+              //  Debug.Log(_weapon.gameObject.name);
             }
             else
             {
@@ -105,7 +105,7 @@ public class WeaponController : MonoBehaviour
             if (parameter.Contains(selection.ToString()))
             {
                 animator.SetBool(parameter, true);
-                Debug.Log("Set Parameter to true: " + parameter);
+              //  Debug.Log("Set Parameter to true: " + parameter);
             }
             else
             {

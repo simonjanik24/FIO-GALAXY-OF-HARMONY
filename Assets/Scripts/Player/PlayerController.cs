@@ -646,14 +646,14 @@ public class PlayerController : MonoBehaviour
 
                         if (isFacingRight)
                         {
-                            Debug.Log("Force - Facing Left");
+                          //  Debug.Log("Force - Facing Left");
                             //  rigidbody2D.gravityScale = 0; // No gravity for the bullet
 
                             rigidbody2D.AddForce(Vector2.left * trompeteBackForce, ForceMode2D.Impulse);
                         }
                         else
                         {
-                            Debug.Log("Force - Facing Right");
+                           // Debug.Log("Force - Facing Right");
                             rigidbody2D.AddForce(Vector2.right * trompeteBackForce, ForceMode2D.Impulse);
                         }
                         break;
