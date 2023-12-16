@@ -1197,8 +1197,9 @@ MonoBehaviour:
   dashingPower: 40
   dashingTime: 0.15
   dashingCooldown: 1
+  startingLifePoints: 100
   trompeteRotator: {fileID: 7708107166440449614}
-  trompeteShootingPower: 2000
+  trompeteShootingPower: 500
   trompeteImpactPower: 100
   trompeteBackForce: 5
   aimingRotationSpeed: 20
@@ -1229,6 +1230,7 @@ MonoBehaviour:
   isAiming: 0
   weaponRotatorLastEulerAngle: {x: 0, y: 0, z: 0}
   lastNormalizedAngleRotatorAnimator: 0
+  currentLifePoints: 0
 --- !u!114 &2690773456809333228
 MonoBehaviour:
   m_ObjectHideFlags: 0

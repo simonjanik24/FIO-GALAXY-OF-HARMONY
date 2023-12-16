@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
     [Header("Inputs: Weapon UI")]
     [SerializeField]
     private WeaponWheelController weaponWheelController;
+    [SerializeField]
+    private GameObject weaponWheel;
 
     private WeaponController weaponController;
     private PlayerController playerController;
@@ -47,9 +49,11 @@ public class UIController : MonoBehaviour
     {
         if (PlayerControls.Instance.OpenWeaponWheel.IsPressed())
         {
+           
+
             if (!isWeaponWheelOpen)
             {
-
+                weaponWheel.SetActive(true);
                 weaponWheelController.OpenWeaponWheel();
                 isWeaponWheelOpen = true;
                 playerController.enabled = false;
@@ -64,6 +68,7 @@ public class UIController : MonoBehaviour
         {
             if (isWeaponWheelOpen)
             {
+                
                 weaponWheelController.CloseWeaponWheel();
                 isWeaponWheelOpen = false;
                 playerController.enabled = true;
@@ -74,6 +79,7 @@ public class UIController : MonoBehaviour
              //   Debug.Log("Weapon Selected: " + weaponWheelController.Selection.ToString());
                 weaponController.Select(weaponWheelController.Selection);
                 //  Time.timeScale = 1;
+                weaponWheel.SetActive(false); 
 
             }
         }

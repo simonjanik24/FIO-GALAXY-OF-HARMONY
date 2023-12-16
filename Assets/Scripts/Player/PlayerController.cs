@@ -70,8 +70,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float aimingRotationSpeed;
 
-
-
     [Header("Inputs: Animation")]
     [SerializeField]
     private float hittingTimeGuitar;
@@ -87,7 +85,6 @@ public class PlayerController : MonoBehaviour
     private float hittingTimeTrompete;
     [SerializeField]
     private float specialForceTimeShield;
-    
 
     [Header("What's going on at runtime?")]
     [SerializeField]
@@ -136,6 +133,7 @@ public class PlayerController : MonoBehaviour
 
     private VibrationController vibrationController;
     private WeaponController weaponController;
+    private HealthManager healthManager;
 
     public Animator Animator { get => animator; set => animator = value; }
 
@@ -144,9 +142,8 @@ public class PlayerController : MonoBehaviour
     {
         vibrationController = GameObject.FindGameObjectWithTag("GameController").GetComponent<VibrationController>();
         weaponController = GetComponent<WeaponController>();
+        healthManager = GameObject.FindGameObjectWithTag("HealthManager").GetComponent<HealthManager>();
     }
-
-
 
 
     private void FixedUpdate()
@@ -183,6 +180,7 @@ public class PlayerController : MonoBehaviour
         if (isHealing && horizontal == 0)
         {
             animator.SetBool("isHealing", true);
+            healthManager.Heal();
         }
         else
         {
