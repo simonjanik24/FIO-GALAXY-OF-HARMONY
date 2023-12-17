@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour
         {
             shootMe = false;
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
+
             circleCollider.enabled = false;
             StartCoroutine(DestroySelf());
         }
