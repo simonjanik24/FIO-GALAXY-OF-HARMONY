@@ -9,9 +9,6 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(WeaponController))]
 public class PlayerController : MonoBehaviour
 {
-
-   
-
     [Header("Inputs: Animation")]
     [SerializeField]
     private Animator animator;
@@ -84,7 +81,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float hittingTimeTrompete;
     [SerializeField]
-    private float specialForceTimeShield;
+    private float protectingTimeDrumsticks;
 
     [Header("What's going on at runtime?")]
     [SerializeField]
@@ -226,7 +223,7 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayer)
-            || Physics2D.OverlapCircle(groundCheck.position, 0.5f, deadLayer);
+        || Physics2D.OverlapCircle(groundCheck.position, 0.5f, deadLayer);
     }
 
 
@@ -459,6 +456,7 @@ public class PlayerController : MonoBehaviour
                 case WeaponsEnum.Flute:
                     if (IsGrounded())
                     {
+                        Debug.Log("Healing");
                         isHealing = true;
                     }
                     else
@@ -717,13 +715,32 @@ public class PlayerController : MonoBehaviour
         //Jumping
         else if(rigidbody2D.velocity.y > 0)
         {
-            animator.SetBool("isJumping", true);
+            if (IsGrounded())
+            {
+                animator.SetBool("isJumping", false);
+            }
+            else
+            {
+                animator.SetBool("isJumping", true);
+            }
+
+            
         }
         //Falling
         else if(rigidbody2D.velocity.y < 0)
         {
             animator.SetBool("isJumping", false);
-            animator.SetBool("isFalling", true);
+            if (IsGrounded())
+            {
+                animator.SetBool("isFalling", false);
+            }
+            else
+            {
+                animator.SetBool("isFalling", true);
+            }
+
+            
+            
         }
     }
 
