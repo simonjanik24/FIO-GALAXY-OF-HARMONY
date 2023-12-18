@@ -4,75 +4,134 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    public float shieldDuration = 5f;// Standard shield duration in seconds
+    [Header("Inputs")]
+    [SerializeField]
+    private bool isActive;
+    [SerializeField]
+    private float shieldDuration; // Standard shield duration in seconds
+    [SerializeField]
+    private float flickerMaxTime;
+    [SerializeField]
+    private float flickerInterval;
     [SerializeField]
     private List<ParticleSystem> particleSystems; // Array of particle systems inside the shield
 
-    private bool isFlickering = false;
+    [Header("What's going on at runtime?")]
+    [SerializeField]
+    public float currentDuration = 0;
+    [SerializeField]
+    private float flickerTimer;
+    [SerializeField]
+    private bool isParticleSystemActive = true;
 
 
-
-    private void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Activate();
+       // Debug.Log("Trigger: " + collision.gameObject.name);
+
+
     }
 
-    // Method to activate the shield
+    private void Awake()
+    {
+        flickerTimer = flickerInterval;
+    }
+    private void Update()
+    {
+        if (isActive)
+        {
+            currentDuration += Time.deltaTime; 
+
+            if (currentDuration >= shieldDuration)
+            {
+                isActive = false;
+                foreach (ParticleSystem particleSystem in particleSystems)
+                {
+                    if (particleSystem.isPlaying)
+                    {
+                        particleSystem.Stop();
+                    }
+
+                    ParticleSystem.MainModule main = particleSystem.main;
+                    main.playOnAwake = false;
+                    main.prewarm = false;
+                    particleSystem.gameObject.SetActive(false);
+                }
+             //   Debug.Log("End | Shield Duration: " + shieldDuration+ " | Current Duration: " + currentDuration);
+            }
+            else
+            {
+                if (currentDuration >= shieldDuration - flickerMaxTime)
+                {
+                      flickerTimer -= Time.deltaTime;
+                   // Debug.Log(flickerTimer);
+
+                    if(flickerTimer <= 0f)
+                    {
+                        ToggleParticles();
+                        flickerTimer = flickerInterval;
+
+                    }
+                   
+
+                   // Debug.Log("Flicker | Shield Duration: " + shieldDuration+ " | Current Duration: " + currentDuration+ " | FlickerTime: " + flickerTimer);
+                }
+                else
+                {
+                //    Debug.Log("Play | Shield Duration: " + shieldDuration + " | Current Duration: " + currentDuration + " | FlickerTime: " + flickerTimer);
+                    foreach (ParticleSystem particleSystem in particleSystems)
+                    {
+                        particleSystem.gameObject.SetActive(true);
+                        if (!particleSystem.isPlaying)
+                        {
+                            
+                            particleSystem.Play();
+                        }
+
+                        
+                    }
+                    isParticleSystemActive = true;
+                }
+            }
+        }
+        else
+        {
+            currentDuration = 0;
+            flickerTimer = flickerInterval;
+        }
+ 
+    }
+
+    private void ToggleParticles()
+    {
+        foreach (ParticleSystem particleSystem in particleSystems)
+        {
+            if(particleSystem != particleSystems[0]) {
+
+                // Toggle the state of the Particle System
+                if (isParticleSystemActive)
+                {
+                    ParticleSystem.MainModule main = particleSystem.main;
+                    main.playOnAwake = true;
+                    main.prewarm = true;
+                    particleSystem.gameObject.SetActive(false);
+                }
+                else
+                {
+                    ParticleSystem.MainModule main = particleSystem.main;
+                    main.playOnAwake = true;
+                    main.prewarm = true;
+                    particleSystem.gameObject.SetActive(true);
+                }
+            }
+           
+        }
+        isParticleSystemActive = !isParticleSystemActive;
+    }
+
     public void Activate()
     {
-        StartCoroutine(ShieldActivationRoutine());
+        isActive = true;
     }
 
-    // Coroutine for shield activation
-    private IEnumerator ShieldActivationRoutine()
-    {
-        // Activate particle systems by default
-        ActivateParticleSystems(true);
-
-        yield return new WaitForSeconds(shieldDuration - 2f); // Wait for 2 seconds less than the total duration
-
-        // Start flickering the shield
-        isFlickering = true;
-        StartCoroutine(FlickerRoutine());
-
-        yield return new WaitForSeconds(2f); // Wait for the remaining 2 seconds
-
-        // Deactivate the shield and stop flickering
-        DeactivateShield();
-    }
-
-    // Coroutine for shield flickering
-    private IEnumerator FlickerRoutine()
-    {
-        while (isFlickering)
-        {
-            yield return new WaitForSeconds(0.2f); // Flicker every 0.2 seconds
-            ActivateParticleSystems(!particleSystems[0].isPlaying); // Toggle the state of particle systems
-        }
-    }
-
-    // Method to activate or deactivate particle systems
-    private void ActivateParticleSystems(bool activate)
-    {
-        foreach (ParticleSystem ps in particleSystems)
-        {
-            if (activate)
-                ps.Play();
-            else
-                ps.Stop();
-        }
-    }
-
-    // Method to deactivate the shield
-    private void DeactivateShield()
-    {
-        // Stop flickering
-        isFlickering = false;
-
-        // Deactivate particle systems
-        ActivateParticleSystems(false);
-
-        // Perform any additional cleanup or actions when the shield is deactivated
-        Debug.Log("Shield deactivated");
-    }
 }

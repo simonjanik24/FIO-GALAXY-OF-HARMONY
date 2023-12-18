@@ -39,11 +39,15 @@ public class Bullet : MonoBehaviour
         if(collision.gameObject.tag == "ForceablePlatform")
         {
             shootMe = false;
+            
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
 
             circleCollider.enabled = false;
             StartCoroutine(DestroySelf());
         }
+
+
+
         
     }
 
@@ -54,5 +58,6 @@ public class Bullet : MonoBehaviour
         rbBullet.velocity = Vector2.zero;
         Destroy(gameObject);
     }
+
 
 }
