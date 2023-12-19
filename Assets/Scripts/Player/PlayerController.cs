@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
     private float dashingTime;
     [SerializeField]
     private float dashingCooldown;
+    [SerializeField]
+    private float slopingAngleThreshold;
 
     [Header("Inputs: SpecialPower")]
     [SerializeField]
@@ -112,6 +114,8 @@ public class PlayerController : MonoBehaviour
     private bool wasJumping;
     [SerializeField]
     private Vector2 dashingDirection;
+    [SerializeField]
+    private float currentGroundAngle;
 
     [Header("What's going on at runtime? - Special Forces")]
     [SerializeField]
@@ -154,7 +158,15 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody2D.velocity = new Vector2(horizontal * runningSpeed, rigidbody2D.velocity.y);
         }
-        
+
+        SaveCurrentSlope();
+
+
+        if (currentGroundAngle > slopingAngleThreshold)
+        {
+          //  rigidbody2D.velocity = new Vector2(horizontal * (runningSpeed *3), rigidbody2D.velocity.y);
+        }
+
     }
 
     // Update is called once per frame
@@ -202,6 +214,9 @@ public class PlayerController : MonoBehaviour
 
         horizontalSpeed = Input.GetAxisRaw("Horizontal") * runningSpeed;
         SetAnimationState();
+
+
+        
     }
 
     private void OnLanding()
@@ -226,6 +241,19 @@ public class PlayerController : MonoBehaviour
         || Physics2D.OverlapCircle(groundCheck.position, 0.5f, deadLayer);
     }
 
+
+    public void SaveCurrentSlope()
+    {
+        if (IsGrounded())
+        {
+            RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 5f, groundLayer);
+
+            if (hit.collider != null)
+            {
+                currentGroundAngle = Vector2.Angle(hit.normal, Vector2.up);
+            }
+        }
+    }
 
     private bool IsWalking()
     {
@@ -737,10 +765,18 @@ public class PlayerController : MonoBehaviour
             else
             {
                 animator.SetBool("isFalling", true);
-            }
+            } 
+        }
 
-            
-            
+
+        if(currentGroundAngle > slopingAngleThreshold)
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isSlipping", true);
+        }
+        else
+        {
+            animator.SetBool("isSlipping", false);
         }
     }
 
