@@ -10,6 +10,10 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     private Transform weapons;
 
+    [Header("Inputs: Shield")]
+    [SerializeField]
+    private Shield shield;
+
     [Header("What's going on at runtime?")]
     [SerializeField]
     private WeaponsEnum current;
@@ -17,6 +21,7 @@ public class WeaponController : MonoBehaviour
     private PlayerController playerController;
 
     public WeaponsEnum Current { get => current; set => current = value; }
+    public Shield Shield { get => shield; set => shield = value; }
 
     private void Start()
     {

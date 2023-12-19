@@ -28,10 +28,13 @@ public class HealthManager : MonoBehaviour
 
     private bool isUpdatingHealth = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool isDead = false;
+
+    private RespawnController respawnController;
+
+    private void Start()
     {
-        Damage(50);
+        respawnController = GameObject.Find("RespawnSpots").GetComponent<RespawnController>();
     }
 
     void Update()
@@ -43,12 +46,29 @@ public class HealthManager : MonoBehaviour
             {
                 currentHealth = Mathf.MoveTowards(currentHealth, targetHealth, changeSpeed * Time.deltaTime);
                 healthBar.fillAmount = currentHealth / 100f;
+
+                if(currentHealth <= 0)
+                {
+                    //Player is dead
+                    isDead = true;
+
+                    if (isDead)
+                    {
+                        respawnController.Respawn();
+                        HealCompletely();
+                        isDead = false;
+                    }
+                    
+
+                }
             }
             else
             {
                 isUpdatingHealth = false;
             }
         }
+
+        
     }
 
     public void Damage(float damage)
@@ -79,5 +99,13 @@ public class HealthManager : MonoBehaviour
             healthBar.fillAmount = 1f;
 
         }
+    }
+
+
+    public void HealCompletely()
+    {
+        healthBar.fillAmount = 1f;
+        currentHealth = maxHealth;
+        isUpdatingHealth = false;
     }
 }

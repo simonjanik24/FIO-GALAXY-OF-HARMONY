@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
@@ -37,37 +38,28 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalX = Input.GetAxisRaw("Horizontal");
-        float verticalX = Input.GetAxisRaw("Vertical");
+          float horizontalX = Input.GetAxisRaw("Horizontal");
+          float verticalX = Input.GetAxisRaw("Vertical");
+            if (horizontalX < 0)
+            {
 
-
-        if (horizontalX < 0)
-        {
-
-            Vector3 newPos = new Vector3(target.position.x - offsetX, target.position.y + offsetY, target.position.z + offsetZ);
-            transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, followDelay);
-            // transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);
-
-
-        }
-        else if (horizontalX > 0)
-        {
-            Vector3 newPos = new Vector3(target.position.x + offsetX, target.position.y + offsetY, target.position.z + offsetZ);
-            transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, followDelay);
-            //transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);
-
-        }
-        /*   else
-           {
-
-                Vector3 newPos = new Vector3(target.position.x, target.position.y + offsetY, offsetZ);
+                Vector3 newPos = new Vector3(target.position.x - offsetX, target.position.y + offsetY, target.position.z + offsetZ);
                 transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, followDelay);
-
-           }*/
-
+            }
+            else if (horizontalX > 0)
+            {
+                Vector3 newPos = new Vector3(target.position.x + offsetX, target.position.y + offsetY, target.position.z + offsetZ);
+                transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, followDelay);
+            }
 
     }
 
+
+
+    public void ResetPosition()
+    {
+        transform.position = new Vector3(target.position.x + offsetX, target.position.y + offsetY, target.position.z + offsetZ);
+    }
 
 
 }

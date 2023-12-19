@@ -10,15 +10,18 @@ public class Shake : MonoBehaviour
     [SerializeField]
     private float strength = 1f;
 
-    private void Start()
+    private Coroutine currentCoroutine;
+
+    public float Duration { get => duration; set => duration = value; }
+    public float Strength { get => strength; set => strength = value; }
+
+    public void StopShakeMe()
     {
-        ShakeMe();
+        StopCoroutine(currentCoroutine);
     }
-
-
     public void ShakeMe()
     {
-        StartCoroutine(Shaking());
+        currentCoroutine = StartCoroutine(Shaking());
     }
     private IEnumerator Shaking()
     {

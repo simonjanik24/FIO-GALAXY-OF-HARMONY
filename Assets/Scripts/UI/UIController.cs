@@ -30,9 +30,10 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        weaponController = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponController>();
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        playerRigidBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        weaponController = player.GetComponent<WeaponController>();
+        playerController = player.GetComponent<PlayerController>();
+        playerRigidBody = player.GetComponent<Rigidbody2D>();
         followPlayer = Camera.main.gameObject.GetComponent<FollowPlayer>();
     }
 

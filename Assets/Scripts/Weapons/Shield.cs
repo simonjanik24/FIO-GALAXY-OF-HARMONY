@@ -24,18 +24,14 @@ public class Shield : MonoBehaviour
     [SerializeField]
     private bool isParticleSystemActive = true;
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-       // Debug.Log("Trigger: " + collision.gameObject.name);
-
-
-    }
+    public bool IsActive { get => isActive; set => isActive = value; }
 
     private void Awake()
     {
         flickerTimer = flickerInterval;
+        GetComponent<CircleCollider2D>().enabled = false;
     }
+
     private void Update()
     {
         if (isActive)
@@ -56,6 +52,7 @@ public class Shield : MonoBehaviour
                     main.playOnAwake = false;
                     main.prewarm = false;
                     particleSystem.gameObject.SetActive(false);
+                    GetComponent<CircleCollider2D>().enabled = false;
                 }
              //   Debug.Log("End | Shield Duration: " + shieldDuration+ " | Current Duration: " + currentDuration);
             }
@@ -82,13 +79,12 @@ public class Shield : MonoBehaviour
                     foreach (ParticleSystem particleSystem in particleSystems)
                     {
                         particleSystem.gameObject.SetActive(true);
+                        GetComponent<CircleCollider2D>().enabled = true;
                         if (!particleSystem.isPlaying)
                         {
                             
                             particleSystem.Play();
                         }
-
-                        
                     }
                     isParticleSystemActive = true;
                 }
@@ -106,7 +102,9 @@ public class Shield : MonoBehaviour
     {
         foreach (ParticleSystem particleSystem in particleSystems)
         {
-            if(particleSystem != particleSystems[0]) {
+            if(particleSystem.name != particleSystems[0].name ||
+                particleSystem.name != particleSystems[1].name ||
+                particleSystem.name != particleSystems[2].name) {
 
                 // Toggle the state of the Particle System
                 if (isParticleSystemActive)
