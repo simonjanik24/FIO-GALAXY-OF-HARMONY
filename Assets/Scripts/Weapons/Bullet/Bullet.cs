@@ -13,6 +13,13 @@ public class Bullet : MonoBehaviour
     private Vector3 _direction;
     private float _impactPower;
     private bool shootMe = false;
+
+    [SerializeField]
+    private float destroyAfterTime;
+
+    [SerializeField]
+    private float currentTime;
+
     private void Awake()
     {
         rbBullet = GetComponent<Rigidbody2D>();
@@ -26,6 +33,16 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        currentTime += Time.deltaTime;
+
+        if(gameObject != null && currentTime >= destroyAfterTime)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void ShootMe(float shootingPower, float impactPower, Vector3 direction)
     {
         _direction = direction;
@@ -36,14 +53,26 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "ForceablePlatform")
-        {
-            shootMe = false;
-            
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
 
-            circleCollider.enabled = false;
-            StartCoroutine(DestroySelf());
+        switch (collision.gameObject.tag)
+        {
+            case "ForceablePlatform":
+                shootMe = false;
+
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
+
+                circleCollider.enabled = false;
+                StartCoroutine(DestroySelf());
+                break;
+
+            case "Destructable":
+                circleCollider.enabled = false;
+                shootMe = false;
+                
+                //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
+                collision.gameObject.GetComponent<Destructable>().DestroyMe();
+                StartCoroutine(DestroySelf());
+                break;
         }
 
 

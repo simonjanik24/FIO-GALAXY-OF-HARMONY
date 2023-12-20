@@ -9,6 +9,7 @@ TagManager:
   - ForceablePlatform
   - HealthManager
   - EvilScream
+  - Destructable
   layers:
   - Default
   - TransparentFX

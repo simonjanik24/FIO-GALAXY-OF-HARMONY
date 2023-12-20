@@ -119,6 +119,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("What's going on at runtime? - Special Forces")]
     [SerializeField]
+    private bool hasShot = false;
+    [SerializeField]
     private bool isProtecting;
     [SerializeField]
     private bool isHealing;
@@ -509,7 +511,8 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case WeaponsEnum.Guitar:
-
+                    animator.SetBool("isSpecial", true);
+                    animator.SetBool("isGuitar", true);
                     break;
 
                 case WeaponsEnum.Piano:
@@ -561,7 +564,8 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case WeaponsEnum.Guitar:
-
+                    animator.SetBool("isSpecial", false);
+                    animator.SetBool("isGuitar", false);
                     break;
 
                 case WeaponsEnum.Piano:
@@ -653,7 +657,7 @@ public class PlayerController : MonoBehaviour
 
         if (isHoldingLeftShoulder && isAiming)
         {
-            if (context.started || context.performed)
+            if (context.started && !hasShot)
             {
                 Weapon weapon = weaponController.GetCurrent();
 
@@ -661,7 +665,6 @@ public class PlayerController : MonoBehaviour
                 {
                     case WeaponsEnum.Trompet:
                         weapon.Shoot(trompeteShootingPower, trompeteImpactPower);
-
                         // Calculate the opposite direction of the aimingTest rotation
                         float rotationAngle = trompeteRotator.transform.eulerAngles.z;
                         float oppositeAngle = trompeteRotator.transform.eulerAngles.z + 180.0f;
@@ -680,6 +683,9 @@ public class PlayerController : MonoBehaviour
                            // Debug.Log("Force - Facing Right");
                             rigidbody2D.AddForce(Vector2.right * trompeteBackForce, ForceMode2D.Impulse);
                         }
+
+                        hasShot = true;
+
                         break;
 
                     case WeaponsEnum.Violin:
@@ -703,8 +709,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (context.canceled)
             {
-
-
+                hasShot = false;
             }
 
         }

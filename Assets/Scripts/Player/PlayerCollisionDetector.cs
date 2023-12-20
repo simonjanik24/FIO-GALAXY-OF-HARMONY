@@ -48,12 +48,11 @@ public class PlayerCollisionDetector : MonoBehaviour
         switch (gameObject.layer)
         {
             case 6: //Dead Layer
-                if (weaponController.Shield.IsActive == false)
-                {
+                
                     Debug.Log("Hit Dead Layer");
 
                     healthManager.Damage(10);
-                }
+               
                 break;
 
         }
