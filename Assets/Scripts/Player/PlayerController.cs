@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        vibrationController = GameObject.FindGameObjectWithTag("GameController").GetComponent<VibrationController>();
+       // vibrationController = GameObject.FindGameObjectWithTag("GameController").GetComponent<VibrationController>();
         weaponController = GetComponent<WeaponController>();
         healthManager = GameObject.FindGameObjectWithTag("HealthManager").GetComponent<HealthManager>();
     }
@@ -474,7 +474,7 @@ public class PlayerController : MonoBehaviour
 
     public void SpecialForce(InputAction.CallbackContext context)
     {
-
+   
         if (context.started || context.performed)
         {
             isHoldingLeftShoulder = true;
@@ -771,8 +771,17 @@ public class PlayerController : MonoBehaviour
 
         if(currentGroundAngle > slopingAngleThreshold)
         {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isSlipping", true);
+            if (IsGrounded())
+            {
+                animator.SetBool("isSlipping", true);
+                animator.SetBool("isWalking", false);
+            }
+            else
+            {
+                animator.SetBool("isSlipping", false);
+            }
+            
+            
         }
         else
         {
