@@ -10,6 +10,7 @@ TagManager:
   - HealthManager
   - EvilScream
   - Destructable
+  - Moveable
   layers:
   - Default
   - TransparentFX

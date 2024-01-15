@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 4804483769512284369}
   - component: {fileID: 139104134819686894}
   - component: {fileID: 1695139084235205970}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DestructableCube
   m_TagString: Destructable
   m_Icon: {fileID: 0}

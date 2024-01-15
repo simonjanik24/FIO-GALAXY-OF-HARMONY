@@ -68,6 +68,14 @@ public class PlayerController : MonoBehaviour
     private float trompeteBackForce;
     [SerializeField]
     private float aimingRotationSpeed;
+    [SerializeField]
+    private Transform violinAimingObject;
+    [SerializeField]
+    private float violineAimingObjectMoveSpeed = 5f;
+    [SerializeField]
+    private float violineAimingObjectMaxDistance = 10f;
+    [SerializeField]
+    private float violineAimingObjectsmoothTime;
 
     [Header("Inputs: Animation")]
     [SerializeField]
@@ -129,9 +137,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool isAiming;
     [SerializeField]
+    private bool isHoldingRightShoulder;
+    [SerializeField]
     private Vector3 weaponRotatorLastEulerAngle;
     [SerializeField]
     private float lastNormalizedAngleRotatorAnimator;
+    [SerializeField]
+    private Vector2 violineAimingObjectCurrentVelocity;
 
 
     private VibrationController vibrationController;
@@ -139,6 +151,7 @@ public class PlayerController : MonoBehaviour
     private HealthManager healthManager;
 
     public Animator Animator { get => animator; set => animator = value; }
+    public bool IsHoldingRightShoulder { get => isHoldingRightShoulder; set => isHoldingRightShoulder = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -507,12 +520,20 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case WeaponsEnum.Violin:
+                    animator.SetBool("isSpecial", true);
+                    animator.SetBool("isViolin", true);
+
+                    Violin violin = (Violin)weaponController.GetCurrent();
+                    violin.StartHovering();
 
                     break;
 
                 case WeaponsEnum.Guitar:
                     animator.SetBool("isSpecial", true);
                     animator.SetBool("isGuitar", true);
+
+
+
                     break;
 
                 case WeaponsEnum.Piano:
@@ -560,6 +581,11 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case WeaponsEnum.Violin:
+                    animator.SetBool("isSpecial",false);
+                    animator.SetBool("isViolin", false);
+                    animator.SetBool("isViolinPlaying", false);
+                    Violin violin = (Violin)weaponController.GetCurrent();
+                    violin.StopAll();
 
                     break;
 
@@ -583,24 +609,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    /* public IEnumerator ExecuteSpecialForce(InputAction.CallbackContext context)
-     {
-
-
-     }*/
-
-
     public void Aim(InputAction.CallbackContext context)
     {
         if (isHoldingLeftShoulder)
         {
-            if (context.started || context.performed)
+            if (weaponController.Current == WeaponsEnum.Trompet)
             {
-                isAiming = true;
-
-                if (trompeteRotator.gameObject.activeSelf)
+                if (context.started || context.performed)
                 {
-                    if (weaponController.Current == WeaponsEnum.Trompet)
+                    isAiming = true;
+
+                    if (trompeteRotator.gameObject.activeSelf)
                     {
                         //ReadOut
                         float x = context.ReadValue<Vector2>().x;
@@ -631,24 +650,47 @@ public class PlayerController : MonoBehaviour
                         }
 
 
-                   /*     Debug.Log("X: " + x + "| Y: " + y + " | Is Rotating Right Stick: " + 0
-                              + " |  Rotaton Rotator: " + aimingTest.transform.localEulerAngles +
-                              " | Normalized Angle: " + lastNormalizedAngleRotatorAnimator + " | isFacingRight: " + isFacingRight);*/
+                        /*     Debug.Log("X: " + x + "| Y: " + y + " | Is Rotating Right Stick: " + 0
+                                   + " |  Rotaton Rotator: " + aimingTest.transform.localEulerAngles +
+                                   " | Normalized Angle: " + lastNormalizedAngleRotatorAnimator + " | isFacingRight: " + isFacingRight);*/
                     }
                 }
-            }
-            else if (context.canceled)
-            {
-                isAiming = false;
-                // If the right stick input is not active, use the last stored values
-                trompeteRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
-                animator.SetFloat("AngleWeapon", lastNormalizedAngleRotatorAnimator);
+                else if (context.canceled)
+                {
+                    isAiming = false;
+                    // If the right stick input is not active, use the last stored values
+                    trompeteRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
+                    animator.SetFloat("AngleWeapon", lastNormalizedAngleRotatorAnimator);
+                }
 
             }
+
+            if (weaponController.Current == WeaponsEnum.Violin)
+            {
+                
+                float x = context.ReadValue<Vector2>().x * Time.deltaTime * violineAimingObjectMoveSpeed;
+                 float y = context.ReadValue<Vector2>().y * Time.deltaTime * violineAimingObjectMoveSpeed;
+
+                if (x > 0)
+                {
+                    isAiming = true;
+                }
+                Vector2 newPostion = violinAimingObject.transform.position + new Vector3(x, y, 0);
+                violinAimingObject.GetComponent<Rigidbody2D>().MovePosition(newPostion);
+            }
+
+
+        }
+        else
+        {
+            violinAimingObject.transform.position = violinAimingObject.transform.parent.position;
+            animator.SetBool("isVolinPlaying", false);
+            animator.SetBool("isSpecial", false);
+            animator.SetBool("isViolin", false);
+            isAiming = false;
         }
 
-            
-
+       
     }
 
 
@@ -690,6 +732,7 @@ public class PlayerController : MonoBehaviour
 
                     case WeaponsEnum.Violin:
 
+
                         break;
 
                     case WeaponsEnum.Guitar:
@@ -712,6 +755,27 @@ public class PlayerController : MonoBehaviour
                 hasShot = false;
             }
 
+        }
+
+        if (weaponController.Current == WeaponsEnum.Violin) {
+
+            Violin violin = (Violin)weaponController.GetCurrent();
+            if (context.started || context.performed)
+            {
+                isHoldingRightShoulder = true;
+                animator.SetBool("isVolinPlaying", true);
+                Debug.Log("Started und Performed");
+                violin.StartMovingObject();
+            }
+            else
+            {
+                isHoldingRightShoulder = false;
+                animator.SetBool("isVolinPlaying", false);
+                Debug.Log("Not holding");
+                violin.StopMovingObject();
+            }
+
+        
         }
     }
 

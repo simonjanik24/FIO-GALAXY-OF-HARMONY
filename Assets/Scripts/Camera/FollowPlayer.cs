@@ -38,7 +38,7 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-          float horizontalX = Input.GetAxisRaw("Horizontal");
+       /*   float horizontalX = Input.GetAxisRaw("Horizontal");
           float verticalX = Input.GetAxisRaw("Vertical");
             if (horizontalX < 0)
             {
@@ -51,6 +51,10 @@ public class FollowPlayer : MonoBehaviour
                 Vector3 newPos = new Vector3(target.position.x + offsetX, target.position.y + offsetY, target.position.z + offsetZ);
                 transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, followDelay);
             }
+
+        */
+        Vector3 newPos = new Vector3(target.position.x + offsetX, target.position.y + offsetY, target.position.z + offsetZ);
+        transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, followDelay);
 
     }
 
