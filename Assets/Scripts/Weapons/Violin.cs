@@ -13,21 +13,17 @@ public class Violin : Weapon
     private ParticleSystem particleSystemBorder2;
     [SerializeField]
     private GameObject violineAimingObjectHolder;
-    [SerializeField]
-    private Transform startPoint;
 
 
-
-    public void FixedUpdate()
+    private void Start()
     {
-        startPoint.position = Vector3.zero;
+        
     }
 
     public void StartHovering()
     {
         violineAimingObjectHolder.SetActive(true);
         particleEffect.Play();
-        particleEffect.SendEvent("ThickPlay");
         particleSystemBorder1.Play();
         particleSystemBorder2.Play();
 
@@ -43,14 +39,11 @@ public class Violin : Weapon
     public void StopMovingObject()
     {
         particleEffect.Stop();
-        particleEffect.SendEvent("ThickStop");
     }
 
     public void StopAll()
     {
         particleEffect.Stop();
-        particleEffect.SendEvent("ThinStop");
-        particleEffect.SendEvent("ThickStop");
         particleSystemBorder1.Stop();
         particleSystemBorder2.Stop();
         violineAimingObjectHolder.SetActive(false);

@@ -524,7 +524,7 @@ Transform:
   m_GameObject: {fileID: 715955884273585609}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.40938163, w: 0.9123633}
-  m_LocalPosition: {x: 0.65912396, y: -0.17096901, z: 0}
+  m_LocalPosition: {x: 0.16, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -557,7 +557,7 @@ Transform:
   m_GameObject: {fileID: 751610469636577525}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.74, y: 3.48, z: 0}
+  m_LocalPosition: {x: 2.94, y: 3.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15965,8 +15965,8 @@ GameObject:
   - component: {fileID: 8849655166022187227}
   - component: {fileID: 8977605098774475418}
   - component: {fileID: 7872421355681545024}
-  - component: {fileID: 8872508703964091963}
   - component: {fileID: 1754591202783106897}
+  - component: {fileID: 8349929468962762804}
   m_Layer: 0
   m_Name: VFXPath
   m_TagString: Untagged
@@ -15983,7 +15983,7 @@ Transform:
   m_GameObject: {fileID: 3292222909943061117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.73, y: -0.54, z: 0}
+  m_LocalPosition: {x: -0.32, y: 0.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16025,7 +16025,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0.016794275, y: -1.0793027, z: 0}
+      - m_Value: {x: 1.1230457, y: -0.26664758, z: 0}
         m_Name: Pos1
         m_Overridden: 1
       - m_Value: {x: 6.9254065, y: 1.599127, z: 0}
@@ -16034,7 +16034,7 @@ VisualEffect:
       - m_Value: {x: 2.4031594, y: 3.0617917, z: 0}
         m_Name: Pos3
         m_Overridden: 1
-      - m_Value: {x: 5.0913777, y: -0.49057114, z: 0}
+      - m_Value: {x: 5.5767436, y: 0.82814765, z: 0}
         m_Name: Pos4
         m_Overridden: 1
     m_Vector4f:
@@ -16096,9 +16096,9 @@ VFXRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 600
+  m_SortingLayerID: -2034614615
+  m_SortingLayer: 1
+  m_SortingOrder: 5
 --- !u!114 &7872421355681545024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16113,24 +16113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
   m_Bindings:
-  - {fileID: 8872508703964091963}
   - {fileID: 1754591202783106897}
+  - {fileID: 8349929468962762804}
   m_VisualEffect: {fileID: 8849655166022187227}
---- !u!114 &8872508703964091963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3292222909943061117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Property:
-    m_Name: Pos1
-  Target: {fileID: 6169415345107948575}
 --- !u!114 &1754591202783106897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16146,6 +16131,21 @@ MonoBehaviour:
   m_Property:
     m_Name: Pos4
   Target: {fileID: 8039534479606074642}
+--- !u!114 &8349929468962762804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292222909943061117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Property:
+    m_Name: Pos1
+  Target: {fileID: 6169415345107948575}
 --- !u!1 &3297442544187101242
 GameObject:
   m_ObjectHideFlags: 0
@@ -41046,7 +41046,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4763848931197027246}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 10
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -41928,7 +41928,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -60754,7 +60754,6 @@ MonoBehaviour:
   particleSystemBorder1: {fileID: 6767942763690242533}
   particleSystemBorder2: {fileID: 7800116655533254687}
   violineAimingObjectHolder: {fileID: 715955884273585609}
-  startPoint: {fileID: 6169415345107948575}
 --- !u!1 &6289944742003055734
 GameObject:
   m_ObjectHideFlags: 0
