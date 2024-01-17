@@ -772,7 +772,7 @@ public class PlayerController : MonoBehaviour
                 isHoldingRightShoulder = false;
                 animator.SetBool("isVolinPlaying", false);
                 Debug.Log("Not holding");
-                violin.StopMovingObject();
+               // violin.StopMovingObject();
             }
 
         

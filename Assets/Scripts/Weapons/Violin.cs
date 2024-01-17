@@ -13,6 +13,15 @@ public class Violin : Weapon
     private ParticleSystem particleSystemBorder2;
     [SerializeField]
     private GameObject violineAimingObjectHolder;
+    [SerializeField]
+    private Transform startPoint;
+
+
+
+    public void FixedUpdate()
+    {
+        startPoint.position = Vector3.zero;
+    }
 
     public void StartHovering()
     {

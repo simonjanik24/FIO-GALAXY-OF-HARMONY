@@ -43,14 +43,32 @@ public class ViolinSelectorObject : MonoBehaviour
         if(IsTag(collision))
         {
             isHovering = true;
+
+            if (collision.GetComponent<Moveable>())
+            {
+                collision.GetComponent<Moveable>().OnHover();
+
+            }
+
             if (playerController.IsHoldingRightShoulder)
             {
+                
                 MoveObject(collision);
+                if (collision.GetComponent<Moveable>())
+                {
+                    collision.GetComponent<Moveable>().OnSelect();
+
+                }
             }
             else
             {
                 particleSystem.SetFloat("Blend", 0);
-                particleSystem.SetFloat("Rate", 10);
+                particleSystem.SetInt("Rate", 10);
+                if (collision.GetComponent<Moveable>())
+                {
+                    collision.GetComponent<Moveable>().OnDeselect();
+
+                }
             }
         }
         
@@ -61,14 +79,30 @@ public class ViolinSelectorObject : MonoBehaviour
         if (IsTag(collision))
         {
             isHovering = true;
+
+            if (collision.GetComponent<Moveable>())
+            {
+                collision.GetComponent<Moveable>().OnHover();
+
+            }
             if (playerController.IsHoldingRightShoulder)
             {
                 MoveObject(collision);
+                if (collision.GetComponent<Moveable>())
+                {
+                    collision.GetComponent<Moveable>().OnSelect();
+
+                }
             }
             else
             {
                 particleSystem.SetFloat("Blend", 0);
-                particleSystem.SetFloat("Rate", 10);
+                particleSystem.SetInt("Rate", 10);
+                if (collision.GetComponent<Moveable>())
+                {
+                    collision.GetComponent<Moveable>().OnDeselect();
+
+                }
             }
         }
         
@@ -80,7 +114,13 @@ public class ViolinSelectorObject : MonoBehaviour
         {
             isHovering = false;
             particleSystem.SetFloat("Blend", 0);
-            particleSystem.SetFloat("Rate", 10);
+            particleSystem.SetInt("Rate", 10);
+            if (collision.GetComponent<Moveable>())
+            {
+                collision.GetComponent<Moveable>().OnNothing();
+
+            }
+
 
         }
         
@@ -90,7 +130,7 @@ public class ViolinSelectorObject : MonoBehaviour
     {
         collision.gameObject.GetComponent<Rigidbody2D>().MovePosition(transform.position);
         particleSystem.SetFloat("Blend", 1);
-        particleSystem.SetFloat("Rate", 50);
+        particleSystem.SetInt("Rate", 50);
  
     }
 
