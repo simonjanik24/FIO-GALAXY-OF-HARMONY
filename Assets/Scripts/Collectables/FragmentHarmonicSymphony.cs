@@ -17,6 +17,16 @@ public class FragmentHarmonicSymphony : Collectable
 
     public override void CollectMe()
     {
+        if (GetComponent<CircleCollider2D>())
+        {
+            GetComponent<CircleCollider2D>().enabled = false;
+        }
+        if (GetComponent<Rigidbody2D>())
+        {
+            Destroy(GetComponent<Rigidbody2D>());
+           
+        }
+
         Destroy(gameObject);
     }
 }

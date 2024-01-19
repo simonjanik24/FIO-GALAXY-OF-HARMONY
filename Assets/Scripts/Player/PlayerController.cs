@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -105,6 +106,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool isWallJumping;
     [SerializeField]
+    private bool isTriggerJumping;
+    [SerializeField]
     private bool isHiting;
     [SerializeField]
     private float wallJumpingDirection;
@@ -187,6 +190,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
+
         if (isDashing)
         {
             return;
@@ -223,15 +229,52 @@ public class PlayerController : MonoBehaviour
             isProtecting = false;
         }
 
+        if (IsGrounded())
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        if (isTriggerJumping)
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+
+
         WallSlide();
         WallJump();
         OnLanding();
 
         horizontalSpeed = Input.GetAxisRaw("Horizontal") * runningSpeed;
-        SetAnimationState();
+       SetAnimationState();
 
 
-        
+      //  DrawLine();
+    }
+
+
+
+    private void DrawLine()
+    {
+        // Instantiate a cube at the current position with a scale of (0.1, 0.1, 0.1) and white color
+        GameObject newShape = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        newShape.transform.position = transform.position;
+        newShape.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
+        // Assign white material to the shape
+        Renderer shapeRenderer = newShape.GetComponent<Renderer>();
+        if (shapeRenderer != null)
+        {
+            shapeRenderer.material.color = Color.red;
+        }
     }
 
     private void OnLanding()
@@ -256,6 +299,16 @@ public class PlayerController : MonoBehaviour
         || Physics2D.OverlapCircle(groundCheck.position, 0.5f, deadLayer);
     }
 
+    private bool IsWalking()
+    {
+        return Mathf.Abs(rigidbody2D.velocity.x) > 0.1f;
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    }
+
 
     public void SaveCurrentSlope()
     {
@@ -270,14 +323,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsWalking()
-    {
-        return Mathf.Abs(rigidbody2D.velocity.x) > 0.1f;
-    }
-
-    private bool IsWalled() {
-        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
-    }
+    
 
     private void Flip()
     {
@@ -294,22 +340,17 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            jumpBufferCounter = jumpBufferTime;
-        }
-        else
-        {
-            jumpBufferCounter -= Time.deltaTime;
-        }
 
-        if (IsGrounded())
+        if (context.started)
         {
-            coyoteTimeCounter = coyoteTime;
+            isTriggerJumping = true;
+            jumpBufferCounter = jumpBufferTime;
+
         }
-        else
+        else if (context.canceled)
         {
-            coyoteTimeCounter -= Time.deltaTime;
+            isTriggerJumping = false;
+            jumpBufferCounter -= Time.deltaTime;
         }
 
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
@@ -378,6 +419,7 @@ public class PlayerController : MonoBehaviour
         {
             isWallSliding = true;
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, Mathf.Clamp(rigidbody2D.velocity.y, -wallSlidingSpeed, float.MaxValue));
+            Debug.Log("IsWallSlide");
         }
         else
         {
@@ -399,24 +441,24 @@ public class PlayerController : MonoBehaviour
         {
             wallJumpingCounter -= Time.deltaTime;
         }
-
-        if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        
+        if (!IsGrounded() && isTriggerJumping && wallJumpingCounter > 0f)
         {
             isWallJumping = true;
+            Flip();
             rigidbody2D.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
-            wallJumpingCounter = 0f;
-
-            if(transform.localScale.x != wallJumpingDirection)
-            {
-                isFacingRight = !isFacingRight;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= 1f;
-                transform.localScale = localScale;
-            }
-
+            wallJumpingCounter = 0f;         
+            
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
     }
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
+    }
+
+
     public void Hit()
     {
 
@@ -783,11 +825,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private void StopWallJumping()
-    {
-        isWallJumping = false;
-    }
-
+   
 
     private void SetAnimationState()
     {
