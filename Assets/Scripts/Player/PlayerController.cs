@@ -531,7 +531,6 @@ public class PlayerController : MonoBehaviour
 
     public void SpecialForce(InputAction.CallbackContext context)
     {
-   
         if (context.started || context.performed)
         {
             isHoldingLeftShoulder = true;
@@ -573,21 +572,18 @@ public class PlayerController : MonoBehaviour
                 case WeaponsEnum.Guitar:
                     animator.SetBool("isSpecial", true);
                     animator.SetBool("isGuitar", true);
-
-
-
                     break;
 
                 case WeaponsEnum.Piano:
 
                     break;
+
                 case WeaponsEnum.Drumsticks:
 
                     if (IsGrounded() && horizontalSpeed == 0)
                     {
                         isProtecting = true;
                         animator.SetBool("isProtecting", true);
-                        //   yield return new WaitForSeconds(specialForceTimeShield);
                         animator.SetBool("isProtecting", false);
                     }
                     else
@@ -639,10 +635,12 @@ public class PlayerController : MonoBehaviour
                 case WeaponsEnum.Piano:
 
                     break;
+
                 case WeaponsEnum.Drumsticks:
                     isProtecting = false;
                     animator.SetBool("isProtecting", false);
                     break;
+
                 case WeaponsEnum.None:
 
                     break;
@@ -754,17 +752,12 @@ public class PlayerController : MonoBehaviour
                         float oppositeAngle = trompeteRotator.transform.eulerAngles.z + 180.0f;
                         oppositeAngle = Mathf.DeltaAngle(trompeteRotator.transform.eulerAngles.z, oppositeAngle);
 
-
                         if (isFacingRight)
                         {
-                          //  Debug.Log("Force - Facing Left");
-                            //  rigidbody2D.gravityScale = 0; // No gravity for the bullet
-
                             rigidbody2D.AddForce(Vector2.left * trompeteBackForce, ForceMode2D.Impulse);
                         }
                         else
                         {
-                           // Debug.Log("Force - Facing Right");
                             rigidbody2D.AddForce(Vector2.right * trompeteBackForce, ForceMode2D.Impulse);
                         }
 
@@ -814,7 +807,6 @@ public class PlayerController : MonoBehaviour
                 isHoldingRightShoulder = false;
                 animator.SetBool("isVolinPlaying", false);
                 Debug.Log("Not holding");
-               // violin.StopMovingObject();
             }
 
         

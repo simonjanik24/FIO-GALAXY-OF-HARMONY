@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class Destructable : MonoBehaviour
 {
+    [Header("Drop a surprise when destroyed")]
+    [SerializeField]
+    private GameObject surprise;
+    [SerializeField]
+    private bool isGravity;
+    [SerializeField]
+    private float mass;
+    [SerializeField]
+    private float gravity;
+
 
     [Header("Inputs: Points")]
     [SerializeField]
@@ -32,6 +42,23 @@ public class Destructable : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
+        if(surprise != null)
+        {
+            GameObject _suprise = GameObject.Instantiate(surprise);
+            _suprise.transform.parent = null;
+            _suprise.transform.position = gameObject.transform.position;
+
+            if (isGravity && _suprise.GetComponent<Rigidbody2D>())
+            {
+                _suprise.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                _suprise.GetComponent<Rigidbody2D>().mass = mass;
+                _suprise.GetComponent<Rigidbody2D>().gravityScale = gravity;
+                
+            }
+
+            //Instantiate(surprise);
+        }
+        
         StartCoroutine(DestroySelf());
     }
 
@@ -39,6 +66,7 @@ public class Destructable : MonoBehaviour
     private IEnumerator DestroySelf()
     {
         yield return new WaitForSeconds(waitingTimeBeforeDestroy);
+        
         Destroy(gameObject);
     }
 
