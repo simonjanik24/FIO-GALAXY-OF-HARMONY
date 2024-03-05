@@ -12,7 +12,9 @@ public class RespawnController : MonoBehaviour
 
    public void Respawn()
     {
-        GameObject.Find("Player").transform.position = currentRespawnPosition;
+        GameObject player = GameObject.Find("Player");
+        player.transform.position = currentRespawnPosition;
+        player.GetComponent<Flickering>().StopFlicker();
         GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ResetPosition();
     }
 

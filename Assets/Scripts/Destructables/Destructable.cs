@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Destructable : MonoBehaviour
 {
     [Header("Drop a surprise when destroyed")]
@@ -14,20 +15,17 @@ public class Destructable : MonoBehaviour
     [SerializeField]
     private float gravity;
 
-
-    [Header("Inputs: Points")]
-    [SerializeField]
-    private float maxLifePoints;
-    [SerializeField]
-    private float damagePoints;
-    [SerializeField]
-    private float waitingTimeBeforeDestroy = 3f;
-
     [Header("Inputs: GameObjects")]
     [SerializeField]
     private GameObject cube;
     [SerializeField]
     private Transform particleSystems;
+    [SerializeField]
+    private float waitingTimeBeforeDestroy = 3f;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private List<AudioClip> destroyAudioClips;
 
 
     [Header("What's going on at runtime?")]
@@ -38,6 +36,8 @@ public class Destructable : MonoBehaviour
     {
         cube.SetActive(false);
         GetComponent<BoxCollider2D>().enabled = false;
+        audioSource.clip = GetRandomSound(destroyAudioClips);
+        audioSource.Play();
         foreach(Transform child in particleSystems)
         {
             child.gameObject.SetActive(true);
@@ -70,5 +70,15 @@ public class Destructable : MonoBehaviour
         Destroy(gameObject);
     }
 
+
+
+    private AudioClip GetRandomSound(List<AudioClip> soundList)
+    {
+        if (soundList.Count == 0)
+            return null;
+
+        int randomIndex = Random.Range(0, soundList.Count);
+        return soundList[randomIndex];
+    }
 
 }

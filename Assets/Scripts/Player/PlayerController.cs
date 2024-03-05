@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerSoundController))]
 [RequireComponent(typeof(WeaponController))]
 public class PlayerController : MonoBehaviour
 {
@@ -72,6 +73,14 @@ public class PlayerController : MonoBehaviour
     private float violineAimingObjectMaxDistance = 10f;
     [SerializeField]
     private float violineAimingObjectsmoothTime;
+    [SerializeField]
+    private Transform pianoRotator;
+    [SerializeField]
+    private float pianoShootingPower;
+    [SerializeField]
+    private float pianoBackForce;
+    [SerializeField]
+    private float pianoAimingRotationSpeed;
 
     [Header("Inputs: Animation")]
     [SerializeField]
@@ -143,7 +152,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 violineAimingObjectCurrentVelocity;
 
-
+    private PlayerSoundController soundController;
     private VibrationController vibrationController;
     private WeaponController weaponController;
     private HealthManager healthManager;
@@ -154,7 +163,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // vibrationController = GameObject.FindGameObjectWithTag("GameController").GetComponent<VibrationController>();
+        // vibrationController = GameObject.FindGameObjectWithTag("GameController").GetComponent<VibrationController>();
+        soundController = GetComponent<PlayerSoundController>();
         weaponController = GetComponent<WeaponController>();
         healthManager = GameObject.FindGameObjectWithTag("HealthManager").GetComponent<HealthManager>();
     }
@@ -170,6 +180,7 @@ public class PlayerController : MonoBehaviour
         if (!isWallJumping)
         {
             rigidbody2D.velocity = new Vector2(horizontal * runningSpeed, rigidbody2D.velocity.y);
+            
         }
 
         SaveCurrentSlope();
@@ -340,6 +351,7 @@ public class PlayerController : MonoBehaviour
         {
             isTriggerJumping = true;
             jumpBufferCounter = jumpBufferTime;
+            soundController.PlayJumpSound();
 
         }
         else if (context.canceled)
@@ -395,6 +407,7 @@ public class PlayerController : MonoBehaviour
 
         rigidbody2D.velocity = dashingDirection.normalized * dashingPower;  //new Vector2(transform.localScale.x * dashingPower, 0f);
         animator.SetBool("isDashing", true);
+        soundController.PlayDashSound();
         trailRenderer.emitting = true;
         
         yield return new WaitForSeconds(dashingTime);
@@ -467,6 +480,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ExecuteHit()
     {
         Debug.Log("Hit");
+        soundController.PlaySwingSound();
         switch (weaponController.Current)
         {
             case WeaponsEnum.Flute:
@@ -486,6 +500,8 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case WeaponsEnum.Violin:
+                Violin violin = (Violin) weaponController.GetCurrent();
+                violin.StopAll();
                 animator.SetBool("isHitting", true);
                 animator.SetBool("isViolin", true);
                 yield return new WaitForSeconds(hittingTimeViolin);
@@ -561,6 +577,7 @@ public class PlayerController : MonoBehaviour
 
                     Violin violin = (Violin)weaponController.GetCurrent();
                     violin.StartHovering();
+                    
 
                     break;
 
@@ -570,6 +587,10 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case WeaponsEnum.Piano:
+                    animator.SetBool("isSpecial", true);
+                    animator.SetBool("isPiano", true);
+
+
 
                     break;
 
@@ -628,6 +649,9 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case WeaponsEnum.Piano:
+                    animator.SetBool("isSpecial", true);
+                    animator.SetBool("isPiano", true);
+                    pianoRotator.transform.localEulerAngles = Vector3.zero;
 
                     break;
 
@@ -689,13 +713,53 @@ public class PlayerController : MonoBehaviour
                                    + " |  Rotaton Rotator: " + aimingTest.transform.localEulerAngles +
                                    " | Normalized Angle: " + lastNormalizedAngleRotatorAnimator + " | isFacingRight: " + isFacingRight);*/
                     }
+
+
+                    if (pianoRotator.gameObject.activeSelf)
+                    {
+                        //ReadOut
+                        float x = context.ReadValue<Vector2>().x;
+                        float y = context.ReadValue<Vector2>().y;
+
+                        if (weaponRotatorLastEulerAngle != null)
+                        {
+                            pianoRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
+                        }
+
+                        if (!isFacingRight)
+                        {
+                            pianoRotator.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * -180 / Mathf.PI + 90f);
+                            weaponRotatorLastEulerAngle = pianoRotator.transform.localEulerAngles;
+
+                            float normalizedAngle = Mathf.InverseLerp(0f, 360f, pianoRotator.transform.localEulerAngles.z);
+                            lastNormalizedAngleRotatorAnimator = normalizedAngle;
+                            animator.SetFloat("WeaponAngle", normalizedAngle);
+                        }
+                        else
+                        {
+                            pianoRotator.transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(x, y) * 180 / Mathf.PI + 90f);
+                            weaponRotatorLastEulerAngle = pianoRotator.transform.localEulerAngles;
+
+                            float normalizedAngle = Mathf.InverseLerp(0f, 360f, pianoRotator.transform.localEulerAngles.z);
+                            lastNormalizedAngleRotatorAnimator = normalizedAngle;
+                            animator.SetFloat("WeaponAngle", normalizedAngle);
+                        }
+                    }
                 }
                 else if (context.canceled)
                 {
                     isAiming = false;
-                    // If the right stick input is not active, use the last stored values
-                    trompeteRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
-                    animator.SetFloat("AngleWeapon", lastNormalizedAngleRotatorAnimator);
+                    if (trompeteRotator.gameObject.activeSelf)
+                    {
+                        trompeteRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
+                        animator.SetFloat("AngleWeapon", lastNormalizedAngleRotatorAnimator);
+                    }
+                    else if (pianoRotator.gameObject.activeSelf)
+                    {
+                        pianoRotator.transform.localEulerAngles = weaponRotatorLastEulerAngle;
+                        animator.SetFloat("AngleWeapon", lastNormalizedAngleRotatorAnimator);
+                    }
+                 
                 }
 
             }
@@ -755,7 +819,7 @@ public class PlayerController : MonoBehaviour
                         {
                             rigidbody2D.AddForce(Vector2.right * trompeteBackForce, ForceMode2D.Impulse);
                         }
-
+                        soundController.PlayShootSound();
                         hasShot = true;
 
                         break;
@@ -770,6 +834,23 @@ public class PlayerController : MonoBehaviour
                         break;
 
                     case WeaponsEnum.Piano:
+                        weapon.Shoot(trompeteShootingPower, trompeteImpactPower);
+                        // Calculate the opposite direction of the aimingTest rotation
+                        float rotationAngle1 = trompeteRotator.transform.eulerAngles.z;
+                        float oppositeAngle1 = trompeteRotator.transform.eulerAngles.z + 180.0f;
+                        oppositeAngle1 = Mathf.DeltaAngle(pianoRotator.transform.eulerAngles.z, oppositeAngle1);
+
+                        if (isFacingRight)
+                        {
+                            rigidbody2D.AddForce(Vector2.left * pianoBackForce, ForceMode2D.Impulse);
+                        }
+                        else
+                        {
+                            rigidbody2D.AddForce(Vector2.right * pianoBackForce, ForceMode2D.Impulse);
+                        }
+
+                        hasShot = true;
+
 
                         break;
                     case WeaponsEnum.None:

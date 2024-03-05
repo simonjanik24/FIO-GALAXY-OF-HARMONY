@@ -1,10 +1,11 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
+  //  [SerializeField]
+   // private DamageScreen damageScreen;
+
     [SerializeField]
     private Image healthBar;
     [SerializeField]
@@ -35,6 +36,7 @@ public class HealthManager : MonoBehaviour
     private void Start()
     {
         respawnController = GameObject.Find("RespawnSpots").GetComponent<RespawnController>();
+        Damage(30);
     }
 
     void Update()
@@ -47,6 +49,8 @@ public class HealthManager : MonoBehaviour
                 currentHealth = Mathf.MoveTowards(currentHealth, targetHealth, changeSpeed * Time.deltaTime);
                 healthBar.fillAmount = currentHealth / 100f;
 
+             //   damageScreen.UpdateScreen(currentHealth);
+
                 if(currentHealth <= 0)
                 {
                     //Player is dead
@@ -54,6 +58,7 @@ public class HealthManager : MonoBehaviour
 
                     if (isDead)
                     {
+                     //   damageScreen.ResetScreen();
                         respawnController.Respawn();
                         HealCompletely();
                         isDead = false;

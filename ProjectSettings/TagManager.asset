@@ -11,6 +11,9 @@ TagManager:
   - EvilScream
   - Destructable
   - Moveable
+  - Possible
+  - Bullet
+  - Weapon
   layers:
   - Default
   - TransparentFX
