@@ -16,7 +16,7 @@ public class UIController : MonoBehaviour
     private WeaponController weaponController;
     private PlayerController playerController;
     private Rigidbody2D playerRigidBody;
-    private FollowPlayer followPlayer;
+    private CameraController followPlayer;
 
     private bool isWeaponWheelOpen = false;
 
@@ -24,13 +24,15 @@ public class UIController : MonoBehaviour
     private float weaponSelectorAngleY;
     private bool isMovingRightStick = false;
 
+    private float weaponWheelRotationAngle = 0;
+
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         weaponController = player.GetComponent<WeaponController>();
         playerController = player.GetComponent<PlayerController>();
         playerRigidBody = player.GetComponent<Rigidbody2D>();
-        followPlayer = Camera.main.gameObject.GetComponent<FollowPlayer>();
+        followPlayer = Camera.main.gameObject.GetComponent<CameraController>();
     }
 
     private void Update()
@@ -51,14 +53,25 @@ public class UIController : MonoBehaviour
             if (!isWeaponWheelOpen)
             {
                 weaponWheel.SetActive(true);
+
                 weaponWheelController.OpenWeaponWheel();
                 isWeaponWheelOpen = true;
                 playerController.enabled = false;
                 followPlayer.enabled = false;
                 playerRigidBody.simulated = false;
                 backgroundImage.SetActive(true);
-              //  Debug.Log("Weapon Wheel opened");
-                
+
+            }
+            else
+            {
+                float x = Gamepad.current.rightStick.ReadValue().x;
+                float y = Gamepad.current.rightStick.ReadValue().y;
+                if (Mathf.Abs(x) > 0.1f || Mathf.Abs(y) > 0.1f) // Check if right stick is moved significantly
+                {
+                    weaponWheelRotationAngle = Mathf.Atan2(-y, -x) * Mathf.Rad2Deg;
+                    weaponWheelController.RotateSelector(weaponWheelRotationAngle);
+                }
+
             }
         }
         else
@@ -72,22 +85,11 @@ public class UIController : MonoBehaviour
                 followPlayer.enabled = true;
                 playerRigidBody.simulated = true;
                 backgroundImage.SetActive(false);
-            //    Debug.Log("Weapon Wheel closed");
-             //   Debug.Log("Weapon Selected: " + weaponWheelController.Selection.ToString());
                 weaponController.Select(weaponWheelController.Selection);
                 //  Time.timeScale = 1;
                 weaponWheel.SetActive(false); 
 
             }
-        }
-
-        if (isWeaponWheelOpen)
-        {
-            float x = Gamepad.current.rightStick.ReadValue().x;
-            float y = Gamepad.current.rightStick.ReadValue().y;
-            float rotationAngle = Mathf.Atan2(-y, -x) * Mathf.Rad2Deg;
-            Quaternion angleUnity = Quaternion.Euler(0f, 0f, rotationAngle);
-            weaponWheelController.RotateSelector(rotationAngle);
         }
 
      }

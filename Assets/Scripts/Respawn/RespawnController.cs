@@ -15,7 +15,7 @@ public class RespawnController : MonoBehaviour
         GameObject player = GameObject.Find("Player");
         player.transform.position = currentRespawnPosition;
         player.GetComponent<Flickering>().StopFlicker();
-        GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ResetPosition();
+        GameObject.Find("Main Camera").GetComponent<CameraController>().ResetPosition();
     }
 
 

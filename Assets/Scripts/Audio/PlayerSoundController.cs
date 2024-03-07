@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +20,9 @@ public class PlayerSoundController : MonoBehaviour
     private List<AudioClip> swingSounds;
     [SerializeField]
     private List<AudioClip> hurtSounds;
-
-
+    [SerializeField]
+    private float hurtSoundDelay = 1f;
+    private bool canPlayHurtSound = true;
 
 
     private void Start()
@@ -52,11 +54,26 @@ public class PlayerSoundController : MonoBehaviour
             audioSource.PlayOneShot(sound);
     }
 
+   
+
     public void PlayHurtSound()
     {
-        AudioClip sound = GetRandomSound(hurtSounds);
-        if (sound != null)
-            audioSource.PlayOneShot(sound);
+        if (canPlayHurtSound)
+        {
+            AudioClip sound = GetRandomSound(hurtSounds);
+            if (sound != null)
+            {
+                audioSource.PlayOneShot(sound);
+                canPlayHurtSound = false; // Disable playing hurt sound temporarily
+                StartCoroutine(EnableHurtSoundAfterDelay(hurtSoundDelay)); // Enable playing hurt sound after a delay
+            }
+        }
+    }
+
+    private IEnumerator EnableHurtSoundAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        canPlayHurtSound = true; // Re-enable playing hurt sound
     }
 
     public void PlayWalkSound()

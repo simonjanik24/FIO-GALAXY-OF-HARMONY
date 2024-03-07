@@ -31,6 +31,7 @@ public class WeaponWheelController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+
     public void OpenWeaponWheel()
     {
         animator.SetBool("OpenWeaponWheel", true);
@@ -49,5 +50,6 @@ public class WeaponWheelController : MonoBehaviour
   
     }
 
+   
 
 }

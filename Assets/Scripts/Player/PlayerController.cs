@@ -152,6 +152,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 violineAimingObjectCurrentVelocity;
 
+    private CameraController cameraController;
+    private MusicController musicController;
     private PlayerSoundController soundController;
     private VibrationController vibrationController;
     private WeaponController weaponController;
@@ -167,6 +169,8 @@ public class PlayerController : MonoBehaviour
         soundController = GetComponent<PlayerSoundController>();
         weaponController = GetComponent<WeaponController>();
         healthManager = GameObject.FindGameObjectWithTag("HealthManager").GetComponent<HealthManager>();
+        cameraController = Camera.main.gameObject.GetComponent<CameraController>(); 
+        
     }
 
 
@@ -217,11 +221,14 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isHealing", true);
             healthManager.Heal();
+            
         }
         else
         {
             animator.SetBool("isHealing", false);
             isHealing = false;
+           // MusicController.instance.TransitionToMainMusic();
+            
         }
 
 
@@ -549,16 +556,24 @@ public class PlayerController : MonoBehaviour
             switch (weaponController.Current)
             {
                 case WeaponsEnum.Flute:
-                    if (IsGrounded())
+
+                    if (IsGrounded() || !IsWalking())
                     {
                         Debug.Log("Healing");
                         isHealing = true;
+                        MusicController.instance.TransitionToHealingMusic();
+                        cameraController.Zoom();
                     }
                     else
                     {
                         isHealing = false;
+                        Debug.Log("Is Not Healing");
+                        MusicController.instance.TransitionToMainMusic();
+                        cameraController.Follow();
                     }
                     break;
+
+
                 case WeaponsEnum.Trompet:
                     animator.SetBool("isSpecial", true);
                     animator.SetBool("isTrompet", true);
@@ -617,11 +632,17 @@ public class PlayerController : MonoBehaviour
         else if (context.canceled)
         {
             isHoldingLeftShoulder = false;
+            
 
             switch (weaponController.Current)
             {
                 case WeaponsEnum.Flute:
+
+                    MusicController.instance.TransitionToMainMusic();
+                    cameraController.Follow();
+                    Debug.Log("Healing Canceled");
                     isHealing = false;
+                    
                     break;
                 case WeaponsEnum.Trompet:
                     //   animator.SetBool("isShootHolding", false);
@@ -906,6 +927,7 @@ public class PlayerController : MonoBehaviour
         //Walking
         else if(horizontalSpeed > 0 || horizontalSpeed < 0 && rigidbody2D.velocity.y == 0)
         {
+          //  MusicController.instance.TransitionToMainMusic();
             animator.SetBool("isWalking", true);
         }
 

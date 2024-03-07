@@ -7,8 +7,7 @@ public class AudioOrchestrator : MonoBehaviour
 
     [SerializeField]
     private MusicController musicController;
-    [SerializeField]
-    private SoundController soundController;
+
 
     // Start is called before the first frame update
     void Start()

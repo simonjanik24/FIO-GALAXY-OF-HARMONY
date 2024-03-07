@@ -49,11 +49,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  followAtStart: 1
+  follow: 1
   followDelay: 0.5
   offsetX: 20
   offsetY: 0
   offsetZ: -10
+  zoom: 0
+  targetZoomValue: 16
+  transitionTime: 1
+  zoomOffsetX: 0
+  zoomOffsetY: 2
+  zoomOffsetZ: -10
+  currentZoom: 0
+  initalZoomValue: 28
 --- !u!20 &5187856282080861780
 Camera:
   m_ObjectHideFlags: 0
@@ -88,7 +96,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 120
-  orthographic: 0
+  orthographic: 1
   orthographic size: 28
   m_Depth: -1
   m_CullingMask:

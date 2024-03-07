@@ -34,7 +34,6 @@ public class Activater : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigg");
         if (CheckTags(collision))
         {
             activate = true;
