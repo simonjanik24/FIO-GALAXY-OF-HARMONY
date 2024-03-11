@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8607849682148689309}
   - component: {fileID: 5292065144822498022}
+  - component: {fileID: 1838238858871962222}
   - component: {fileID: 3691252612897169190}
   - component: {fileID: 9173737285585390665}
   - component: {fileID: 1612890941665689793}
@@ -50,6 +51,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverParticleSystems: {fileID: 7997881396517434407}
   selectedParticleSystem: {fileID: 2791528628441649434}
+--- !u!114 &1838238858871962222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938865420927813853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea773b0e63da12e4d997e80a030099d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSyncedWithViolin: 1
+  isSyncedWithMain: 0
+  audioSource: {fileID: 0}
+  particleSystem: {fileID: 2791528628441649434}
+  factor: 10
+  lifetime: 0
+  sizeMultiplier: 0
+  rotation: 0
+  gravity: 0
+  speed: 0
+  amount: 0
+  noiseStrength: 1
+  noiseFrequency: 1
+  lifeTimeDivide: 2
+  sizeDivide: 10
+  amountMultiplier: 1
+  bass: 1
+  nb: 1
+  middles: 1
+  highs: 1
+  syncedMusicSpectrumWidth: []
 --- !u!212 &3691252612897169190
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -517,7 +551,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
+      scalar: 0.2
       minScalar: 0.02
       maxCurve:
         serializedVersion: 2
@@ -981,7 +1015,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 3.32
+      value: 4.04
       mode: 0
       spread: 0
       speed:
@@ -10187,7 +10221,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.12
+      scalar: 0.3
       minScalar: 0.05
       maxCurve:
         serializedVersion: 2

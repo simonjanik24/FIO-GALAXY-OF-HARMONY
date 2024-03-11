@@ -13,21 +13,24 @@ public class Violin : Weapon
     private ParticleSystem particleSystemBorder2;
     [SerializeField]
     private GameObject violineAimingObjectHolder;
+    [SerializeField]
+    private MusicToVisualEffect musicToVisualEffect;
 
 
     private void Start()
     {
-        
+        musicToVisualEffect.enabled = false;
     }
 
     public void StartHovering()
     {
         violineAimingObjectHolder.SetActive(true);
         particleEffect.SendEvent("Play");
-        particleEffect.Play();
+       // particleEffect.Play();
         particleSystemBorder1.Play();
         particleSystemBorder2.Play();
         Debug.Log("Start Hovering");
+        musicToVisualEffect.enabled = false;
 
     }
 
@@ -36,6 +39,7 @@ public class Violin : Weapon
         // particleEffect.Play();
         particleEffect.SendEvent("Play");
         Debug.Log("Start Moving");
+        musicToVisualEffect.enabled = true;
 
     }
 
@@ -44,6 +48,7 @@ public class Violin : Weapon
         //particleEffect.Stop();
         particleEffect.SendEvent("Stop");
         Debug.Log("Stop Moving");
+        musicToVisualEffect.enabled = false;
     }
 
     public void StopAll()
@@ -53,6 +58,7 @@ public class Violin : Weapon
         particleSystemBorder1.Stop();
         particleSystemBorder2.Stop();
         violineAimingObjectHolder.SetActive(false);
+        musicToVisualEffect.enabled = false;
         Debug.Log("Stop All");
 
     }

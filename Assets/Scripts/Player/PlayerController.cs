@@ -161,6 +161,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator Animator { get => animator; set => animator = value; }
     public bool IsHoldingRightShoulder { get => isHoldingRightShoulder; set => isHoldingRightShoulder = value; }
+    public bool IsHealing { get => isHealing; set => isHealing = value; }
+    public bool IsFacingRight { get => isFacingRight; set => isFacingRight = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -215,7 +217,16 @@ public class PlayerController : MonoBehaviour
         else if(!isFacingRight && horizontal < 0f)
         {
             Flip();
+
         }
+       /* else if(!isFacingRight && horizontal == 0f)
+        {
+
+        }
+        else if(isFacingRight && horizontal == 0f)
+        {
+
+        }*/
 
         if (isHealing && horizontal == 0)
         {
@@ -259,7 +270,6 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-
 
 
         WallSlide();
@@ -560,9 +570,19 @@ public class PlayerController : MonoBehaviour
                     if (IsGrounded() || !IsWalking())
                     {
                         Debug.Log("Healing");
+                        Flute flute = (Flute)weaponController.GetCurrent();
+                        if (isFacingRight)
+                        {
+                            flute.FlipRight();
+                        }
+                        else
+                        {
+                            flute.FlipLeft();
+                        }
                         isHealing = true;
                         MusicController.instance.TransitionToHealingMusic();
                         cameraController.Zoom();
+
                     }
                     else
                     {
@@ -691,6 +711,7 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
+
         if (isHoldingLeftShoulder)
         {
             if (weaponController.Current == WeaponsEnum.Trompet)
@@ -787,16 +808,30 @@ public class PlayerController : MonoBehaviour
 
             if (weaponController.Current == WeaponsEnum.Violin)
             {
+                context.control.ApplyParameterChanges();
+                Vector2 input = context.ReadValue<Vector2>();
                 
-                float x = context.ReadValue<Vector2>().x * Time.deltaTime * violineAimingObjectMoveSpeed;
-                 float y = context.ReadValue<Vector2>().y * Time.deltaTime * violineAimingObjectMoveSpeed;
+              //  Debug.Log(input.x + "  |   " + input.y);
+                // context.ReadValue(void,0);
 
-                if (x > 0)
+
+                // Vector2 input = Gamepad.current.rightStick.ReadValue();
+
+                if (input.magnitude != 0)
                 {
+                    float x = input.x * Time.deltaTime * violineAimingObjectMoveSpeed;
+                    float y = input.y * Time.deltaTime * violineAimingObjectMoveSpeed;
+
                     isAiming = true;
+                    Vector2 newPosition = violinAimingObject.transform.position + new Vector3(x, y, 0);
+                    violinAimingObject.GetComponent<Rigidbody2D>().MovePosition(newPosition);
                 }
-                Vector2 newPostion = violinAimingObject.transform.position + new Vector3(x, y, 0);
-                violinAimingObject.GetComponent<Rigidbody2D>().MovePosition(newPostion);
+                else
+                {
+                    isAiming = false;
+                }
+
+
             }
 
 
@@ -808,6 +843,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isSpecial", false);
             animator.SetBool("isViolin", false);
             isAiming = false;
+   
+        
         }
 
        
@@ -889,21 +926,22 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        
         if (weaponController.Current == WeaponsEnum.Violin) {
 
-            Violin violin = (Violin)weaponController.GetCurrent();
             if (context.started || context.performed)
             {
+                Violin violin = (Violin)weaponController.GetCurrent();
                 isHoldingRightShoulder = true;
                 animator.SetBool("isVolinPlaying", true);
-                Debug.Log("Started und Performed");
                 violin.StartMovingObject();
+                MusicController.instance.TransiationToViolinMusic();
             }
-            else
+            else if (context.canceled)
             {
+                MusicController.instance.TransitionToMainMusic();
                 isHoldingRightShoulder = false;
                 animator.SetBool("isVolinPlaying", false);
-                Debug.Log("Not holding");
             }
 
         
