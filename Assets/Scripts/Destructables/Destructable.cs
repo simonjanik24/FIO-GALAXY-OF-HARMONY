@@ -34,10 +34,12 @@ public class Destructable : MonoBehaviour
 
    public void DestroyMe()
     {
-        cube.SetActive(false);
-        GetComponent<BoxCollider2D>().enabled = false;
         audioSource.clip = GetRandomSound(destroyAudioClips);
         audioSource.Play();
+        cube.SetActive(false);
+        GetComponent<BoxCollider2D>().enabled = false;
+         
+        
         foreach(Transform child in particleSystems)
         {
             child.gameObject.SetActive(true);

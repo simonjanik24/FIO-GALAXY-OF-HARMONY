@@ -52,6 +52,14 @@ public class Bullet : MonoBehaviour
 
         switch (collision.gameObject.tag)
         {
+            case "Destructable":
+                circleCollider.enabled = false;
+                shootMe = false;
+
+                //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
+                collision.gameObject.GetComponent<Destructable>().DestroyMe();
+                StartCoroutine(DestroySelf());
+                break;
             case "ForceablePlatform":
                 shootMe = false;
 
@@ -61,14 +69,7 @@ public class Bullet : MonoBehaviour
                 StartCoroutine(DestroySelf());
                 break;
 
-            case "Destructable":
-                circleCollider.enabled = false;
-                shootMe = false;
-                
-                //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
-                collision.gameObject.GetComponent<Destructable>().DestroyMe();
-                StartCoroutine(DestroySelf());
-                break;
+           
         }
 
 
