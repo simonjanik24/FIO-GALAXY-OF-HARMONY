@@ -14,6 +14,8 @@ TagManager:
   - Possible
   - Bullet
   - Weapon
+  - NotificationController
+  - WeaponWheel
   layers:
   - Default
   - TransparentFX

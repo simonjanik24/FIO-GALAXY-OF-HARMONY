@@ -97,6 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5429373334490996961}
+  - component: {fileID: 512870341941232035}
   - component: {fileID: 9168585595202805817}
   - component: {fileID: 404121002450392787}
   - component: {fileID: 584408059188975450}
@@ -117,7 +118,7 @@ RectTransform:
   m_GameObject: {fileID: 269361349110668351}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2782464348740076541}
@@ -125,9 +126,26 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -317, y: -93}
+  m_AnchoredPosition: {x: -447.69995, y: -125.9001}
   m_SizeDelta: {x: 676.85, y: 128.42}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &512870341941232035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269361349110668351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation: []
 --- !u!222 &9168585595202805817
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -978,6 +996,7 @@ MonoBehaviour:
   weaponWheelController: {fileID: 5729802905679090779}
   itemText: {fileID: 4107906484996859864}
   icon: {fileID: 21300000, guid: 135155e4c378a174b84c00c048ca4a3e, type: 3}
+  isEnabled: 0
   isSelected: 0
 --- !u!114 &1883270019417440966
 MonoBehaviour:
@@ -1175,6 +1194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7399701108271661175}
+  - component: {fileID: 2503528406254556401}
   - component: {fileID: 5435872255548220430}
   - component: {fileID: 8836745172711473329}
   - component: {fileID: 1544183058042943224}
@@ -1195,7 +1215,7 @@ RectTransform:
   m_GameObject: {fileID: 893019653331102053}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7075849421813430761}
@@ -1203,9 +1223,26 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -317, y: -93}
+  m_AnchoredPosition: {x: -447.69995, y: -125.9001}
   m_SizeDelta: {x: 819.57, y: 180.01}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2503528406254556401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893019653331102053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation: []
 --- !u!222 &5435872255548220430
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1446,6 +1483,7 @@ MonoBehaviour:
   weaponWheelController: {fileID: 5729802905679090779}
   itemText: {fileID: 4107906484996859864}
   icon: {fileID: 21300000, guid: d399783791dab2f48b5408cc40d416f3, type: 3}
+  isEnabled: 0
   isSelected: 0
 --- !u!114 &1730242656008329756
 MonoBehaviour:
@@ -1568,17 +1606,18 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481248840880287212}
+  - component: {fileID: 1650767326989756789}
   - component: {fileID: 920004310011870047}
   - component: {fileID: 4699854538510498443}
   - component: {fileID: 8005418432756593689}
   - component: {fileID: 7063248241082311859}
   m_Layer: 0
-  m_Name: WeaponWheel
+  m_Name: FluteWeaponWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &481248840880287212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1588,7 +1627,7 @@ RectTransform:
   m_GameObject: {fileID: 1147379105642127042}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6797406007745491834}
@@ -1596,9 +1635,42 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -229, y: -97}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -359.69995, y: -129.9001}
+  m_SizeDelta: {x: 451.07, y: 184.81}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1650767326989756789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147379105642127042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6421416184428869582}
+        m_TargetAssemblyTypeName: NotificationController, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hit
+          m_BoolArgument: 0
+        m_CallState: 2
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 0
+    weapon: 4
 --- !u!222 &920004310011870047
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1764,6 +1836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 349680904702711412}
+  - component: {fileID: 5767321265211737637}
   - component: {fileID: 2848248008486927721}
   - component: {fileID: 5519376733937767796}
   - component: {fileID: 1756926372327900586}
@@ -1784,7 +1857,7 @@ RectTransform:
   m_GameObject: {fileID: 1311955264970064626}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3583914865671012715}
@@ -1792,9 +1865,30 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -74.3}
+  m_AnchoredPosition: {x: -330.69995, y: -107.2001}
   m_SizeDelta: {x: 526.94, y: 115.22}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5767321265211737637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311955264970064626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 2
+    weapon: 4
 --- !u!222 &2848248008486927721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2123,6 +2217,7 @@ MonoBehaviour:
   weaponWheelController: {fileID: 5729802905679090779}
   itemText: {fileID: 4107906484996859864}
   icon: {fileID: 21300000, guid: e3dda08e6d8b9384cb06dec6d82d1c54, type: 3}
+  isEnabled: 0
   isSelected: 0
 --- !u!114 &7700652696392546140
 MonoBehaviour:
@@ -2398,6 +2493,7 @@ MonoBehaviour:
   weaponWheelController: {fileID: 5729802905679090779}
   itemText: {fileID: 4107906484996859864}
   icon: {fileID: 21300000, guid: 610b6d086a46a534caead93923966650, type: 3}
+  isEnabled: 0
   isSelected: 0
 --- !u!114 &7530127903723227042
 MonoBehaviour:
@@ -2520,6 +2616,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3919463728340254687}
+  - component: {fileID: 8003245080732137009}
   - component: {fileID: 2575897421380397124}
   - component: {fileID: 618628220728432796}
   - component: {fileID: 7143108674132070703}
@@ -2540,7 +2637,7 @@ RectTransform:
   m_GameObject: {fileID: 1838577669646614482}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1964072242632433453}
@@ -2548,9 +2645,30 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -74.3}
+  m_AnchoredPosition: {x: -330.7, y: -107.2}
   m_SizeDelta: {x: 422.2, y: 76.82001}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8003245080732137009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838577669646614482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 16
+    weapon: 6
 --- !u!222 &2575897421380397124
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2642,7 +2760,7 @@ GameObject:
   - component: {fileID: 9204973243104113363}
   m_Layer: 0
   m_Name: WeaponWheel
-  m_TagString: Untagged
+  m_TagString: WeaponWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2694,6 +2812,7 @@ MonoBehaviour:
   wheelSpeed: 1
   selection: 6
   hover: 6
+  isOpen: 0
 --- !u!95 &9204973243104113363
 Animator:
   serializedVersion: 5
@@ -2982,7 +3101,7 @@ GameObject:
   - component: {fileID: 7639110429376826921}
   - component: {fileID: 6391390878779101122}
   m_Layer: 0
-  m_Name: TutorialCanvas
+  m_Name: NotificationCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3155,6 +3274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4522717675198614561}
+  - component: {fileID: 278496223627753153}
   - component: {fileID: 5472713832691156190}
   - component: {fileID: 1391661435155174396}
   - component: {fileID: 7946542846379403583}
@@ -3175,7 +3295,7 @@ RectTransform:
   m_GameObject: {fileID: 3431932111333988058}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2766857023577237284}
@@ -3183,9 +3303,26 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -263, y: -97}
+  m_AnchoredPosition: {x: -393.69995, y: -129.9001}
   m_SizeDelta: {x: 639.68, y: 180.01}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &278496223627753153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431932111333988058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation: []
 --- !u!222 &5472713832691156190
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3855,6 +3992,7 @@ MonoBehaviour:
   weaponWheelController: {fileID: 5729802905679090779}
   itemText: {fileID: 4107906484996859864}
   icon: {fileID: 21300000, guid: 0d9092ecdecb2bb478c2d223314299b3, type: 3}
+  isEnabled: 0
   isSelected: 0
 --- !u!114 &3947188515872715511
 MonoBehaviour:
@@ -4894,6 +5032,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7420404342632381251}
+  - component: {fileID: 4025121486747285982}
   - component: {fileID: 8953211708429819393}
   - component: {fileID: 7316176202542857455}
   - component: {fileID: 3427996840865845459}
@@ -4914,7 +5053,7 @@ RectTransform:
   m_GameObject: {fileID: 7159456440458066782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8341700977510452028}
@@ -4922,9 +5061,30 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -74.3}
-  m_SizeDelta: {x: 461.12, y: 115.22}
+  m_AnchoredPosition: {x: -330.69995, y: -107.2001}
+  m_SizeDelta: {x: 456.98, y: 115.22}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4025121486747285982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7159456440458066782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 7
+    weapon: 4
 --- !u!222 &8953211708429819393
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5221,10 +5381,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 481248840880287212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 225.535, y: -92.405}
+  m_SizeDelta: {x: 401.07, y: 134.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2146683844599021925
 CanvasRenderer:
@@ -5334,6 +5494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139438621683910841}
+  - component: {fileID: 7398555714873376561}
   - component: {fileID: 1395496532054609151}
   - component: {fileID: 5328759264220960406}
   - component: {fileID: 2356281865407123778}
@@ -5354,7 +5515,7 @@ RectTransform:
   m_GameObject: {fileID: 7703750660310957450}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2914210110679071222}
@@ -5362,9 +5523,30 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -74.3}
+  m_AnchoredPosition: {x: -330.69995, y: -107.2001}
   m_SizeDelta: {x: 355.36, y: 76.82}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7398555714873376561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703750660310957450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 1
+    weapon: 6
 --- !u!222 &1395496532054609151
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5665,9 +5847,10 @@ GameObject:
   - component: {fileID: 7344101833384327306}
   - component: {fileID: 6421416184428869582}
   - component: {fileID: 7172498352131016126}
+  - component: {fileID: 5977604311998999807}
   m_Layer: 0
-  m_Name: TutorialUI
-  m_TagString: Untagged
+  m_Name: NotificationUI
+  m_TagString: NotificationController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5689,11 +5872,11 @@ RectTransform:
   - {fileID: 8068370243346619799}
   - {fileID: 349680904702711412}
   - {fileID: 7420404342632381251}
+  - {fileID: 481248840880287212}
   - {fileID: 133991406904008147}
   - {fileID: 7399701108271661175}
   - {fileID: 5429373334490996961}
   - {fileID: 4522717675198614561}
-  - {fileID: 481248840880287212}
   m_Father: {fileID: 3522911239144508029}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -5714,6 +5897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   computingPlatform: 3
+  xboxControlMessagesParent: {fileID: 7344101833384327306}
 --- !u!114 &7172498352131016126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5773,6 +5957,102 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: a9d69f540985dd145b306ba4d8fcec43, type: 3}
   - xboxGamePadInputs: 23
     icon: {fileID: 21300000, guid: 26d68e519908fc7419e5815bffd677fb, type: 3}
+--- !u!82 &5977604311998999807
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7805365828369980884}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ec19ff2ef098cad4098b9858601011a3, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8002954532298331915
 GameObject:
   m_ObjectHideFlags: 0
@@ -5935,6 +6215,7 @@ MonoBehaviour:
   weaponWheelController: {fileID: 5729802905679090779}
   itemText: {fileID: 4107906484996859864}
   icon: {fileID: 21300000, guid: 4bc2de00fd837d047962ee75e443fec2, type: 3}
+  isEnabled: 0
   isSelected: 0
 --- !u!114 &6183444614876884683
 MonoBehaviour:
@@ -6210,6 +6491,7 @@ MonoBehaviour:
   weaponWheelController: {fileID: 5729802905679090779}
   itemText: {fileID: 4107906484996859864}
   icon: {fileID: 21300000, guid: aee17920ff9667f41a44829def7367b4, type: 3}
+  isEnabled: 0
   isSelected: 0
 --- !u!114 &597048696159881487
 MonoBehaviour:
@@ -6417,8 +6699,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 230.56, y: -57.61}
-  m_SizeDelta: {x: 411.12, y: 65.22}
+  m_AnchoredPosition: {x: 228.49, y: -57.61}
+  m_SizeDelta: {x: 406.98, y: 65.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3589193510288718749
 CanvasRenderer:
@@ -6527,6 +6809,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 133991406904008147}
+  - component: {fileID: 1393268237174880873}
   - component: {fileID: 6079992865877845078}
   - component: {fileID: 4499289670702885702}
   - component: {fileID: 6064616320805972718}
@@ -6547,7 +6830,7 @@ RectTransform:
   m_GameObject: {fileID: 8440973330473964260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1975811768261286788}
@@ -6555,9 +6838,26 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -263, y: -74.3}
+  m_AnchoredPosition: {x: -393.69995, y: -107.2001}
   m_SizeDelta: {x: 634.75, y: 128.42}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1393268237174880873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440973330473964260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation: []
 --- !u!222 &6079992865877845078
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6645,6 +6945,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8068370243346619799}
+  - component: {fileID: 6189788071710273543}
   - component: {fileID: 6047139816569028119}
   - component: {fileID: 7691016380000726787}
   - component: {fileID: 1607137254545223945}
@@ -6665,7 +6966,7 @@ RectTransform:
   m_GameObject: {fileID: 8442892148370885454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.70000005, y: 0.70000005, z: 0.70000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7820682808077032596}
@@ -6673,9 +6974,34 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -74.3}
+  m_AnchoredPosition: {x: -330.69995, y: -107.2001}
   m_SizeDelta: {x: 441.19, y: 76.82}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6189788071710273543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8442892148370885454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computingPlatform: 3
+  unityEventBeforeDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 16
+    weapon: 6
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 3
+    weapon: 6
 --- !u!222 &6047139816569028119
 CanvasRenderer:
   m_ObjectHideFlags: 0

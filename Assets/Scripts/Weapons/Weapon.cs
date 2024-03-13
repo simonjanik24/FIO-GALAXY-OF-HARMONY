@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+
     [SerializeField]
     private WeaponsEnum typ;
 

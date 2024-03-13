@@ -17,14 +17,16 @@ public class WeaponWheelController : MonoBehaviour
     private WeaponsEnum selection = WeaponsEnum.None;
     [SerializeField]
     private WeaponsEnum hover = WeaponsEnum.None;
+    [SerializeField]
+    private bool isOpen = false;
 
     private Animator animator;
     private WeaponController weaponController;
+
     public WeaponsEnum Selection { get => selection; set => selection = value; }
     public WeaponController WeaponController { get => weaponController; set => weaponController = value; }
     public WeaponsEnum Hover { get => hover; set => hover = value; }
-
-
+    public bool IsOpen { get => isOpen; set => isOpen = value; }
 
     private void Awake()
     {
@@ -34,22 +36,44 @@ public class WeaponWheelController : MonoBehaviour
 
     public void OpenWeaponWheel()
     {
+        isOpen = true;
         animator.SetBool("OpenWeaponWheel", true);
 
     }
 
     public void CloseWeaponWheel()
     {
+        isOpen = false;
         animator.SetBool("OpenWeaponWheel", false);
     }
 
     public void RotateSelector(float rotationAngle)
     {
          selector.transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle ); //* wheelSpeed * Time.deltaTime
-
-  
     }
 
-   
+    public void UpdateOnGoals(List<WeaponsEnum> weapons)
+    {
+        foreach(WeaponsEnum weapon in weapons)
+        {
+            foreach(Transform child in transform)
+            {
+                if(child.tag == "WeaponWheelButton")
+                {
+                    WeaponWheelButton button = child.gameObject.GetComponent<WeaponWheelButton>();
 
-}
+                    if (weapon == button.Weapon)
+                    {
+                        button.Enable();
+                    }
+                    else
+                    {
+                        button.Disable();
+                    }
+                 
+                }
+            }
+            }
+        }
+    }
+

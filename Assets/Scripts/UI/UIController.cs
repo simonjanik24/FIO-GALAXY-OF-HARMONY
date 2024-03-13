@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour
     private PlayerController playerController;
     private Rigidbody2D playerRigidBody;
     private CameraController followPlayer;
+    private GoalController goalController;
 
     private bool isWeaponWheelOpen = false;
 
@@ -28,11 +29,17 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         weaponController = player.GetComponent<WeaponController>();
         playerController = player.GetComponent<PlayerController>();
         playerRigidBody = player.GetComponent<Rigidbody2D>();
         followPlayer = Camera.main.gameObject.GetComponent<CameraController>();
+        goalController = GameObject.FindGameObjectWithTag("GameController").
+            gameObject.GetComponent<GoalController>();
+
+        //Disable Weapon Wheel Buttons By Collected Weapons
+        weaponWheelController.UpdateOnGoals(goalController.Goals.Weapons);
     }
 
     private void Update()
@@ -48,12 +55,10 @@ public class UIController : MonoBehaviour
     {
         if (PlayerControls.Instance.OpenWeaponWheel.IsPressed())
         {
-           
-
             if (!isWeaponWheelOpen)
             {
                 weaponWheel.SetActive(true);
-
+                weaponWheelController.UpdateOnGoals(goalController.Goals.Weapons);
                 weaponWheelController.OpenWeaponWheel();
                 isWeaponWheelOpen = true;
                 playerController.enabled = false;

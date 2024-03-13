@@ -9885,7 +9885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2884886688667540289
 Transform:
   m_ObjectHideFlags: 0
@@ -14712,6 +14712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5820033976663269859}
+  - component: {fileID: 8874148616312603520}
   - component: {fileID: 1842386710692386593}
   - component: {fileID: 7063825127403029173}
   m_Layer: 0
@@ -14736,6 +14737,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8181312193288867670}
   m_LocalEulerAnglesHint: {x: 0.587, y: -181.025, z: -88.82}
+--- !u!114 &8874148616312603520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7274512436362731849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f4e7a65c1c9f24785075f88ad8d384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCollectable: 0
+  weapon: {fileID: 2934599096546949685}
 --- !u!212 &1842386710692386593
 SpriteRenderer:
   m_ObjectHideFlags: 0
