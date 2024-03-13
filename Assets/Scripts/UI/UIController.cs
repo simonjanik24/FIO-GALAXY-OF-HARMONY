@@ -27,17 +27,18 @@ public class UIController : MonoBehaviour
 
     private float weaponWheelRotationAngle = 0;
 
-    private void Start()
+    private void Awake()
     {
-
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         weaponController = player.GetComponent<WeaponController>();
         playerController = player.GetComponent<PlayerController>();
         playerRigidBody = player.GetComponent<Rigidbody2D>();
         followPlayer = Camera.main.gameObject.GetComponent<CameraController>();
-        goalController = GameObject.FindGameObjectWithTag("GameController").
-            gameObject.GetComponent<GoalController>();
-
+        goalController = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<GoalController>();
+        
+    }
+    private void Start()
+    {
         //Disable Weapon Wheel Buttons By Collected Weapons
         weaponWheelController.UpdateOnGoals(goalController.Goals.Weapons);
     }

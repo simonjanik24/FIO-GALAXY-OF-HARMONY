@@ -32774,7 +32774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 589682979817188564, guid: f46f7577b23afb749aa3150a1a5f2942, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -150.9
+      value: -151.5
       objectReference: {fileID: 0}
     - target: {fileID: 589682979817188564, guid: f46f7577b23afb749aa3150a1a5f2942, type: 3}
       propertyPath: m_LocalPosition.y
@@ -33640,6 +33640,22 @@ PrefabInstance:
       propertyPath: velocityThreshold
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8944615416360645783, guid: f46f7577b23afb749aa3150a1a5f2942, type: 3}
+      propertyPath: onLandingSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: d18c7f4bd37ae7a48abfcd3fae770bb8, type: 3}
+    - target: {fileID: 8944615416360645783, guid: f46f7577b23afb749aa3150a1a5f2942, type: 3}
+      propertyPath: onLandingSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: c3bba741db959e8478b6c08ed89e5bdd, type: 3}
+    - target: {fileID: 8944615416360645783, guid: f46f7577b23afb749aa3150a1a5f2942, type: 3}
+      propertyPath: onLandingSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: c3bba741db959e8478b6c08ed89e5bdd, type: 3}
+    - target: {fileID: 8944615416360645783, guid: f46f7577b23afb749aa3150a1a5f2942, type: 3}
+      propertyPath: onLandingSounds.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: c3bba741db959e8478b6c08ed89e5bdd, type: 3}
     - target: {fileID: 8977605098774475418, guid: f46f7577b23afb749aa3150a1a5f2942, type: 3}
       propertyPath: m_Enabled
       value: 0

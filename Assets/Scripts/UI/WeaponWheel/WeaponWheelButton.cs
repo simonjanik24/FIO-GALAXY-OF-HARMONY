@@ -35,15 +35,14 @@ public class WeaponWheelButton : MonoBehaviour
     public WeaponsEnum Weapon { get => weapon; set => weapon = value; }
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
         transform.GetChild(0).gameObject.GetComponent<Image>().sprite = icon;
         animator = GetComponent<Animator>();
         button = GetComponent<Button>();
         image = GetComponent<Image>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -141,7 +140,6 @@ public class WeaponWheelButton : MonoBehaviour
         isEnabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
         gameObject.GetComponent<Button>().interactable = true;
-        Debug.Log("Is Enabled: " + weapon);
     }
 
     public void Disable()
@@ -149,6 +147,5 @@ public class WeaponWheelButton : MonoBehaviour
         isEnabled = false;
         transform.GetChild(0).gameObject.SetActive(false);
         gameObject.GetComponent<Button>().interactable = false;
-        Debug.Log("Is Disabled: "+ weapon);
     }
 }

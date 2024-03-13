@@ -65,9 +65,7 @@ public class MusicController : MonoBehaviour
         healingAudioSource.volume = 0;
         violinAudioSource.volume = 0;
 
-        Debug.Log(" Main Volume: " + mainStartVolume+
-            " Healing Volume: " + healingStartVolume
-            + " Violin Volume: " + violineStartVolume);
+       // Debug.Log(" Main Volume: " + mainStartVolume+ " Healing Volume: " + healingStartVolume + " Violin Volume: " + violineStartVolume);
         syncedMusicSpectrumWidth = new float[128];
         instance = this;
 
@@ -129,8 +127,9 @@ public class MusicController : MonoBehaviour
         // Fade in the audio source to fade in
         audioSourceToFadeIn.volume = Mathf.Lerp(0f, targetVolume, progress);
 
-        Debug.Log("Transition from: " + audioSourceToFadeOut.gameObject.name + "  - to: " + audioSourceToFadeIn.gameObject.name +
+      /*  Debug.Log("Transition from: " + audioSourceToFadeOut.gameObject.name + "  - to: " + audioSourceToFadeIn.gameObject.name +
           " in Time of " + transitionDuration + " | Current: " + transitionTimer);
+      */
 
         // Check if transition is complete
         if (transitionTimer >= transitionDuration)
@@ -142,8 +141,10 @@ public class MusicController : MonoBehaviour
             audioSourceToFadeOut.Pause();
             audioSourceToFadeIn.volume = targetVolume; // Ensure volume is set to desired level
             transitionTimer = 0f;
+            /*
             Debug.Log("Finish Transition from: " + audioSourceToFadeOut.gameObject.name + "  - to: " + audioSourceToFadeIn.gameObject.name +
          " in Time of " + transitionDuration + " | Current: " + transitionTimer);
+            */
 
         }
 

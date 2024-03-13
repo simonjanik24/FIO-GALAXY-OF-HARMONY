@@ -298,6 +298,7 @@ public class PlayerController : MonoBehaviour
         {
             if (wasJumping)
             {
+                soundController.PlayOnLandingSound();
               //  vibrationController.SetVibrationByTime(0.075f, 0.125f, 0.15f);
                 wasJumping = false;
             }
@@ -348,7 +349,14 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = context.ReadValue<Vector2>().x;
 
-
+        if (IsGrounded() && horizontal != 0) {
+            soundController.PlayWalkSound();
+        }
+        else
+        {
+            soundController.StopWalkSound();
+        }
+  
         if(isHealing && horizontal != 0)
         {
           MusicController.instance.TransitionToMainMusic();

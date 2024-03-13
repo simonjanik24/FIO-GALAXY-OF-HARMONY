@@ -54,26 +54,55 @@ public class WeaponWheelController : MonoBehaviour
 
     public void UpdateOnGoals(List<WeaponsEnum> weapons)
     {
-        foreach(WeaponsEnum weapon in weapons)
+        if(weapons != null)
         {
-            foreach(Transform child in transform)
+            if(weapons.Count != 0)
             {
-                if(child.tag == "WeaponWheelButton")
+                foreach (WeaponsEnum weapon in weapons)
                 {
-                    WeaponWheelButton button = child.gameObject.GetComponent<WeaponWheelButton>();
+                    foreach (Transform child in transform)
+                    {
+                        if (child.tag == "WeaponWheelButton")
+                        {
+                            WeaponWheelButton button = child.gameObject.GetComponent<WeaponWheelButton>();
 
-                    if (weapon == button.Weapon)
-                    {
-                        button.Enable();
+                            if (weapon == button.Weapon)
+                            {
+                                button.Enable();
+                            }
+                            else
+                            {
+                                button.Disable();
+                            }
+
+                        }
                     }
-                    else
-                    {
-                        button.Disable();
-                    }
-                 
                 }
             }
+            else
+            {
+                foreach (Transform child in transform)
+                {
+                    if (child.tag == "WeaponWheelButton")
+                    {
+                        WeaponWheelButton button = child.gameObject.GetComponent<WeaponWheelButton>();
+                        button.Disable();
+                    }
+                }
             }
         }
+        else
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.tag == "WeaponWheelButton")
+                {
+                    WeaponWheelButton button = child.gameObject.GetComponent<WeaponWheelButton>();
+                    button.Disable();
+                }
+            }
+        }
+        
     }
+}
 

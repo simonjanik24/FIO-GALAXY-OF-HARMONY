@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class GoalController: MonoBehaviour 
 { 
-
     [SerializeField]
     private Goals goals;
-
     public Goals Goals { get => goals; set => goals = value; }
+
+
 }
 
 

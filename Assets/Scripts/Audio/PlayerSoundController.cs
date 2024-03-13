@@ -13,6 +13,8 @@ public class PlayerSoundController : MonoBehaviour
     [SerializeField]
     private List<AudioClip> dashSounds;
     [SerializeField]
+    private AudioSource walkAudioSource;
+    [SerializeField]
     private List<AudioClip> walkSounds;
     [SerializeField]
     private List<AudioClip> shootSounds;
@@ -20,6 +22,8 @@ public class PlayerSoundController : MonoBehaviour
     private List<AudioClip> swingSounds;
     [SerializeField]
     private List<AudioClip> hurtSounds;
+    [SerializeField]
+    private List<AudioClip> onLandingSounds;
     [SerializeField]
     private float hurtSoundDelay = 1f;
     private bool canPlayHurtSound = true;
@@ -38,6 +42,13 @@ public class PlayerSoundController : MonoBehaviour
 
         int randomIndex = Random.Range(0, soundList.Count);
         return soundList[randomIndex];
+    }
+
+    public void PlayOnLandingSound()
+    {
+        AudioClip sound = GetRandomSound(onLandingSounds);
+        if (sound != null)
+            audioSource.PlayOneShot(sound);
     }
 
     public void PlayJumpSound()
@@ -78,21 +89,21 @@ public class PlayerSoundController : MonoBehaviour
 
     public void PlayWalkSound()
     {
-        if (!audioSource.isPlaying)
+        if (!walkAudioSource.isPlaying)
         {
             AudioClip sound = GetRandomSound(walkSounds);
             if (sound != null)
             {
-                audioSource.clip = sound;
-                audioSource.loop = true;
-                audioSource.Play();
+                walkAudioSource.clip = sound;
+                walkAudioSource.loop = true;
+                walkAudioSource.Play();
             }
         }
     }
 
     public void StopWalkSound()
     {
-        audioSource.Stop();
+        walkAudioSource.Stop();
     }
 
     public void PlayShootSound()

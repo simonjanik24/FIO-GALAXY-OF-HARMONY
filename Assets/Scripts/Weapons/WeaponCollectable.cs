@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -31,9 +32,33 @@ public class WeaponCollectable : MonoBehaviour
     {
         if (isCollectable && collision.gameObject.tag == "Player")
         {
-            goalController.Goals.Weapons.Add(weapon);
+
+            AddWeaponToInventar(weapon);
             notificationController.Show("FluteWeaponWheel");
             Destroy(onDestroyObject);
+        }
+    }
+
+
+    private void AddWeaponToInventar(WeaponsEnum _weapon)
+    {
+        if (goalController.Goals != null)
+        {
+            if(goalController.Goals.Weapons != null)
+            {
+                goalController.Goals.Weapons.Add(_weapon);
+            }
+            else
+            {
+                goalController.Goals.Weapons = new List<WeaponsEnum>();
+                goalController.Goals.Weapons.Add(_weapon);
+            }
+        }
+        else
+        {
+            goalController.Goals = new Goals();
+            goalController.Goals.Weapons = new List<WeaponsEnum>();
+            goalController.Goals.Weapons.Add(_weapon);
         }
     }
 }

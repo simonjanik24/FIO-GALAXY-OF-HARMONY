@@ -15,6 +15,10 @@ public class JumpPad : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [Header("Inputs: Sound")]
+    [SerializeField]
+    private ObjectSoundController objectSoundController;
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -32,6 +36,7 @@ public class JumpPad : MonoBehaviour
         Debug.Log("Bounce");
         animator.SetBool("IsBouncing", true);
         Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        objectSoundController.PlaySound();
         playerRigidbody.velocity = Vector2.zero;    
         playerRigidbody.AddForce(Vector2.up * bouncePower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(bounceTime);
