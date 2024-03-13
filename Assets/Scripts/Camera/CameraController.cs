@@ -45,6 +45,8 @@ public class CameraController : MonoBehaviour
     private bool isTransitioning = false;
     private float transitionTimer = 0f;
 
+    public bool IsTransitioning { get => isTransitioning; set => isTransitioning = value; }
+
     private void Start()
     {
         camera = GetComponent<Camera>();
@@ -94,7 +96,7 @@ public class CameraController : MonoBehaviour
             }
             else
             {
-                isTransitioning = false;
+                IsTransitioning = false;
                 transitionTimer = 0f;
             }
             
@@ -104,7 +106,7 @@ public class CameraController : MonoBehaviour
             Vector3 newPos = new Vector3(target.position.x + zoomOffsetX, target.position.y + zoomOffsetY, target.position.z + zoomOffsetZ);
             transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, followDelay);
 
-            if (isTransitioning)
+            if (IsTransitioning)
             {
                 if(camera.orthographicSize != targetZoomValue)
                 {
@@ -124,7 +126,7 @@ public class CameraController : MonoBehaviour
                 }
                 else
                 {
-                    isTransitioning = false;
+                    IsTransitioning = false;
                     transitionTimer = 0f;
                 }
                 
@@ -151,14 +153,14 @@ public class CameraController : MonoBehaviour
     {
         follow = true;
         zoom = false;
-        isTransitioning = true;
+        IsTransitioning = true;
     }
 
     public void Zoom()
     {
         follow = false;
         zoom = true;
-        isTransitioning = true;
+        IsTransitioning = true;
     }
 
     public void ResetPosition()

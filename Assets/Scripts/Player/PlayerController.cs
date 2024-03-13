@@ -152,6 +152,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 violineAimingObjectCurrentVelocity;
 
+    private bool transitionExecuted = false;
+
     private CameraController cameraController;
     private MusicController musicController;
     private PlayerSoundController soundController;
@@ -202,9 +204,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
-
         if (isDashing)
         {
             return;
@@ -219,27 +218,16 @@ public class PlayerController : MonoBehaviour
             Flip();
 
         }
-       /* else if(!isFacingRight && horizontal == 0f)
-        {
-
-        }
-        else if(isFacingRight && horizontal == 0f)
-        {
-
-        }*/
 
         if (isHealing && horizontal == 0)
         {
             animator.SetBool("isHealing", true);
             healthManager.Heal();
-            
         }
         else
         {
-            animator.SetBool("isHealing", false);
-            isHealing = false;
-           // MusicController.instance.TransitionToMainMusic();
-            
+            //isHealing = false;
+            animator.SetBool("isHealing", false);      
         }
 
 
@@ -359,6 +347,17 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
+
+
+        if(isHealing && horizontal != 0)
+        {
+          MusicController.instance.TransitionToMainMusic();
+          Debug.Log("Transition Music");
+          cameraController.Follow();
+          isHealing = false;
+
+        }
+   
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -657,7 +656,6 @@ public class PlayerController : MonoBehaviour
             switch (weaponController.Current)
             {
                 case WeaponsEnum.Flute:
-
                     MusicController.instance.TransitionToMainMusic();
                     cameraController.Follow();
                     Debug.Log("Healing Canceled");

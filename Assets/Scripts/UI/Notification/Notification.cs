@@ -66,8 +66,6 @@ public class Notification : MonoBehaviour
                     }
                 }
             }
-            Debug.Log(counter);
-            Debug.Log(requieredActionsToDeactivation.Count);
 
             if (counter == requieredActionsToDeactivation.Count)
             {
@@ -253,7 +251,6 @@ public class Notification : MonoBehaviour
                     }
                     break;
             }
-            Debug.Log(input.ToString());
         }
     }
 

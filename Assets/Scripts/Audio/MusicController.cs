@@ -6,6 +6,8 @@ using UnityEngine;
 public class MusicController : MonoBehaviour
 {
     public static MusicController instance;
+
+    [Header("Inputs")]
     [SerializeField]
     private float violineTransitionDuration;
     [SerializeField]
@@ -26,20 +28,33 @@ public class MusicController : MonoBehaviour
     public float[] syncedMusicSpectrumWidth;
 
 
+    [Header("What's going on at runtime?")]
+    [SerializeField]
     private float mainStartVolume;
+    [SerializeField]
     private float healingStartVolume;
+    [SerializeField]
     private float violineStartVolume;
+    [SerializeField]
     private float targetVolume;
+
     private float lastVolume;
 
+    [SerializeField]
     private bool isTransitioning = false;
+    [SerializeField]
     private bool isTransitioningMain = false;
+    [SerializeField]
     private bool isTransitioningHeal = false;
+    [SerializeField]
     private bool isTransitioningViolin = false;
+    [SerializeField]
     private float transitionTimer = 0f;
 
     public AudioSource ViolinAudioSource { get => violinAudioSource; set => violinAudioSource = value; }
     public AudioSource MainAudioSource { get => mainAudioSource; set => mainAudioSource = value; }
+    public bool IsTransitioning { get => isTransitioning; set => isTransitioning = value; }
+
 
     // Start is called before the first frame update
     void Start()
