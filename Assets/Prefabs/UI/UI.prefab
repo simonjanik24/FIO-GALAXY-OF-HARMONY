@@ -145,7 +145,11 @@ MonoBehaviour:
   unityEventBeforeDeactivation:
     m_PersistentCalls:
       m_Calls: []
-  requieredActionsToDeactivation: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 7
+    weapon: 2
 --- !u!222 &9168585595202805817
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1242,7 +1246,19 @@ MonoBehaviour:
   unityEventBeforeDeactivation:
     m_PersistentCalls:
       m_Calls: []
-  requieredActionsToDeactivation: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 7
+    weapon: 5
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 17
+    weapon: 5
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 8
+    weapon: 5
 --- !u!222 &5435872255548220430
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3322,7 +3338,19 @@ MonoBehaviour:
   unityEventBeforeDeactivation:
     m_PersistentCalls:
       m_Calls: []
-  requieredActionsToDeactivation: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 7
+    weapon: 3
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 17
+    weapon: 3
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 8
+    weapon: 3
 --- !u!222 &5472713832691156190
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6857,7 +6885,19 @@ MonoBehaviour:
   unityEventBeforeDeactivation:
     m_PersistentCalls:
       m_Calls: []
-  requieredActionsToDeactivation: []
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 7
+    weapon: 1
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 17
+    weapon: 1
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 8
+    weapon: 1
 --- !u!222 &6079992865877845078
 CanvasRenderer:
   m_ObjectHideFlags: 0
