@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 584408059188975450}
   - component: {fileID: 5465435049602241950}
   m_Layer: 0
-  m_Name: Drumsticks
+  m_Name: LVL1_Drumsticks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,15 +141,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
     input: 7
     weapon: 2
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &9168585595202805817
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -262,8 +261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 220.595, y: -38.41}
-  m_SizeDelta: {x: 391.19, y: 26.82}
+  m_AnchoredPosition: {x: 341.285, y: -86.729996}
+  m_SizeDelta: {x: 632.57, y: 123.46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1163071095431111572
 CanvasRenderer:
@@ -293,7 +292,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Benutze <sprite name="X"> + <sprite name="Left Stick All"> um zu dashen.
+  m_text: "Springe zuerst mit <sprite name=\"A\">. Dann dr\xFCcke <sprite name=\"X\">
+    um zu dashen.\nBestimmte mit <sprite name=\"Left Stick\"> deine Richtiung. Du
+    kannst nur dashen, \nwenn du in der Luft bist."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -334,7 +335,7 @@ MonoBehaviour:
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
+  m_paragraphSpacing: 86.35
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
@@ -1204,7 +1205,7 @@ GameObject:
   - component: {fileID: 1544183058042943224}
   - component: {fileID: 4287292105855177378}
   m_Layer: 0
-  m_Name: Violin
+  m_Name: LVL1_Violin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1242,10 +1243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
@@ -1259,6 +1256,9 @@ MonoBehaviour:
     weaponCondition: 0
     input: 8
     weapon: 5
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &5435872255548220430
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1628,7 +1628,7 @@ GameObject:
   - component: {fileID: 8005418432756593689}
   - component: {fileID: 7063248241082311859}
   m_Layer: 0
-  m_Name: FluteWeaponWheel
+  m_Name: LVL1_FluteWeaponWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1666,8 +1666,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
+  requieredActionsToDeactivation:
+  - inputCondition: 0
+    weaponCondition: 0
+    input: 0
+    weapon: 4
+  unityEventAfterDeactivation:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6421416184428869582}
@@ -1679,14 +1683,9 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Hit
+          m_StringArgument: LVL1_Flute
           m_BoolArgument: 0
         m_CallState: 2
-  requieredActionsToDeactivation:
-  - inputCondition: 0
-    weaponCondition: 0
-    input: 0
-    weapon: 4
 --- !u!222 &920004310011870047
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1858,7 +1857,7 @@ GameObject:
   - component: {fileID: 1756926372327900586}
   - component: {fileID: 1554773521614363828}
   m_Layer: 0
-  m_Name: Hit
+  m_Name: LVL1_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1896,15 +1895,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
     input: 2
     weapon: 4
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &2848248008486927721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2638,7 +2636,7 @@ GameObject:
   - component: {fileID: 7143108674132070703}
   - component: {fileID: 11947003935843212}
   m_Layer: 0
-  m_Name: Move
+  m_Name: LVL1_Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2676,15 +2674,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
     input: 16
     weapon: 6
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &2575897421380397124
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3281,6 +3278,107 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2979075470259009288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4314632032606418239}
+  - component: {fileID: 6858089916883062507}
+  - component: {fileID: 3164172141465289347}
+  - component: {fileID: 7894558538988222437}
+  m_Layer: 0
+  m_Name: LevelCanvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4314632032606418239
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2979075470259009288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5881571702471597555}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!223 &6858089916883062507
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2979075470259009288}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &3164172141465289347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2979075470259009288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!114 &7894558538988222437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2979075470259009288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &3431932111333988058
 GameObject:
   m_ObjectHideFlags: 0
@@ -3296,7 +3394,7 @@ GameObject:
   - component: {fileID: 7946542846379403583}
   - component: {fileID: 3204944332643212963}
   m_Layer: 0
-  m_Name: Piano
+  m_Name: LVL1_Piano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3334,10 +3432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
@@ -3351,6 +3445,9 @@ MonoBehaviour:
     weaponCondition: 0
     input: 8
     weapon: 3
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &5472713832691156190
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5066,7 +5163,7 @@ GameObject:
   - component: {fileID: 3427996840865845459}
   - component: {fileID: 4750251721375078611}
   m_Layer: 0
-  m_Name: Flute
+  m_Name: LVL1_Flute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5104,15 +5201,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
     input: 7
     weapon: 4
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &8953211708429819393
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5265,11 +5361,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -5528,7 +5624,7 @@ GameObject:
   - component: {fileID: 2356281865407123778}
   - component: {fileID: 1089270073714075855}
   m_Layer: 0
-  m_Name: Jump
+  m_Name: LVL1_Jump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5566,15 +5662,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
     input: 1
     weapon: 6
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &1395496532054609151
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5666,7 +5761,7 @@ GameObject:
   - component: {fileID: 3417674623860909165}
   m_Layer: 0
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5689,6 +5784,7 @@ Transform:
   - {fileID: 1589487942215732156}
   - {fileID: 7793970915596727303}
   - {fileID: 3522911239144508029}
+  - {fileID: 4314632032606418239}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4219641103043668744
@@ -5995,7 +6091,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ec19ff2ef098cad4098b9858601011a3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3aa0353a0504dac48ae7ba33a43e7c08, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6693,6 +6789,12 @@ MonoBehaviour:
   healAmount: 3
   changeSpeedHealing: 5
   changeSpeedDamaging: 80
+  pulseSpeed: 5
+  healthyColor: {r: 1, g: 1, b: 1, a: 0}
+  unhealthyColor: {r: 1, g: 0, b: 0, a: 0}
+  pulseThreshold: 40
+  image: {fileID: 7422795483022785377}
+  isPulsing: 0
 --- !u!1 &8363418578649250939
 GameObject:
   m_ObjectHideFlags: 0
@@ -6843,7 +6945,7 @@ GameObject:
   - component: {fileID: 6064616320805972718}
   - component: {fileID: 5180992409223846084}
   m_Layer: 0
-  m_Name: Trompete
+  m_Name: LVL1_Trompete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6881,10 +6983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
@@ -6898,6 +6996,9 @@ MonoBehaviour:
     weaponCondition: 0
     input: 8
     weapon: 1
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &6079992865877845078
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6991,7 +7092,7 @@ GameObject:
   - component: {fileID: 1607137254545223945}
   - component: {fileID: 6858234751406504890}
   m_Layer: 0
-  m_Name: Dash
+  m_Name: LVL1_Dash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7014,8 +7115,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -330.69995, y: -107.2001}
-  m_SizeDelta: {x: 441.19, y: 76.82}
+  m_AnchoredPosition: {x: -418, y: -148}
+  m_SizeDelta: {x: 682.57, y: 173.45999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6189788071710273543
 MonoBehaviour:
@@ -7029,10 +7130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400f8641aad93843a6352b861d2d543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computingPlatform: 3
-  unityEventBeforeDeactivation:
-    m_PersistentCalls:
-      m_Calls: []
   requieredActionsToDeactivation:
   - inputCondition: 0
     weaponCondition: 0
@@ -7042,6 +7139,9 @@ MonoBehaviour:
     weaponCondition: 0
     input: 3
     weapon: 6
+  unityEventAfterDeactivation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &6047139816569028119
 CanvasRenderer:
   m_ObjectHideFlags: 0

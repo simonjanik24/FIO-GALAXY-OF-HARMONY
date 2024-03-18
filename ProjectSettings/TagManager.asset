@@ -16,6 +16,8 @@ TagManager:
   - Weapon
   - NotificationController
   - WeaponWheel
+  - UI
+  - MusicController
   layers:
   - Default
   - TransparentFX

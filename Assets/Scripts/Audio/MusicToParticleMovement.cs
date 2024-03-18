@@ -90,11 +90,19 @@ public class MusicToParticleMovement : MonoBehaviour
 
         if (isSyncedWithViolin)
         {
-            MusicController.instance.ViolinAudioSource.GetSpectrumData(syncedMusicSpectrumWidth, channel, spectrumType);
-            ChangeParticles();
+            if(MusicController.instance != null){
+                MusicController.instance.ViolinAudioSource.GetSpectrumData(syncedMusicSpectrumWidth, channel, spectrumType);
+                ChangeParticles();
+            }
+            
         }else if (isSyncedWithMain)
         {
-            MusicController.instance.MainAudioSource.GetSpectrumData(syncedMusicSpectrumWidth, channel, spectrumType);
+            if (MusicController.instance != null)
+            {
+                MusicController.instance.MainAudioSource.GetSpectrumData(syncedMusicSpectrumWidth, channel, spectrumType);
+            }
+
+                
             ChangeParticles();
         }
         else

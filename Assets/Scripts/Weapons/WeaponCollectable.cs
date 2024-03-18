@@ -8,19 +8,29 @@ public class WeaponCollectable : MonoBehaviour
     [SerializeField]
     private bool isCollectable;
     [SerializeField]
+    private string notificationTarget;
+    [SerializeField]
     private WeaponsEnum weapon;
     [SerializeField]
     private GameObject onDestroyObject;
 
     [SerializeField]
-    private AudioSource audioClip;
+    private AudioSource audioSource;
 
     private NotificationController notificationController;
     private GoalController goalController;
 
     public WeaponsEnum Weapon { get => weapon; set => weapon = value; }
 
+
+
     private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        
+    }
+
+    private void Start()
     {
         notificationController = GameObject.FindGameObjectWithTag("NotificationController").
             gameObject.GetComponent<NotificationController>();
@@ -32,9 +42,12 @@ public class WeaponCollectable : MonoBehaviour
     {
         if (isCollectable && collision.gameObject.tag == "Player")
         {
-
+            if(notificationTarget != "")
+            {
+                notificationController.Show(notificationTarget); 
+            }
+            
             AddWeaponToInventar(weapon);
-            notificationController.Show("FluteWeaponWheel");
             Destroy(onDestroyObject);
         }
     }
@@ -42,6 +55,7 @@ public class WeaponCollectable : MonoBehaviour
 
     private void AddWeaponToInventar(WeaponsEnum _weapon)
     {
+        audioSource.Play();
         if (goalController.Goals != null)
         {
             if(goalController.Goals.Weapons != null)
