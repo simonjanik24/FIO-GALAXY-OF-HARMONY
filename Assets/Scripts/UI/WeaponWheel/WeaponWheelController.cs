@@ -56,8 +56,9 @@ public class WeaponWheelController : MonoBehaviour
     {
         if(weapons != null)
         {
-            if(weapons.Count != 0)
+            if (weapons.Count != 0)
             {
+                // Enable buttons for each weapon
                 foreach (WeaponsEnum weapon in weapons)
                 {
                     foreach (Transform child in transform)
@@ -69,12 +70,8 @@ public class WeaponWheelController : MonoBehaviour
                             if (weapon == button.Weapon)
                             {
                                 button.Enable();
+                                break; // Once a matching button is found, no need to continue searching
                             }
-                            else
-                            {
-                                button.Disable();
-                            }
-
                         }
                     }
                 }

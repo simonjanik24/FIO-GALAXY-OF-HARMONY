@@ -9,7 +9,7 @@ public class Destructable : MonoBehaviour
     [SerializeField]
     private GameObject surprise;
     [SerializeField]
-    private bool isGravity;
+    private bool hasGravity;
     [SerializeField]
     private float mass;
     [SerializeField]
@@ -32,7 +32,7 @@ public class Destructable : MonoBehaviour
     [SerializeField]
     private float currentLifePoints;
 
-   public void DestroyMe()
+    public void DestroyMe()
     {
         audioSource.clip = GetRandomSound(destroyAudioClips);
         audioSource.Play();
@@ -50,13 +50,16 @@ public class Destructable : MonoBehaviour
             _suprise.transform.parent = null;
             _suprise.transform.position = gameObject.transform.position;
 
-            if (isGravity && _suprise.GetComponent<Rigidbody2D>())
+
+            if (hasGravity && _suprise.GetComponent<Rigidbody2D>())
             {
                 _suprise.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 _suprise.GetComponent<Rigidbody2D>().mass = mass;
                 _suprise.GetComponent<Rigidbody2D>().gravityScale = gravity;
                 
             }
+
+           
 
             //Instantiate(surprise);
         }

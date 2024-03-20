@@ -18,6 +18,7 @@ TagManager:
   - WeaponWheel
   - UI
   - MusicController
+  - Hit
   layers:
   - Default
   - TransparentFX

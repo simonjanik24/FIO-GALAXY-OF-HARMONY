@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ShakeToMusic : MonoBehaviour
+public class ScaleToMusic : MonoBehaviour
 {
     public float factor = 2;
 

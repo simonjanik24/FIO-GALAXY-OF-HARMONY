@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -58,7 +59,7 @@ public class NotificationController : MonoBehaviour
 
     public void Show(string name)
     {
-        if(messagesParent != null && messagesParent.childCount > 0)
+        if (messagesParent != null && messagesParent.childCount > 0)
         {
             foreach (Transform child in messagesParent)
             {
@@ -75,9 +76,22 @@ public class NotificationController : MonoBehaviour
             {
                 audioSource.Play();
             }
-     }
-       
-        
+        }
 
+    }
+
+    public void DestroyBy(string name)
+    {
+        if (messagesParent != null && messagesParent.childCount > 0)
+        {
+            foreach (Transform child in messagesParent)
+            {
+                if (child.gameObject.name == name)
+                {
+                    Destroy(child.gameObject);
+                    break;
+                }
+            }
+        }
     }
 }

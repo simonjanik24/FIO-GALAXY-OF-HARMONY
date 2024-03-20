@@ -1,14 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(DistanceToPlayerObserver))]
 public class Bullet : MonoBehaviour
 {
+    private DistanceToPlayerObserver distanceToPlayerObserver;
     private Rigidbody2D rbBullet;
     private CircleCollider2D circleCollider;
     private float _shootingPower;
     private Vector3 _direction;
     private float _impactPower;
     private bool shootMe = false;
+
+    private bool hitSomething = false;
 
     [SerializeField]
     private float destroyAfterTime;
@@ -20,6 +24,7 @@ public class Bullet : MonoBehaviour
     {
         rbBullet = GetComponent<Rigidbody2D>();
         circleCollider = GetComponent<CircleCollider2D>();
+        distanceToPlayerObserver = GetComponent<DistanceToPlayerObserver>();
     }
     private void FixedUpdate()
     {
@@ -32,8 +37,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         currentTime += Time.deltaTime;
-
-        if(gameObject != null && currentTime >= destroyAfterTime)
+        if(currentTime >= destroyAfterTime && hitSomething == false)
         {
             Destroy(gameObject);
         }
@@ -49,32 +53,28 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        switch (collision.gameObject.tag)
+        if (distanceToPlayerObserver.IsInRange)
         {
-            case "Destructable":
-                circleCollider.enabled = false;
-                shootMe = false;
-
-                //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
-                collision.gameObject.GetComponent<Destructable>().DestroyMe();
-                StartCoroutine(DestroySelf());
-                break;
-            case "ForceablePlatform":
-                shootMe = false;
-
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
-
-                circleCollider.enabled = false;
-                StartCoroutine(DestroySelf());
-                break;
-
-           
-        }
-
-
-
-        
+            switch (collision.gameObject.tag)
+            {
+                case "Destructable":
+                    circleCollider.enabled = false;
+                    shootMe = false;
+                    hitSomething = true;
+                    //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
+                    collision.gameObject.GetComponent<Destructable>().DestroyMe();
+                    StartCoroutine(DestroySelf());
+                    break;
+                case "ForceablePlatform":
+                    shootMe = false;
+                    hitSomething = true;
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
+                    
+                    circleCollider.enabled = false;
+                    StartCoroutine(DestroySelf());
+                    break;
+            }
+        } 
     }
 
 

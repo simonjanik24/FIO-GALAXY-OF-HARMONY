@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class WeaponCollectable : MonoBehaviour
 {
     [SerializeField]
@@ -38,15 +38,17 @@ public class WeaponCollectable : MonoBehaviour
             gameObject.GetComponent<GoalController>();
     }
 
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isCollectable && collision.gameObject.tag == "Player")
         {
-            if(notificationTarget != "")
+            if (notificationTarget != "")
             {
-                notificationController.Show(notificationTarget); 
+                notificationController.Show(notificationTarget);
             }
-            
+
             AddWeaponToInventar(weapon);
             Destroy(onDestroyObject);
         }
@@ -56,23 +58,15 @@ public class WeaponCollectable : MonoBehaviour
     private void AddWeaponToInventar(WeaponsEnum _weapon)
     {
         audioSource.Play();
-        if (goalController.Goals != null)
+        if (goalController.Weapons != null)
         {
-            if(goalController.Goals.Weapons != null)
-            {
-                goalController.Goals.Weapons.Add(_weapon);
-            }
-            else
-            {
-                goalController.Goals.Weapons = new List<WeaponsEnum>();
-                goalController.Goals.Weapons.Add(_weapon);
-            }
+            goalController.Weapons.Add(_weapon);
+         
         }
         else
         {
-            goalController.Goals = new Goals();
-            goalController.Goals.Weapons = new List<WeaponsEnum>();
-            goalController.Goals.Weapons.Add(_weapon);
+            goalController.Weapons = new List<WeaponsEnum>();
+            goalController.Weapons.Add(_weapon);
         }
     }
 }

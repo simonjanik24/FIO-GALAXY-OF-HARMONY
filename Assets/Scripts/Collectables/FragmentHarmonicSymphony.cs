@@ -20,6 +20,21 @@ public class FragmentHarmonicSymphony : Collectable
             Debug.Log("It was the player!");
             CollectMe();
         }
+
+        if (collision.gameObject.layer == 3 || collision.gameObject.layer == 6)
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+        }
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       
+        if(collision.gameObject.layer == 3 || collision.gameObject.layer == 6)
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+        }
     }
 
     public override void CollectMe()

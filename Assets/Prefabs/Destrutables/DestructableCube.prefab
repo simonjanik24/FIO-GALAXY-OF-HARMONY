@@ -4901,7 +4901,7 @@ GameObject:
   - component: {fileID: 1695139084235205970}
   - component: {fileID: 6511163966621163099}
   - component: {fileID: 1300910731311349296}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: DestructableCube
   m_TagString: Destructable
   m_Icon: {fileID: 0}
@@ -4938,7 +4938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surprise: {fileID: 0}
-  isGravity: 0
+  hasGravity: 0
   mass: 0
   gravity: 0
   cube: {fileID: 6639527149046398811}

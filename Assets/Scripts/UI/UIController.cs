@@ -40,7 +40,7 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         //Disable Weapon Wheel Buttons By Collected Weapons
-        weaponWheelController.UpdateOnGoals(goalController.Goals.Weapons);
+        weaponWheelController.UpdateOnGoals(goalController.Weapons);
     }
 
     private void Update()
@@ -59,7 +59,7 @@ public class UIController : MonoBehaviour
             if (!isWeaponWheelOpen)
             {
                 weaponWheel.SetActive(true);
-                weaponWheelController.UpdateOnGoals(goalController.Goals.Weapons);
+                weaponWheelController.UpdateOnGoals(goalController.Weapons);
                 weaponWheelController.OpenWeaponWheel();
                 isWeaponWheelOpen = true;
                 playerController.enabled = false;

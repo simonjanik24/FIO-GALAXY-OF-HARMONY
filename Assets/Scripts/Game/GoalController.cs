@@ -5,22 +5,12 @@ using UnityEngine;
 
 
 public class GoalController: MonoBehaviour 
-{ 
-    [SerializeField]
-    private Goals goals;
-    public Goals Goals { get => goals; set => goals = value; }
-
-
-}
-
-
-
-
-[Serializable]
-public class Goals
 {
     [SerializeField]
-    private List<WeaponsEnum> weapons;
+    private List<WeaponsEnum> weapons = new List<WeaponsEnum>();
 
     public List<WeaponsEnum> Weapons { get => weapons; set => weapons = value; }
+
 }
+
+

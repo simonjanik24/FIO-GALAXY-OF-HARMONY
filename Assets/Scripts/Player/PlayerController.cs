@@ -165,6 +165,7 @@ public class PlayerController : MonoBehaviour
     public bool IsHoldingRightShoulder { get => isHoldingRightShoulder; set => isHoldingRightShoulder = value; }
     public bool IsHealing { get => isHealing; set => isHealing = value; }
     public bool IsFacingRight { get => isFacingRight; set => isFacingRight = value; }
+    public bool IsHiting { get => isHiting; set => isHiting = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -508,52 +509,64 @@ public class PlayerController : MonoBehaviour
         switch (weaponController.Current)
         {
             case WeaponsEnum.Flute:
+                isHiting = true;
                 animator.SetBool("isHitting", true);
                 animator.SetBool("isFlute", true);
                 yield return new WaitForSeconds(hittingTimeFlute);
                 animator.SetBool("isHitting", false);
                 animator.SetBool("isFlute", false);
+                isHiting = false;
                 break;
             case WeaponsEnum.Trompet:
+                isHiting = true;
                 animator.SetBool("isHitting", true);
                 animator.SetBool("isTrompet", true);
                 GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 yield return new WaitForSeconds(hittingTimeTrompete);
                 animator.SetBool("isHitting", false);
                 animator.SetBool("isTrompet", false);
+                isHiting = false;
                 break;
 
             case WeaponsEnum.Violin:
                 Violin violin = (Violin) weaponController.GetCurrent();
                 violin.StopAll();
+                isHiting = true;
                 animator.SetBool("isHitting", true);
                 animator.SetBool("isViolin", true);
                 yield return new WaitForSeconds(hittingTimeViolin);
                 animator.SetBool("isHitting", false);
                 animator.SetBool("isViolin", false);
+                isHiting = false;
                 break;
 
             case WeaponsEnum.Guitar:
+                isHiting = true;
                 animator.SetBool("isHitting", true);
                 animator.SetBool("isGuitar", true);
                 yield return new WaitForSeconds(hittingTimeGuitar);
                 animator.SetBool("isHitting", false);
                 animator.SetBool("isGuitar", false);
+                isHiting = false;
                 break;
 
             case WeaponsEnum.Piano:
+                isHiting = true;
                 animator.SetBool("isHitting", true);
                 animator.SetBool("isPiano", true);
                 yield return new WaitForSeconds(hittingTimePiano);
                 animator.SetBool("isHitting", false);
                 animator.SetBool("isPiano", false);
+                isHiting = false;
                 break;
             case WeaponsEnum.Drumsticks:
+                isHiting = true;
                 animator.SetBool("isHitting", true);
                 animator.SetBool("isDrumsticks", true);
                 yield return new WaitForSeconds(hittingTimeDrumsticks);
                 animator.SetBool("isHitting", false);
                 animator.SetBool("isDrumsticks", false);
+                isHiting = false;
                 break;
             case WeaponsEnum.None:
 

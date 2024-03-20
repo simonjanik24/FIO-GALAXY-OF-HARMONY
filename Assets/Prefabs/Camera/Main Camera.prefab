@@ -52,7 +52,7 @@ MonoBehaviour:
   follow: 1
   followDelay: 0.5
   offsetX: 20
-  offsetY: 0
+  offsetY: 5
   offsetZ: -10
   zoom: 0
   targetZoomValue: 16
