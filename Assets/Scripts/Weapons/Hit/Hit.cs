@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Hit : MonoBehaviour
@@ -13,6 +11,7 @@ public class Hit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Is Hitting");
         if (playerController.IsHiting)
         {
             switch (collision.gameObject.tag)
@@ -22,8 +21,6 @@ public class Hit : MonoBehaviour
 
                     break;
                 case "ForceablePlatform":
-
-
                     // collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
 
 

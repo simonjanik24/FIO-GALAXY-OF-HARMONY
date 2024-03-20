@@ -22,16 +22,20 @@ public class CollisionEvent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (waitBeforeEvent)
+        if(collision.gameObject.tag == "Player")
         {
-            collider.enabled = false;
-            StartCoroutine(WaitBeforeEvent());
+            if (waitBeforeEvent)
+            {
+                collider.enabled = false;
+                StartCoroutine(WaitBeforeEvent());
+            }
+            else
+            {
+                collider.enabled = false;
+                ExecuteEvent();
+            }
         }
-        else
-        {
-            collider.enabled = false;
-            ExecuteEvent();
-        }
+       
         
     }
 
