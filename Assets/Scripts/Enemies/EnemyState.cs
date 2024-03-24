@@ -7,9 +7,10 @@ public enum EnemyState
     Attack, //4
     Hit, //5
     Defend, //6
-    Recovery, //7
-    Flee, //8
-    SpecialAbility, //9
-    Search, //10
+    SpecialAbility, //7
+    Hurt_first_stage, //8
+    Hurt_second_stage, //9
+    Dead, //10
+    
 
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
@@ -32,6 +33,8 @@ public class Enemy : MonoBehaviour
     [Header("On Runtime")]
     [SerializeField]
     private bool playerInRange;
+    [SerializeField]
+    private float life = 100;
 
     public bool PlayerInRange { get => playerInRange; set => playerInRange = value; }
 
@@ -84,17 +87,8 @@ public class Enemy : MonoBehaviour
             case EnemyState.Defend:
                 OnDefend?.Invoke();
                 break;
-            case EnemyState.Flee:
-                OnFlee?.Invoke();
-                break;
             case EnemyState.SpecialAbility:
                 OnSpecialAbility?.Invoke();
-                break;
-            case EnemyState.Search:
-                OnSearch?.Invoke();
-                break;
-            case EnemyState.Recovery:
-                OnRecovery?.Invoke();
                 break;
             default:
                 break;
