@@ -10,6 +10,8 @@ public class PlayerControls : MonoBehaviour
 
     public InputAction OpenWeaponWheel;
 
+    //public InputAction OpenMenu; 
+
 
     private void Awake()
     {
@@ -24,17 +26,21 @@ public class PlayerControls : MonoBehaviour
         }
         // Initialize your input actions
         OpenWeaponWheel = new InputAction(binding: "<Gamepad>/leftShoulder");
+
+     //   OpenMenu = new InputAction(binding: "<Gamepad>/start");
     }
 
     private void OnEnable()
     {
         // Enable the input actions
         OpenWeaponWheel.Enable();
+      //  OpenMenu.Enable();
     }
 
     private void OnDisable()
     {
         // Disable the input actions
         OpenWeaponWheel.Disable();
+       // OpenMenu.Disable();
     }
 }

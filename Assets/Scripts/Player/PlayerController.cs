@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerSoundController))]
 [RequireComponent(typeof(WeaponController))]
 public class PlayerController : MonoBehaviour
@@ -66,9 +67,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float aimingRotationSpeed;
     [SerializeField]
-    private Transform violinAimingObject;
+    private Transform violinSelectorObject;
     [SerializeField]
-    private float violineAimingObjectMoveSpeed = 5f;
+    private ViolinSelectorObject violinSelectorObjectScript;
+    [SerializeField]
+    private float violineAimingObjectMoveSpeedNormal = 5f;
+    [SerializeField]
+    private float violineAimingObjectMoveSpeedPlatform = 0.7f;
     [SerializeField]
     private float violineAimingObjectMaxDistance = 10f;
     [SerializeField]
@@ -166,6 +171,9 @@ public class PlayerController : MonoBehaviour
     public bool IsHealing { get => isHealing; set => isHealing = value; }
     public bool IsFacingRight { get => isFacingRight; set => isFacingRight = value; }
     public bool IsHiting { get => isHiting; set => isHiting = value; }
+    public float Horizontal { get => horizontal; set => horizontal = value; }
+
+  
 
     // Start is called before the first frame update
     void Start()
@@ -175,8 +183,13 @@ public class PlayerController : MonoBehaviour
         weaponController = GetComponent<WeaponController>();
         healthManager = GameObject.FindGameObjectWithTag("HealthManager").GetComponent<HealthManager>();
         cameraController = Camera.main.gameObject.GetComponent<CameraController>(); 
-        
+ 
     }
+
+   
+   
+  
+
 
 
     private void FixedUpdate()
@@ -376,6 +389,11 @@ public class PlayerController : MonoBehaviour
         {
             isTriggerJumping = true;
             jumpBufferCounter = jumpBufferTime;
+           /* if (IsGrounded() && !wasJumping || IsWalled() || isWallSliding ||isWallJumping)
+            {
+                Debug.Log("Sound On Jump");
+                
+            }*/
             soundController.PlayJumpSound();
 
         }
@@ -827,23 +845,12 @@ public class PlayerController : MonoBehaviour
 
             if (weaponController.Current == WeaponsEnum.Violin)
             {
-                context.control.ApplyParameterChanges();
                 Vector2 input = context.ReadValue<Vector2>();
-                
-              //  Debug.Log(input.x + "  |   " + input.y);
-                // context.ReadValue(void,0);
-
-
-                // Vector2 input = Gamepad.current.rightStick.ReadValue();
-
                 if (input.magnitude != 0)
                 {
-                    float x = input.x * Time.deltaTime * violineAimingObjectMoveSpeed;
-                    float y = input.y * Time.deltaTime * violineAimingObjectMoveSpeed;
-
                     isAiming = true;
-                    Vector2 newPosition = violinAimingObject.transform.position + new Vector3(x, y, 0);
-                    violinAimingObject.GetComponent<Rigidbody2D>().MovePosition(newPosition);
+                    Vector2 newPosition = violinSelectorObject.transform.position + new Vector3(input.x, input.y);
+                    violinSelectorObjectScript.Move(newPosition);
                 }
                 else
                 {
@@ -857,7 +864,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            violinAimingObject.transform.position = violinAimingObject.transform.parent.position;
+            violinSelectorObjectScript.Reset();
             animator.SetBool("isVolinPlaying", false);
             animator.SetBool("isSpecial", false);
             animator.SetBool("isViolin", false);

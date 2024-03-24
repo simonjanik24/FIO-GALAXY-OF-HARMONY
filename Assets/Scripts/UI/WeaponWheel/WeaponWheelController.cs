@@ -12,7 +12,7 @@ public class WeaponWheelController : MonoBehaviour
     [SerializeField]
     private float wheelSpeed;
 
-    [Header("What's going on at runtime?")]
+    [Header("On Runtime")]
     [SerializeField]
     private WeaponsEnum selection = WeaponsEnum.None;
     [SerializeField]
@@ -58,26 +58,33 @@ public class WeaponWheelController : MonoBehaviour
         {
             if (weapons.Count != 0)
             {
+                Debug.Log("Count is on");
                 // Enable buttons for each weapon
-                foreach (WeaponsEnum weapon in weapons)
+                foreach (Transform child in transform)
                 {
-                    foreach (Transform child in transform)
+                    if (child.tag == "WeaponWheelButton")
                     {
-                        if (child.tag == "WeaponWheelButton")
+                        WeaponWheelButton button = child.gameObject.GetComponent<WeaponWheelButton>();
+                        bool foundMatch = false; // Flag to track if a matching weapon button is found
+                        foreach (WeaponsEnum weapon in weapons)
                         {
-                            WeaponWheelButton button = child.gameObject.GetComponent<WeaponWheelButton>();
-
                             if (weapon == button.Weapon)
                             {
                                 button.Enable();
+                                foundMatch = true;
                                 break; // Once a matching button is found, no need to continue searching
                             }
+                        }
+                        if (!foundMatch)
+                        {
+                            button.Disable();
                         }
                     }
                 }
             }
             else
             {
+                Debug.Log("Count is 0");
                 foreach (Transform child in transform)
                 {
                     if (child.tag == "WeaponWheelButton")
@@ -90,6 +97,7 @@ public class WeaponWheelController : MonoBehaviour
         }
         else
         {
+            Debug.Log("Count is null");
             foreach (Transform child in transform)
             {
                 if (child.tag == "WeaponWheelButton")

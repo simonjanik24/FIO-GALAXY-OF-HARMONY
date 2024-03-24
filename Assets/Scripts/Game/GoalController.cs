@@ -10,15 +10,17 @@ public class GoalController: MonoBehaviour
     private List<WeaponsEnum> weapons = new List<WeaponsEnum>();
     public List<WeaponsEnum> Weapons { get => weapons; set => weapons = value; }
 
-    private void Start()
+    private void Awake()
     {
-       // AddAll();
+         AddAll(); 
+      //  weapons.Add(WeaponsEnum.Violin); 
     }
 
     
 
     private void AddAll()
     {
+        weapons.Add(WeaponsEnum.None);
         weapons.Add(WeaponsEnum.Guitar);
         weapons.Add(WeaponsEnum.Violin);
         weapons.Add(WeaponsEnum.Piano);

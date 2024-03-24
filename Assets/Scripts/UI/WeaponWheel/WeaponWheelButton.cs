@@ -140,6 +140,7 @@ public class WeaponWheelButton : MonoBehaviour
         isEnabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
         gameObject.GetComponent<Button>().interactable = true;
+        Debug.Log("Im Enabled: " + gameObject.name);
     }
 
     public void Disable()
@@ -147,5 +148,6 @@ public class WeaponWheelButton : MonoBehaviour
         isEnabled = false;
         transform.GetChild(0).gameObject.SetActive(false);
         gameObject.GetComponent<Button>().interactable = false;
+        Debug.Log("Im Disabled: " + gameObject.name);
     }
 }

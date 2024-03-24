@@ -64,13 +64,9 @@ public class MusicController : MonoBehaviour
         violineStartVolume = violinAudioSource.volume;
         healingAudioSource.volume = 0;
         violinAudioSource.volume = 0;
-
        // Debug.Log(" Main Volume: " + mainStartVolume+ " Healing Volume: " + healingStartVolume + " Violin Volume: " + violineStartVolume);
         syncedMusicSpectrumWidth = new float[128];
-        instance = this;
-
-        
-        
+        instance = this;  
     }
 
     private void FixedUpdate()
@@ -211,6 +207,22 @@ public class MusicController : MonoBehaviour
         }
 
         return volume;
+    }
+
+
+    public void TurnOn()
+    {
+        violinAudioSource.Play();
+        healingAudioSource.Play();
+        mainAudioSource.Play();
+
+    }
+
+    public void TurnOff()
+    {
+        violinAudioSource.Pause();
+        healingAudioSource.Pause();
+        mainAudioSource.Pause();
     }
 
  

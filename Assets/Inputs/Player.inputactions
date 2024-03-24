@@ -67,6 +67,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponWheel",
+                    "type": "Button",
+                    "id": "b265db12-55d7-4567-a0d3-a2575c7dafc9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MainMenu",
+                    "type": "Button",
+                    "id": "9e0b8edc-6960-4722-87f7-087d8ca1417c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ControlMenu",
+                    "type": "Button",
+                    "id": "f2f0f8bf-3c5a-467b-870c-e31d74ed2705",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -377,11 +404,191 @@
                     "action": "SpecialForce",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4b75a81-7ae1-4bd8-8411-61d987bc9af6",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "WeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6c191c7-1374-4c46-bc3f-0e60f02646b9",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "WeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e55b9b28-a64a-45ab-8cde-7bae3ad83bc0",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MainMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5330fcc7-a6d9-4422-bae3-b96d53fa649a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MainMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdeab08d-4189-4138-abd4-7cb772ba3925",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ControlMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6255d30-59a5-4b52-bc3c-507399f4d876",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ControlMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "UI",
+            "name": "WeaponWheel",
+            "id": "9c58600a-cafd-49c6-9deb-6c0e652f371e",
+            "actions": [
+                {
+                    "name": "OpenWeaponWheel",
+                    "type": "Button",
+                    "id": "60443dee-5556-49ec-bb93-e124ad3f4fe9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoveWeaponWheel",
+                    "type": "Value",
+                    "id": "630669e3-cad6-41fd-b865-046bfbbcea3c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9b69bd29-cde7-4e61-a41a-b8ea972a1114",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "OpenWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ae7b6e5-1317-4977-8d5a-43032fb95d63",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "OpenWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e137464-1918-4782-8570-283a238f8e70",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MoveWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Joystick",
+                    "id": "fa45aaf4-2d76-4f5d-84f0-3ce24c9c9d35",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveWeaponWheel",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "3e71188b-f97d-4a8c-b5b6-573630c9c046",
+                    "path": "<Joystick>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "MoveWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "47e2698b-de86-44b4-9744-ea319b3e7db0",
+                    "path": "<Joystick>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "MoveWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "8ffcac9f-e1de-4207-8dbc-02f1ff0f8312",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "MoveWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "5268444d-48f6-4258-a08a-e31d28be9fcf",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "MoveWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "PauseUI",
             "id": "b72d3d5d-4727-4863-8513-f7c301bad8ee",
             "actions": [
                 {
@@ -475,19 +682,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenWeaponWheel",
+                    "name": "OpenPauseMenu",
                     "type": "Button",
-                    "id": "9d91617c-40f2-4da6-bfd3-56065e5b4165",
+                    "id": "b6385e69-3f6f-4b9a-b745-c7f53fee107b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "SelectOnWeaponWheel",
-                    "type": "Value",
-                    "id": "2c4a9b66-3cfa-4faa-a487-e0b4ffe10e21",
-                    "expectedControlType": "Vector2",
+                    "name": "OpenControlMenu",
+                    "type": "Button",
+                    "id": "c17b1437-fc19-4712-8760-20ace06a8f55",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -914,34 +1121,45 @@
                 },
                 {
                     "name": "",
-                    "id": "953e0706-bd99-49a5-a2de-ed9fa161fd61",
-                    "path": "<Keyboard>/tab",
+                    "id": "f1370253-47a7-40a8-8181-cbe2e8f78f0a",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "OpenPauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d3197247-fe38-4c2b-9c32-f1e2c4fd984c",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "OpenWeaponWheel",
+                    "action": "OpenPauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "8121cd6d-fa9a-4a22-913f-9f39be557bce",
-                    "path": "<Gamepad>/leftShoulder",
+                    "id": "245cf5e4-8b63-4480-8204-63f9028c4dc4",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "OpenWeaponWheel",
+                    "action": "OpenControlMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "735dbcf2-a17d-40f0-8943-574a074c6adf",
-                    "path": "<Gamepad>/rightStick",
+                    "id": "02c4ba61-9e0c-45b2-894f-e094de9e0f02",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
-                    "action": "SelectOnWeaponWheel",
+                    "groups": "Keyboard&Mouse",
+                    "action": "OpenControlMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
