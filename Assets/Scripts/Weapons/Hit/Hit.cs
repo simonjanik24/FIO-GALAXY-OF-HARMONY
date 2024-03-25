@@ -11,15 +11,28 @@ public class Hit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Is Hitting");
         if (playerController.IsHiting)
         {
             switch (collision.gameObject.tag)
             {
+                case "Enemy":
+                    if (collision.gameObject.GetComponent<Enemy>())
+                    {
+                        collision.gameObject.GetComponent<Enemy>().DestroyMe();
+
+                    }else if (collision.gameObject.GetComponent<EnemyBodyProxy>())
+                    {
+                        collision.gameObject.GetComponent<EnemyBodyProxy>().Enemy.DestroyMe();
+                    }
+
+                    
+
+                    break;
                 case "Destructable":
                     collision.gameObject.GetComponent<Destructable>().DestroyMe();
 
                     break;
+
                 case "ForceablePlatform":
                     // collision.gameObject.GetComponent<Rigidbody2D>().AddForce(rbBullet.velocity.normalized * _impactPower, ForceMode2D.Impulse);
 

@@ -13,6 +13,7 @@ public class EnemyRangeDetector : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             enemy.PlayerInRange = true;
+            enemy.Player = collision.transform;
         }
         
     }
@@ -22,6 +23,7 @@ public class EnemyRangeDetector : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             enemy.PlayerInRange = true;
+            enemy.Player = collision.transform;
         }
 
     }
@@ -31,6 +33,7 @@ public class EnemyRangeDetector : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             enemy.PlayerInRange = false;
+            enemy.Player = null;
         }
 
     }

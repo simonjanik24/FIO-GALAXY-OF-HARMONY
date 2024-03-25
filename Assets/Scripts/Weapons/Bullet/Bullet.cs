@@ -73,6 +73,18 @@ public class Bullet : MonoBehaviour
                     circleCollider.enabled = false;
                     StartCoroutine(DestroySelf());
                     break;
+                case "Enemy":
+                    if (collision.gameObject.GetComponent<Enemy>())
+                    {
+                        collision.gameObject.GetComponent<Enemy>().HypnotiseMe();
+
+                    }
+                    else if (collision.gameObject.GetComponent<EnemyBodyProxy>())
+                    {
+                        collision.gameObject.GetComponent<EnemyBodyProxy>().Enemy.HypnotiseMe();
+                    }
+
+                    break;
             }
         } 
     }

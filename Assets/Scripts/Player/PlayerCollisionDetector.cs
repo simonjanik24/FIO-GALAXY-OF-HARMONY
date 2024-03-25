@@ -50,6 +50,16 @@ public class PlayerCollisionDetector : MonoBehaviour
                 if (weaponController.Shield.IsActive == false)
                 {
                     healthManager.Damage(10);
+                    flickerController.StartFlicker();
+                    soundController.PlayHurtSound();
+                }
+                break;
+            case "Enemy":
+                if (weaponController.Shield.IsActive == false)
+                {
+                    healthManager.Damage(5);
+                    flickerController.StartFlicker();
+                    soundController.PlayHurtSound();
                 }
                 break;
         }
@@ -62,13 +72,10 @@ public class PlayerCollisionDetector : MonoBehaviour
                     healthManager.Damage(10);
                     flickerController.StartFlicker();
                     soundController.PlayHurtSound();
-
-
-
-               
                 break;
 
         }
+
     }
 
 

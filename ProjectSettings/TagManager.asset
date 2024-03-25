@@ -19,6 +19,7 @@ TagManager:
   - UI
   - MusicController
   - Hit
+  - Enemy
   layers:
   - Default
   - TransparentFX

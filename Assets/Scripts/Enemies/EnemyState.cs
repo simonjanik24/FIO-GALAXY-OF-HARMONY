@@ -5,12 +5,13 @@ public enum EnemyState
     Alert, //2
     Chase, //3
     Attack, //4
-    Hit, //5
-    Defend, //6
-    SpecialAbility, //7
-    Hurt_first_stage, //8
-    Hurt_second_stage, //9
-    Dead, //10
+    Defend, //5
+    SpecialAbility, //6
+    Hurt_first_stage, //7
+    Hurt_second_stage, //8
+    Dead, //9
+    Numb, // 10
+    Recover //11
     
 
 }

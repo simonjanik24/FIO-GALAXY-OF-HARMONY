@@ -12,7 +12,7 @@ public class GoalController: MonoBehaviour
 
     private void Awake()
     {
-         AddAll(); 
+        // AddAll(); 
       //  weapons.Add(WeaponsEnum.Violin); 
     }
 
